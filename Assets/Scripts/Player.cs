@@ -20,11 +20,15 @@ public class Player : MonoBehaviour
         float horizontalMove = Input.GetAxisRaw("Horizontal");
         float verticalMove = Input.GetAxisRaw("Vertical");
 
-        inputDirection = new Vector2(horizontalMove, verticalMove).normalized;
+        inputDirection = new Vector2(horizontalMove, verticalMove);
+        if(inputDirection.magnitude > 1)
+        {
+            inputDirection = inputDirection.normalized;
+        }
     }
 
     private void FixedUpdate()
     {
-        body.MovePosition(inputDirection * moveSpeed);
+        body.position = body.position + (inputDirection * moveSpeed);
     }
 }
