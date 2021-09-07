@@ -21,13 +21,7 @@ public class PlayerShootCommand : MonoBehaviour
         // set vector of transform directly
         // transform.up = direction;
 
-
         //Vector3 mouse_pos = Input.mousePosition;
-
-
-
-
-
 
         Collider2D bulletClone = (Collider2D)Instantiate(bullet, transform.position, transform.rotation);
         //bulletClone.transform.LookAt(Input.mousePosition);
@@ -41,8 +35,6 @@ public class PlayerShootCommand : MonoBehaviour
 
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         bulletClone.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-        bulletClone.transform.Translate = 
 
         //bulletClone.velocity = transform.forward * bulletSpeed;
     }

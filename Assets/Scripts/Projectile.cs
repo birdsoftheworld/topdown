@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
 
-        transform.position += Vector3.right * Time.deltaTime * speed;
+    //    bulletClone.transform.Translate(mousePos);
 
 
     }
