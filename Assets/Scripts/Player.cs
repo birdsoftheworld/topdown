@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Tooltip("Base movement speed of the player")]
-    public float moveSpeed = 1.0f;
+    public float moveSpeed = 0.25f;
 
     private Vector2 inputDirection = Vector2.zero;
     private Rigidbody2D body;
