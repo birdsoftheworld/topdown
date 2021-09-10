@@ -10,6 +10,11 @@ public class Player : MonoBehaviour
     private Vector2 inputDirection = Vector2.zero;
     private Rigidbody2D body;
 
+
+    private Rigidbody2D rb2D;
+    private Vector2 destination;
+
+
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -25,6 +30,32 @@ public class Player : MonoBehaviour
         {
             inputDirection = inputDirection.normalized;
         }
+
+        ////////////
+        rb2D = GetComponent<Rigidbody2D>();
+
+
+        //destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = Camera.main.nearClipPlane;
+        destination = Camera.main.ScreenToWorldPoint(mousePos);
+
+        Vector2 currentPos = this.transform.position;
+
+        destination = destination - currentPos;
+
+        Vector3 destinationN = destination.normalized;
+
+        float angle = Mathf.Atan2(destinationN.y, destinationN.x) * Mathf.Rad2Deg;
+
+        Quaternion rotation = new Quaternion();
+        rotation.eulerAngles = new Vector3(0, 0, angle + 90);
+
+        transform.rotation = rotation;
+
+
+
     }
 
     private void FixedUpdate()

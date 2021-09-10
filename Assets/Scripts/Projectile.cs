@@ -11,10 +11,17 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D rb2D;
     private Vector2 destination;
 
+    public Transform rotateZeroMark;
+
+    private Collider2D slct;
+
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
-        destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        slct = GetComponent<Collider2D>();
+
+
+        /*destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 destinationN = destination.normalized;
 
@@ -23,9 +30,14 @@ public class Projectile : MonoBehaviour
         Quaternion rotation = new Quaternion();
         rotation.eulerAngles = new Vector3(0, 0, angle + 90);
 
-        transform.rotation = rotation;
+        transform.rotation = rotateZeroMark.rotation;
+
+        transform.rotation = rotation;*/
 
         rb2D.AddForce(transform.up * bulletSpeed * -1f);
+
+        slct.isTrigger = true;
+
 
     }
 

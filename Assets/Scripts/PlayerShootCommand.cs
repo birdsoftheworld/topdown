@@ -12,6 +12,9 @@ public class PlayerShootCommand : MonoBehaviour
 
     private void Update()
     {
+
+
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 position = bulletOrigin.position;
@@ -20,7 +23,7 @@ public class PlayerShootCommand : MonoBehaviour
 
             //clone.gameObject.GetComponent<Projectile>;
 
-            //    clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(bulletSpeed, 0), ForceMode2D.Force);
+            clone.GetComponent<Collider2D>().isTrigger = true;
 
         }
     }
