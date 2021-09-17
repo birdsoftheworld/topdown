@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    private float health;
+
+    /*
 
     public UnityEvent OnHit;
     public UnityEvent OnHeal;
@@ -36,5 +37,5 @@ public class Health : MonoBehaviour
     {
         health = health + amount;
         OnHeal.Invoke();
-    }
+    }*/
 }

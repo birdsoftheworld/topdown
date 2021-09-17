@@ -58,8 +58,10 @@ public class Projectile : MonoBehaviour
         {
            if (hitted.CanHit(bulletFaction))
            {
-               Debug.Log("true");
+                Debug.Log("true");
                 this.gameObject.SetActive(false);
+
+
             }
            else
            {
