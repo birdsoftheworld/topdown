@@ -1,5 +1,6 @@
 .vsconfig
-*.csproj
+**/*.csproj
+*.sln
 .vs/**
 Temp/**
 Logs/**
