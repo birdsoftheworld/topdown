@@ -1,5 +1,7 @@
 .vsconfig
-Temp/
-Logs/
-Library/
-obj/
+*.csproj
+.vs/**
+Temp/**
+Logs/**
+Library/**
+obj/**

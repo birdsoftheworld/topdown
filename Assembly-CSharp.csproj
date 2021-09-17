@@ -54,8 +54,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Health.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\Hittable.cs" />
+    <Compile Include="Assets\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerShootCommand.cs" />
+    <Compile Include="Assets\Scripts\Room.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -630,6 +634,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
+      <Project>{5E39500B-2A02-8BDC-8C94-AE9E13A0A62A}</Project>
+      <Name>Unity.2D.Tilemap.Extras</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Animation.Editor.csproj">
       <Project>{99A72D2C-0E43-CB42-4046-A334E2890B01}</Project>
       <Name>Unity.2D.Animation.Editor</Name>
@@ -705,6 +713,10 @@
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{09ADAEA1-2B51-4AC0-1C6C-0A59EA7AA37C}</Project>
       <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj">
+      <Project>{75AB6F96-6F1A-AB75-52ED-EE213950FDF4}</Project>
+      <Name>Unity.2D.Tilemap.Extras.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Mathematics.csproj">
       <Project>{7C614E38-39CA-D150-65E8-B0D93BEA648E}</Project>
