@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerShootCommand : MonoBehaviour
 {
     public Rigidbody2D bullet;
+
     public float bulletSpeed;
+    public float bulletDamage;
+    public Faction bulletFaction;
 
     public Transform bulletOrigin;
     public GameObject bulletPrefab;
@@ -21,10 +24,16 @@ public class PlayerShootCommand : MonoBehaviour
             GameObject clone = Instantiate(bulletPrefab, position, bulletOrigin.rotation);
             clone.gameObject.SetActive(true);
 
-            //clone.gameObject.GetComponent<Projectile>;
+            Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
 
-            clone.GetComponent<Collider2D>().isTrigger = true;
+            bullet.bulletSpeed = bulletSpeed;
+            bullet.bulletFaction = bulletFaction;
+            bullet.bulletDamage = bulletDamage;
+
 
         }
+
+
+
     }
 }

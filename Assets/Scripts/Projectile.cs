@@ -5,20 +5,18 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-    public float damage;
+    public float bulletDamage;
+    public Faction bulletFaction;
+
 
     public float bulletSpeed;
     private Rigidbody2D rb2D;
-    private Vector2 destination;
 
-    public Transform rotateZeroMark;
 
-    private Collider2D slct;
 
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
-        slct = GetComponent<Collider2D>();
 
 
         /*destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -34,16 +32,47 @@ public class Projectile : MonoBehaviour
 
         transform.rotation = rotation;*/
 
-        rb2D.AddForce(transform.up * bulletSpeed * -1f);
 
-        slct.isTrigger = true;
+   //     rb2D.AddForce(transform.up * bulletSpeed * -1f);
 
 
     }
 
-    /*void FixedUpdate()
+    void Update()
     {
-        //rb2D.AddForce((transform.up / -10f) * bulletSpeed, ForceMode2D.Impulse);
-        //for constant acceleration
-    }*/
+        rb2D.velocity = Vector3.zero;
+        rb2D.AddForce(transform.up * bulletSpeed * -1f);
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+
+        Hittable hitted = coll.GetComponent<Collider2D>().GetComponent<Hittable>();
+
+        Faction hitFact = hitted.faction;
+
+        Debug.Log("hit" + hitFact);
+        Debug.Log("me" + bulletFaction);
+
+        if (hitted != null)
+        {
+           if (hitted.CanHit(bulletFaction))
+           {
+               Debug.Log("true");
+                this.gameObject.SetActive(false);
+            }
+           else
+           {
+               Debug.Log("false");
+           }
+        }
+
+
+
+        //bulletSpeed = bulletSpeed * -1;
+
+    }
+
+
+    
 }

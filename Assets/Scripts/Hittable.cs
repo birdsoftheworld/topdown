@@ -22,11 +22,11 @@ public class Hittable : MonoBehaviour
 
     public bool CanHit(Faction other)
     {
-        return other != faction || faction == Faction.Enemy;
+        return other != faction /*|| faction == Faction.Enemy*/;
     }
 
-    public void Hit(float damage)
+   /* public void Hit(float damage)
     {
         health.Hurt(damage);
-    }
+    }*/
 }

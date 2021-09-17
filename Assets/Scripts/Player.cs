@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
             inputDirection = inputDirection.normalized;
         }
 
+
+
         ////////////
         rb2D = GetComponent<Rigidbody2D>();
 
@@ -60,6 +62,11 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        body.position = body.position + (inputDirection * moveSpeed);
+        //body.position = body.position + (inputDirection * moveSpeed);
+
+        body.velocity = body.velocity/3;
+        //body.velocity = Vector3.zero;
+        body.AddForce(inputDirection * moveSpeed * 100f);
+
     }
 }
