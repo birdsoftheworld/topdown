@@ -14,18 +14,17 @@ public class HealthTest : MonoBehaviour
         curHealth = maxHealth;
     }
 
-    void Update()
+    /*void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            DamagePlayer(10);
+            DealDamage(10);
         }
-    }
+    }*/
 
-    public void DamagePlayer(int damage)
+    public void DealDamage(int damage)
     {
         curHealth -= damage;
-
-        healthBar.SetHealth(curHealth);
+        healthBar.SetHealth(100 * curHealth / maxHealth);
     }
 }

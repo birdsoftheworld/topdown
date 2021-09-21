@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-    public float bulletDamage;
+    public int bulletDamage;
     public Faction bulletFaction;
 
 
@@ -51,28 +51,21 @@ public class Projectile : MonoBehaviour
 
         Faction hitFact = hitted.faction;
 
-        Debug.Log("hit" + hitFact);
-        Debug.Log("me" + bulletFaction);
-
         if (hitted != null)
         {
            if (hitted.CanHit(bulletFaction))
            {
-                Debug.Log("true");
-                this.gameObject.SetActive(false);
 
 
+                Destroy(gameObject);
+
+                HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
+                if (health != null)
+                {
+                    health.DealDamage(bulletDamage);
+                }
             }
-           else
-           {
-               Debug.Log("false");
-           }
         }
-
-
-
-        //bulletSpeed = bulletSpeed * -1;
-
     }
 
 

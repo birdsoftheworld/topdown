@@ -7,7 +7,7 @@ public class PlayerShootCommand : MonoBehaviour
     public Rigidbody2D bullet;
 
     public float bulletSpeed;
-    public float bulletDamage;
+    public int bulletDamage;
     public Faction bulletFaction;
 
     public Transform bulletOrigin;
