@@ -9,6 +9,8 @@ public class Level : MonoBehaviour
     public int mapSize;
     [Tooltip("The map rooms are all the rooms that can be generated on a floor")]
     public List<GameObject> mapRooms;
+    [Tooltip("Whether the map will generate as a straight line or a more complex shape")]
+    public bool straightLine;
 
     [Header("Tiles")]
     public GameObject floorTile;
@@ -43,7 +45,7 @@ public class Level : MonoBehaviour
             foreach(Vector2 dir in dirs)
             {
                 Vector2 offset = position + dir;
-                if(IsValid(offset) && !IsRoom(offset) && GetNeighbors(offset) < 3)
+                if(IsValid(offset) && !IsRoom(offset) && GetNeighbors(offset) < (straightLine ? 2 : 3))
                 {
                     directions.Add(dir);
                 }
@@ -73,11 +75,6 @@ public class Level : MonoBehaviour
                     continue;
                 }
 
-                GameObject randomRoom = mapRooms[Random.Range(0, mapRooms.Count)];
-                GameObject instance = Instantiate(randomRoom, transform);
-                Room room = instance.GetComponent<Room>();
-                room.SetLevel(this);
-
                 Vector2[] dirs = {
                     Vector2.up, Vector2.down, Vector2.left, Vector2.right
                 };
@@ -91,14 +88,52 @@ public class Level : MonoBehaviour
                     if (IsValid(offset) && IsRoom(offset))
                     {
                         doors[i] = true;
+                    } else
+                    {
+                        doors[i] = false;
                     }
                 }
+
+                List<GameObject> possible = PossibleRooms(doors);
+
+                GameObject randomRoom = possible[Random.Range(0, possible.Count)];
+                GameObject instance = Instantiate(randomRoom, transform);
+                Room room = instance.GetComponent<Room>();
+                room.SetLevel(this);
 
                 room.GenerateWalls(doors[0], doors[1], doors[2], doors[3]);
 
                 room.transform.Translate(room.GetFullSize() * (pos - origin));
             }
         }
+    }
+
+    private List<GameObject> PossibleRooms(bool[] doors)
+    {
+        List<GameObject> possible = new List<GameObject>();
+
+        foreach(GameObject obj in mapRooms)
+        {
+            Room room = obj.GetComponent<Room>();
+            bool[] needed = { room.upExit, room.downExit, room.leftExit, room.rightExit };
+
+            bool invalid = false;
+            for (int i = 0; i < needed.Length; i++)
+            {
+                if (!needed[i] && doors[i])
+                {
+                    invalid = true;
+                    break;
+                }
+            }
+
+            if(!invalid)
+            {
+                possible.Add(obj);
+            }
+        }
+
+        return possible;
     }
 
     private bool IsValid(Vector2 location)
