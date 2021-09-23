@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class HealthTest : MonoBehaviour
 {
-    public int curHealth = 0;
-    public int maxHealth = 100;
+    public int curHealth;
+    public int maxHealth;
+
+    public int armor = 0;
 
     public HealthBar healthBar;
 
@@ -24,7 +26,13 @@ public class HealthTest : MonoBehaviour
 
     public void DealDamage(int damage)
     {
-        curHealth -= damage;
-        healthBar.SetHealth(100 * curHealth / maxHealth);
+        int hurt = damage - armor;
+        if (hurt <= 0)
+        {
+            hurt = 1;
+        }
+
+        curHealth -= hurt;
+        healthBar.SetHealth(curHealth);
     }
 }

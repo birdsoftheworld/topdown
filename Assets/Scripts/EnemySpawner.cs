@@ -10,9 +10,9 @@ public class EnemySpawner : MonoBehaviour
 
     public Transform origin;
 
-    public GameObject player;
+  //  public GameObject player;
 
-    public GameObject canvas;
+  //  public GameObject canvas;
 
 
     // Start is called before the first frame update
@@ -21,6 +21,10 @@ public class EnemySpawner : MonoBehaviour
         Vector3 position = origin.position;
 
         Spawn(position, origin);
+
+
+
+
     }
 
     // Update is called once per frame
@@ -32,15 +36,17 @@ public class EnemySpawner : MonoBehaviour
     void Spawn(Vector3 position, Transform rotation)
     {
         GameObject clone = Instantiate(enemyPrefab, position, origin.rotation);
-        clone.GetComponent<EnemyFacingBasic>().player = player;
+   //     clone.GetComponent<EnemyFacingBasic>().player = player;
 
         GameObject cloneHealth = Instantiate(healthPrefab, position, origin.rotation);
-        cloneHealth.transform.SetParent(canvas.transform, false);
+      //  cloneHealth.transform.SetParent(canvas.transform, false);
 
 
         clone.GetComponent<HealthTest>().healthBar = cloneHealth.GetComponent<HealthBar>();
 
         cloneHealth.GetComponent<UIFollow>().monsterPosition = clone.GetComponent<Transform>();
+        cloneHealth.GetComponent<UIFollow>().health = clone.GetComponent<HealthTest>();
 
+        cloneHealth.GetComponent<HealthBar>().playerHealth = clone.GetComponent<HealthTest>();
     }
 }

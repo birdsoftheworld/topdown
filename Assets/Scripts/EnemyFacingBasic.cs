@@ -12,6 +12,7 @@ public class EnemyFacingBasic : MonoBehaviour
     public float fireSpeed;
     private float fireTick = 0;
 
+    public HealthTest health;
 
     public Rigidbody2D bullet;
 
@@ -21,10 +22,17 @@ public class EnemyFacingBasic : MonoBehaviour
 
     public GameObject bulletPrefab;
 
+    public float distance;
+
+
+    public bool active = false;
+
     // Start is called before the first frame update
     void Start()
     {
         fireTick = 0;
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -46,11 +54,49 @@ public class EnemyFacingBasic : MonoBehaviour
         transform.rotation = rotation;
 
 
+        if (health.curHealth <= 0)
+        {
+            Destroy(gameObject);
+
+        }
+
+
+
+        ////////  distance to activate
+        float distance2 = Vector3.Distance(this.transform.position, playerPos);
+
+        if (distance2 <= distance)
+        {
+
+            RaycastHit2D hit;
+            hit = Physics2D.Raycast(transform.position, player.transform.position - this.transform.position);
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                Debug.Log("We found Target!");
+
+                active = true;
+            }
+            else
+            {
+                Debug.Log("I found something else with name = " + hit.collider.name);
+            }
+        }
+
+        if (distance2 >= distance * 3)
+        {
+            active = false;
+        }
+
     }
+
+
+
+
+
 
     void FixedUpdate()
     {
-        fireTick++;
+        if (active == true) { fireTick++; }
         if (fireTick == fireSpeed)
         {
             Fire();
