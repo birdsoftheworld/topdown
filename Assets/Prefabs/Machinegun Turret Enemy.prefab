@@ -135,7 +135,7 @@ MonoBehaviour:
   bulletDamage: 1
   bulletFaction: 1
   bulletPrefab: {fileID: 8464980748251324624, guid: bb26bab4cba51f84baaac207af44d6ea, type: 3}
-  distance: 10
+  distance: 8
   active: 0
 --- !u!114 &2125265401571518704
 MonoBehaviour:

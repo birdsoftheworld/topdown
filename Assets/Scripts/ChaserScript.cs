@@ -2,37 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFacingBasic : MonoBehaviour
+public class ChaserScript : MonoBehaviour
 {
 
     public GameObject player;
 
     private Vector2 destination;
 
-    public float fireSpeed;
-    private float fireTick = 0;
+    public float tickSpeed = 24;
+    private float chargeTick = 6;
 
-    public HealthTest health;
+    //public HealthTest health;
 
-    public Rigidbody2D bullet;
+    //public Rigidbody2D bullet;
 
-    public float bulletSpeed;
-    public int bulletDamage;
-    public Faction bulletFaction;
+    //public float bulletSpeed;
+    //public int bulletDamage;
+    //public Faction bulletFaction;
 
-    public GameObject bulletPrefab;
+    //public GameObject bulletPrefab;
 
     public float distance;
 
 
     public bool active = false;
 
+    public float speed;
+    private Rigidbody2D rb2D;
+
+    public int decel;
+    private int currentDecel;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        fireTick = 0;
+        //fireTick = 0;
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        rb2D = GetComponent<Rigidbody2D>();
+
+        currentDecel = decel;
+
     }
 
     // Update is called once per frame
@@ -54,11 +66,11 @@ public class EnemyFacingBasic : MonoBehaviour
         transform.rotation = rotation;
 
 
-        if (health.curHealth <= 0)
-        {
-            Destroy(gameObject);
+        //if (health.curHealth <= 0)
+        //{
+        //    Destroy(gameObject);
 
-        }
+        //}
 
 
 
@@ -72,19 +84,39 @@ public class EnemyFacingBasic : MonoBehaviour
             hit = Physics2D.Raycast(transform.position, player.transform.position - this.transform.position);
             if (hit.collider.gameObject.tag == "Player")
             {
-           //     Debug.Log("We found Target!");
+                     Debug.Log("We found Target!");
 
                 active = true;
             }
             else
             {
-              //  Debug.Log("I found something else with name = " + hit.collider.name);
+                  Debug.Log("I found something else with name = " + hit.collider.name);
             }
         }
 
         if (distance2 >= distance * 3)
         {
             active = false;
+            chargeTick = tickSpeed / 4;
+        }
+
+        if (active == true)
+        {
+            rb2D.velocity = rb2D.velocity / currentDecel;
+            rb2D.AddForce(transform.up * speed * -1f);
+
+
+
+        }
+        else
+        {
+            rb2D.velocity = rb2D.velocity / currentDecel;
+
+        }
+
+        if (currentDecel > decel)
+        {
+            currentDecel--;
         }
 
     }
@@ -96,17 +128,25 @@ public class EnemyFacingBasic : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (active == true) { fireTick++; }
-        if (fireTick == fireSpeed)
+        if (active == true) { chargeTick++; }
+        if (chargeTick == tickSpeed)
         {
-            Fire();
+            Charge();
 
-            fireTick = 0;
+            chargeTick = 0;
         }
     }
 
 
-    private void Fire()
+    private void Charge()
+    {
+        Debug.Log("CHARGE!");
+        rb2D.AddForce(transform.up * speed * -50f);
+        currentDecel = decel - 3;
+
+    }
+
+    /*private void Fire()
     {
         Vector2 position = this.transform.position;
         GameObject clone = Instantiate(bulletPrefab, position, this.transform.rotation);
@@ -117,5 +157,5 @@ public class EnemyFacingBasic : MonoBehaviour
         bullet.bulletSpeed = bulletSpeed;
         bullet.bulletFaction = bulletFaction;
         bullet.bulletDamage = bulletDamage;
-    }
+    }*/
 }
