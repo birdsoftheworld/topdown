@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\HealthBar.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\Level.cs" />
+     <Compile Include="Assets\Scripts\ChaserScript.cs" />
      <Compile Include="Assets\Scripts\UIFollow.cs" />
      <Compile Include="Assets\Scripts\EnemyFacingBasic.cs" />
      <Compile Include="Assets\Scripts\CamFollow.cs" />
