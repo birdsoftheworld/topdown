@@ -38,10 +38,10 @@ public class Projectile : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         rb2D.velocity = Vector3.zero;
-        rb2D.AddForce(transform.up * bulletSpeed * -1f);
+        rb2D.AddForce(transform.up * bulletSpeed * -100f);
     }
 
     void OnTriggerEnter2D(Collider2D coll)

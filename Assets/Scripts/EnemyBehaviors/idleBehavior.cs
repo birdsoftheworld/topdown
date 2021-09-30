@@ -26,7 +26,19 @@ public class idleBehavior : MonoBehaviour
 
     public int idleNumber;
 
-    public bool waiting;
+    private int waiting;
+
+    public string attackBehavior = "none";
+
+
+    public float fireSpeed;
+    private float fireTick = 0;
+
+    public float bulletSpeed;
+    public int bulletDamage;
+    public Faction bulletFaction;
+    public GameObject bulletPrefab;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,39 +51,32 @@ public class idleBehavior : MonoBehaviour
 
         targetL = target.transform;
 
-        waiting = false;
+        waiting = 0;
 
+        fireTick = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //targetL = target.transform;
-
-        //FaceTarget(targetL.position);
-
         //if (health.curHealth <= 0)
         //{
         //    Destroy(gameObject);
         //}
-
 
         ////////  distance to activate
         float distance2 = Vector3.Distance(this.transform.position, player.transform.position);
 
         if (distance2 <= distance)
         {
-
             RaycastHit2D hit;
             hit = Physics2D.Raycast(transform.position, player.transform.position - this.transform.position);
             if (hit.collider.gameObject.tag == "Player")
             {
                 //Debug.Log("We found Target!");
-
                 active = true;
                 onActivate();
-
-                targetL = player.transform;
+                //targetL = player.transform;
             }
             else
             {
@@ -79,49 +84,141 @@ public class idleBehavior : MonoBehaviour
             }
         }
 
-        if (active = true && distance2 >= distance * 3)
+        if (active == true && distance2 >= distance * 3)
         {
             active = false;
             onDeactivate();
         }
-
-
-
     }
 
     void FixedUpdate()
     {
-        rb2D.velocity = Vector2.zero;
+        rb2D.velocity = rb2D.velocity / 3;
 
-        if (active == true)
+        if (waiting > 0)
         {
-            FaceTarget(targetL.position);
-            rb2D.AddForce(transform.up * speed * -2f);
+            waiting--;
         }
         else
         {
-            if (waiting == false)
+            if (active == true)
+            {
+                if (attackBehavior == "none")
+                {
+                    if (Vector2.Distance(this.transform.position, findCover().transform.position) > Vector2.Distance(this.transform.position, player.transform.position)) {
+                        attackBehavior = "shoot";
+                    }
+
+                    else if (Random.Range(0, 2) == 0)
+                    {
+                        attackBehavior = "shoot";
+                        targetL = player.transform;
+                        FaceTarget(targetL.position);
+                    }
+                    else
+                    {
+                        attackBehavior = "run";
+                    }
+
+                }
+                else if (attackBehavior == "run")
+                {
+                    if (targetL.tag != "Cover") {targetL = findCover().transform; }
+
+                    FaceTarget(targetL.position);
+
+                    if (Vector2.Distance(this.transform.position, targetL.position) < 1.1)
+                    {
+                        attackBehavior = "shoot";
+                    }
+                    else
+                    {
+                        FaceTarget(targetL.position);
+                        rb2D.AddForce(transform.up * speed * -100f);
+                    }
+                }
+                else if (attackBehavior == "shoot")
+                {
+                    targetL = player.transform;
+                    FaceTarget(targetL.position);
+
+                    if (Vector3.Distance(this.transform.position, player.transform.position) >= (distance * 2))
+                    {
+                        rb2D.AddForce(transform.up * speed * -100f);
+
+                        if (checkShot() == true)
+                        {
+                            if (fireTick >= fireSpeed)
+                            {
+                                waiting = waiting + 30;
+                                shoot(30);
+                                attackBehavior = "run";
+                                fireTick = 0;
+                            }
+                            else
+                            {
+                                fireTick++;
+                            }
+                        }
+                    }
+                    else if (Vector3.Distance(this.transform.position, player.transform.position) <= distance / 2)
+                    {
+                        rb2D.AddForce(transform.up * speed * 50f);
+
+                        if (checkShot() == true)
+                        {
+
+                            if (fireTick >= fireSpeed)
+                            {
+                                waiting = waiting + 10;
+                                shoot(45);
+                                attackBehavior = "run";
+                                fireTick = 0;
+                            }
+                            else
+                            {
+                                fireTick++;
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        if (checkShot() == true)
+                        {
+
+                            if (fireTick >= fireSpeed)
+                            {
+                                shoot(15);
+                                attackBehavior = "run";
+                                fireTick = 0;
+                            }
+                            else
+                            {
+                                fireTick++;
+                                fireTick++;
+                            }
+                        }
+                    }
+                }
+
+            }
+            else
             {
                 setIdleTarget();
                 FaceTarget(targetL.position);
-                rb2D.AddForce(transform.up * speed * -1f);
+                rb2D.AddForce(transform.up * speed * -75f);
             }
-
         }
-
     }
 
     private void FaceTarget(Vector2 targetPos)
     {
         Vector2 currentPos = this.transform.position;
-
         destination = targetPos - currentPos;
-
         float angle = Mathf.Atan2(destination.y, destination.x) * Mathf.Rad2Deg;
-
         Quaternion rotation = new Quaternion();
         rotation.eulerAngles = new Vector3(0, 0, angle + 90);
-
         transform.rotation = rotation;
     }
 
@@ -132,15 +229,14 @@ public class idleBehavior : MonoBehaviour
 
     private void onDeactivate()
     {
-
+        waiting = waiting + 30;
     }
 
     private void setIdleTarget()
     {
-        if (targetL == player.transform)
+        if (targetL == player.transform)         //when lose player
         {
-            //StartCoroutine(waiter(100));
-
+            //waiting = waiting + 20; already assigned in Deactivate
             float targetDistance = Vector3.Distance(this.transform.position, idleLocations[0].transform.position);
             targetL = idleLocations[0].transform;
 
@@ -156,23 +252,18 @@ public class idleBehavior : MonoBehaviour
                 }
             }
 
-
         }
-        else
+        else //when just retargeting upon reaching target
         {
-            //Debug.Log(Vector2.Distance(this.transform.position, targetL.position));
 
             if (Vector2.Distance(this.transform.position, targetL.position) < 1.1)
             {
-                //StartCoroutine(waiter(100));
-
-
                 idleNumber++;
 
                 if (idleNumber == 3) { idleNumber = 0; }
-
                 targetL = idleLocations[idleNumber].transform;
 
+                waiting = waiting + 20;
             }
             else
             {
@@ -181,35 +272,66 @@ public class idleBehavior : MonoBehaviour
         }
     }
 
-
-
-
-
-    IEnumerator waiter(float time)
+    private void shoot(int shake)
     {
-        //Rotate 90 deg
-        //transform.Rotate(new Vector3(90, 0, 0), Space.World);
+        this.transform.Rotate(new Vector3(0, 0, Random.Range((-1 * shake), (shake + 1))));
+        if (Mathf.Round(this.transform.eulerAngles.z) == 180) { this.transform.Rotate(new Vector3(0, 0, -180)); }
 
-        //Wait for 4 seconds
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
 
-        //waiting = true;
+        Vector2 position = this.transform.position;
+            GameObject clone = Instantiate(bulletPrefab, position, this.transform.rotation);
+            clone.gameObject.SetActive(true);
 
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(time);
+            Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
 
-        //After we have waited 5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+            bullet.bulletSpeed = bulletSpeed;
+            bullet.bulletFaction = bulletFaction;
+            bullet.bulletDamage = bulletDamage;
 
-        waiting = false;
 
-        //Rotate 40 deg
-        //transform.Rotate(new Vector3(40, 0, 0), Space.World);
+        
 
-        //Wait for 2 seconds
-        //yield return new WaitForSeconds(2);
-
-        //Rotate 20 deg
-        //transform.Rotate(new Vector3(20, 0, 0), Space.World);
     }
+
+    public GameObject findCover() {
+                        //find all cover
+    GameObject[] cover;
+
+
+    cover = GameObject.FindGameObjectsWithTag("Cover");
+    GameObject closest = null;
+    float distance = Mathf.Infinity;
+    Vector3 position = transform.position;
+    foreach (GameObject go in cover)
+    {
+        Vector3 diff = go.transform.position - position;
+        float curDistance = diff.sqrMagnitude;
+        if (curDistance < distance)
+        {
+            closest = go;
+            distance = curDistance;
+        }
+    }
+    return closest;
+    }
+
+    public bool checkShot()
+    {
+        bool clearShot = false;
+
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(transform.position, player.transform.position - this.transform.position);
+        if (hit.collider.gameObject.tag == "Player")
+        {
+            clearShot = true;
+        }
+        else
+        {
+            clearShot = false;
+        }
+
+        return clearShot;
+
+    }
+
 }
