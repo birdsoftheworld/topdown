@@ -39,6 +39,9 @@ public class idleBehavior : MonoBehaviour
     public Faction bulletFaction;
     public GameObject bulletPrefab;
 
+    public bool colliding = false;
+    public Collider2D coll;
+
 
     // Start is called before the first frame update
     void Start()
@@ -127,13 +130,17 @@ public class idleBehavior : MonoBehaviour
 
                     FaceTarget(targetL.position);
 
-                    if (Vector2.Distance(this.transform.position, targetL.position) < 1.1)
+                    if (this.GetComponent<Collider2D>().Distance(targetL.GetComponent<Collider2D>()).distance < 1.1)
                     {
                         attackBehavior = "shoot";
                     }
                     else
                     {
                         FaceTarget(targetL.position);
+                        if (colliding == true)
+                        {
+                            adjustForCollision();
+                        }
                         rb2D.AddForce(transform.up * speed * -100f);
                     }
                 }
@@ -142,8 +149,12 @@ public class idleBehavior : MonoBehaviour
                     targetL = player.transform;
                     FaceTarget(targetL.position);
 
-                    if (Vector3.Distance(this.transform.position, player.transform.position) >= (distance * 2))
+                    if (Vector3.Distance(this.transform.position, player.transform.position) >= (distance * 2.5))
                     {
+                        if (colliding == true)
+                        {
+                            adjustForCollision();
+                        }
                         rb2D.AddForce(transform.up * speed * -100f);
 
                         if (checkShot() == true)
@@ -161,7 +172,7 @@ public class idleBehavior : MonoBehaviour
                             }
                         }
                     }
-                    else if (Vector3.Distance(this.transform.position, player.transform.position) <= distance / 2)
+                    else if (Vector3.Distance(this.transform.position, player.transform.position) <= distance )
                     {
                         rb2D.AddForce(transform.up * speed * 50f);
 
@@ -207,6 +218,10 @@ public class idleBehavior : MonoBehaviour
             {
                 setIdleTarget();
                 FaceTarget(targetL.position);
+                if (colliding == true)
+                {
+                    adjustForCollision();
+                }
                 rb2D.AddForce(transform.up * speed * -75f);
             }
         }
@@ -331,6 +346,52 @@ public class idleBehavior : MonoBehaviour
         }
 
         return clearShot;
+
+    }
+
+    private void adjustForCollision()
+    {
+        if (coll.CompareTag("Cover"))
+        {
+            this.transform.Rotate(transform.rotation.x, transform.rotation.y, transform.rotation.z - 90);
+        }
+
+        for (int i = 45; i == 360; i = i * -1)
+        {
+            this.transform.Rotate(transform.rotation.x, transform.rotation.y, transform.rotation.z + i);
+
+            if (this.GetComponent<Collider2D>().IsTouching(coll) == true)
+            {
+                i = 360;
+            }
+
+            else
+            {
+                i = Mathf.Abs(i) + 45 * (i/ Mathf.Abs(i));
+            }
+
+        }
+
+        if (this.GetComponent<Collider2D>().IsTouching(coll) == false)
+        {
+            colliding = false;
+            //Debug.Log("bonk");
+        }
+    }
+
+
+        private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+
+        if (collision.CompareTag("Cover"))
+        {
+            coll = collision;
+            colliding = true;
+        }
+
+    
+        //rb2D.AddForce(transform.up * speed * 25f);
 
     }
 
