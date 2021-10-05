@@ -6,11 +6,15 @@ TagManager:
   tags:
   - Canvas
   - Cover
+  - Node
+  - NodeCover
+  - NodeCenter
+  - NodeEnter
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Node
   - Water
   - UI
   - 

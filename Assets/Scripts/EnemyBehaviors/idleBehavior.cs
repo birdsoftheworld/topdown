@@ -137,10 +137,10 @@ public class idleBehavior : MonoBehaviour
                     else
                     {
                         FaceTarget(targetL.position);
-                        if (colliding == true)
+                        /*if (colliding == true)
                         {
                             adjustForCollision();
-                        }
+                        }*/
                         rb2D.AddForce(transform.up * speed * -100f);
                     }
                 }
@@ -151,10 +151,10 @@ public class idleBehavior : MonoBehaviour
 
                     if (Vector3.Distance(this.transform.position, player.transform.position) >= (distance * 2.5))
                     {
-                        if (colliding == true)
+                        /*if (colliding == true)
                         {
                             adjustForCollision();
-                        }
+                        }*/
                         rb2D.AddForce(transform.up * speed * -100f);
 
                         if (checkShot() == true)
@@ -218,13 +218,16 @@ public class idleBehavior : MonoBehaviour
             {
                 setIdleTarget();
                 FaceTarget(targetL.position);
-                if (colliding == true)
+                /*if (colliding == true)
                 {
                     adjustForCollision();
-                }
+                }*/
                 rb2D.AddForce(transform.up * speed * -75f);
             }
         }
+
+
+
     }
 
     private void FaceTarget(Vector2 targetPos)
@@ -349,7 +352,7 @@ public class idleBehavior : MonoBehaviour
 
     }
 
-    private void adjustForCollision()
+    /*private void adjustForCollision()
     {
         if (coll.CompareTag("Cover"))
         {
@@ -377,10 +380,10 @@ public class idleBehavior : MonoBehaviour
             colliding = false;
             //Debug.Log("bonk");
         }
-    }
+    }*/
 
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        /*private void OnTriggerEnter2D(Collider2D collision)
     {
 
 
@@ -393,6 +396,6 @@ public class idleBehavior : MonoBehaviour
     
         //rb2D.AddForce(transform.up * speed * 25f);
 
-    }
+    }*/
 
 }

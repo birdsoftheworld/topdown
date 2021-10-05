@@ -14,6 +14,8 @@ public class Room : MonoBehaviour
 
     private Level level;
 
+    public GameObject node;
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -51,6 +53,7 @@ public class Room : MonoBehaviour
                         || (Mathf.Abs(y - height / 2) <= 1 && ((x == 0 && left) || (x == width - 1 && right))))
                     {
                         wall = Instantiate(level.floorTile, tilesChild);
+
                     } else
                     {
                         wall = Instantiate(level.wallTile, tilesChild);
@@ -58,8 +61,105 @@ public class Room : MonoBehaviour
                     // offset of 0.5 because the tilemap is offset by that much
                     wall.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f));
                 }
+
+                if (x == 3)
+                {
+                    if (up == true)
+                    {
+                        if (y == 9)
+                        {
+                            GameObject nodeC = Instantiate(node, tilesChild);
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.tag = "NodeCover";
+                        }
+                    }
+
+                    if (down == true)
+                    {
+                        if (y == 1)
+                        {
+                            GameObject nodeC = Instantiate(node, tilesChild);
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.tag = "NodeCover";
+                        }
+                    }
+                }
+
+                if (x == 7)
+                {
+                    if (up == true)
+                    {
+                        if (y == 9)
+                        {
+                            GameObject nodeC = Instantiate(node, tilesChild);
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.tag = "NodeCover";
+                        }
+                    }
+
+                    if (down == true)
+                    {
+                        if (y == 1)
+                        {
+                            GameObject nodeC = Instantiate(node, tilesChild);
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.tag = "NodeCover";
+                        }
+                    }
+                }
+
+                if (x == 1)
+                {
+                    if (left == true)
+                    {
+                        if (y == 7)
+                        {
+                            GameObject nodeC = Instantiate(node, tilesChild);
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.tag = "NodeCover";
+                        }
+
+                        if (y == 3)
+                        {
+                            GameObject nodeC = Instantiate(node, tilesChild);
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.tag = "NodeCover";
+                        }
+                    }
+                }
+
+                if (x == 9)
+                {
+                    if (right == true)
+                    {
+                        if (y == 7)
+                        {
+                            GameObject nodeC = Instantiate(node, tilesChild);
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.tag = "NodeCover";
+                        }
+
+                        if (y == 3)
+                        {
+                            GameObject nodeC = Instantiate(node, tilesChild);
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.tag = "NodeCover";
+                        }
+                    }
+                }
+
+                if (x == 5 && y == 5)
+                {
+                    GameObject nodeM = Instantiate(node, tilesChild);
+                    nodeM.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                    nodeM.tag = "NodeCenter";
+                }
             }
+
+
+
         }
+
     }
 
     public Vector2 GetFullSize()
