@@ -18,8 +18,64 @@ public class Level : MonoBehaviour
 
     private bool[][] occupiedRooms;
 
+    public List<Transform[]> roomData;
+
+    public List<Transform> roomDataswhjfkhdskj; //Doesn't work with Transform[] for some reason
+
+
+    [System.Serializable]
+    public struct GOArray
+    {
+        //[SerializeField]
+        //private Transform[] _transform;
+
+        //public List<Transform[]> roomData;
+        // optionally some other fields
+
+        public List<Transform[]> roomData;
+
+        //public List<GameObject> gameObjects;
+
+    }
+
+    List<GOArray> listOfLists;
+
+    
+
+    /*[SerializeField]
+    private GOArray[] _array;
+
+    [SerializeField]
+    private List<GOArray> _list;*/
+
+
+
+    //List<GOArray> roomData;
+
+
+
+    private int roomsMade = 0;
+
     private void Start()
     {
+        //roomData =  = new List<Transform[]>();
+
+        //Transform[][] roomData = new Transform[10][];
+
+        //int[][] numData = new int[5][];
+
+        //roomData[0] = new Transform[13] { this.transform, this.transform };
+        //roomData[1] = new Transform[13] { this.transform, this.transform };
+
+
+        /*for (int a = 0; a < 6; a++)//We need to create second layer arrays manually in this method
+        {
+            roomData[a] = new Transform[4];
+            //Setting and accessing them is
+            //array[0][1] = gameObject.transform;
+        }*/
+
+
         occupiedRooms = new bool[mapSize * 2 + 1][];
         for(int i = 0; i < occupiedRooms.Length; i++)
         {
@@ -101,7 +157,20 @@ public class Level : MonoBehaviour
                 Room room = instance.GetComponent<Room>();
                 room.SetLevel(this);
 
-                room.GenerateWalls(doors[0], doors[1], doors[2], doors[3]);
+                Transform[] thisRoom = room.GenerateWalls(doors[0], doors[1], doors[2], doors[3], roomsMade);
+
+                int ticker = 0;
+                for (int d = 0; d < 4 /*thisRoom.Length*/; d++)
+                {   
+                    if (thisRoom[d] != null)  ticker++;
+
+                }
+
+                for (int i = 0; i < 4; i++) 
+                {
+                    roomData.Add(thisRoom);
+                }
+                //roomsMade++;
 
                 room.transform.Translate(room.GetFullSize() * (pos - origin));
             }
