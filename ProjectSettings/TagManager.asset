@@ -10,6 +10,7 @@ TagManager:
   - NodeCover
   - NodeCenter
   - NodeEnter
+  - Floor
   layers:
   - Default
   - TransparentFX

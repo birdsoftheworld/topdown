@@ -15,6 +15,7 @@ public class Room : MonoBehaviour
     private Level level;
 
     public GameObject node;
+    public GameObject floorBox;
 
     //public Transform[,] roomData;
 
@@ -43,11 +44,6 @@ public class Room : MonoBehaviour
     public Transform[] GenerateWalls(bool up, bool down, bool left, bool right, int roomNumber)
     {
         Transform[] thisRoom = new Transform[13];
-        thisRoom[0] = this.transform;
-        int trNumber = 0;
-
-
-
 
         Transform tilesChild = transform.GetChild(0);
         Grid grid = GetComponent<Grid>();
@@ -84,8 +80,7 @@ public class Room : MonoBehaviour
                             nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeC.tag = "NodeCover";
 
-                            thisRoom[trNumber] = nodeC.transform;
-                            trNumber++;
+                            thisRoom[0] = nodeC.transform;
                         }
                     }
 
@@ -97,8 +92,7 @@ public class Room : MonoBehaviour
                             nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeC.tag = "NodeCover";
 
-                            thisRoom[trNumber] = nodeC.transform;
-                            trNumber++;
+                            thisRoom[10] = nodeC.transform;
                         }
                     }
                 }
@@ -113,8 +107,7 @@ public class Room : MonoBehaviour
                             nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeC.tag = "NodeCover";
 
-                            thisRoom[trNumber] = nodeC.transform;
-                            trNumber++;
+                            thisRoom[2] = nodeC.transform;
                         }
                     }
 
@@ -126,8 +119,7 @@ public class Room : MonoBehaviour
                             nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeC.tag = "NodeCover";
 
-                            thisRoom[trNumber] = nodeC.transform;
-                            trNumber++;
+                            thisRoom[12] = nodeC.transform;
                         }
                     }
                 }
@@ -142,8 +134,7 @@ public class Room : MonoBehaviour
                             nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeC.tag = "NodeCover";
 
-                            thisRoom[trNumber] = nodeC.transform;
-                            trNumber++;
+                            thisRoom[3] = nodeC.transform;
                         }
 
                         if (y == 3)
@@ -152,8 +143,7 @@ public class Room : MonoBehaviour
                             nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeC.tag = "NodeCover";
 
-                            thisRoom[trNumber] = nodeC.transform;
-                            trNumber++;
+                            thisRoom[8] = nodeC.transform;
                         }
 
                         if (y == 5)
@@ -162,8 +152,7 @@ public class Room : MonoBehaviour
                             nodeE.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeE.tag = "NodeEnter";
 
-                            thisRoom[trNumber] = nodeE.transform;
-                            trNumber++;
+                            thisRoom[5] = nodeE.transform;
                         }
                     }
                 }
@@ -178,8 +167,7 @@ public class Room : MonoBehaviour
                             nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeC.tag = "NodeCover";
 
-                            thisRoom[trNumber] = nodeC.transform;
-                            trNumber++;
+                            thisRoom[4] = nodeC.transform;
                         }
 
                         if (y == 3)
@@ -188,8 +176,7 @@ public class Room : MonoBehaviour
                             nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeC.tag = "NodeCover";
 
-                            thisRoom[trNumber] = nodeC.transform;
-                            trNumber++;
+                            thisRoom[9] = nodeC.transform;
                         }
 
                         if (y == 5)
@@ -198,8 +185,7 @@ public class Room : MonoBehaviour
                             nodeE.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeE.tag = "NodeEnter";
 
-                            thisRoom[trNumber] = nodeE.transform;
-                            trNumber++;
+                            thisRoom[7] = nodeE.transform;
                         }
                     }
                 }
@@ -212,7 +198,11 @@ public class Room : MonoBehaviour
                         nodeM.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                         nodeM.tag = "NodeCenter";
 
-                        thisRoom[trNumber] = nodeM.transform;
+                        thisRoom[6] = nodeM.transform;
+
+                        GameObject floorHitter = Instantiate(floorBox, tilesChild);
+                        floorHitter.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f));
+                        floorHitter.GetComponent<storeInt>().integer = roomNumber;
                     }
 
                     if (up == true)
@@ -223,8 +213,7 @@ public class Room : MonoBehaviour
                             nodeE.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeE.tag = "NodeEnter";
 
-                            thisRoom[trNumber] = nodeE.transform;
-                            trNumber++;
+                            thisRoom[1] = nodeE.transform;
                         }
                     }
 
@@ -236,8 +225,7 @@ public class Room : MonoBehaviour
                             nodeE.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
                             nodeE.tag = "NodeEnter";
 
-                            thisRoom[trNumber] = nodeE.transform;
-                            trNumber++;
+                            thisRoom[11] = nodeE.transform;
                         }
                     }
                 }

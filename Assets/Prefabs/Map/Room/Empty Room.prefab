@@ -145,7 +145,7 @@ CompositeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -6918,6 +6918,7 @@ MonoBehaviour:
   leftExit: 1
   rightExit: 1
   node: {fileID: 6591707737442466765, guid: d1a17fae2f4c5db41b88c09f8261b674, type: 3}
+  floorBox: {fileID: 2771431285674464886, guid: 8332d59134a69014e813f94a677348cc, type: 3}
 --- !u!156049354 &2342201052179545263
 Grid:
   m_ObjectHideFlags: 0

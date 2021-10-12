@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb2D;
     private Vector2 destination;
 
+    public int location;
 
     private void Start()
     {
@@ -69,4 +70,13 @@ public class Player : MonoBehaviour
         body.AddForce(inputDirection * moveSpeed * 100f);
 
     }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag == "Floor")
+        {
+            location = col.GetComponent<storeInt>().integer;
+        }
+    }
+
 }

@@ -18,12 +18,13 @@ public class Level : MonoBehaviour
 
     private bool[][] occupiedRooms;
 
-    public List<Transform[]> roomData;
+    //public List<Transform[]> roomData;
 
-    public List<Transform> roomDataswhjfkhdskj; //Doesn't work with Transform[] for some reason
+    //[SerializeField]
+    public List<Transform[]> roomData = new List<Transform[]>(); //Doesn't work with Transform[] for some reason
 
 
-    [System.Serializable]
+    /*[System.Serializable]
     public struct GOArray
     {
         //[SerializeField]
@@ -36,11 +37,29 @@ public class Level : MonoBehaviour
 
         //public List<GameObject> gameObjects;
 
+    }*/
+
+    /*[System.Serializable]
+    public class GOArray
+    {
+        [SerializeField]
+        private Transform[] roomData;
+
+        // optionally some other fields
     }
 
-    List<GOArray> listOfLists;
 
-    
+    [SerializeField]
+    private GOArray[] _array;
+
+    [SerializeField]
+    private List<GOArray> _list;*/
+
+
+
+    //public List<GOArray> roomDataD;
+
+
 
     /*[SerializeField]
     private GOArray[] _array;
@@ -74,6 +93,7 @@ public class Level : MonoBehaviour
             //Setting and accessing them is
             //array[0][1] = gameObject.transform;
         }*/
+
 
 
         occupiedRooms = new bool[mapSize * 2 + 1][];
@@ -116,6 +136,33 @@ public class Level : MonoBehaviour
         }
 
         GenerateRooms();
+
+        //printData();
+    }
+
+    private void printData()
+    {
+        for (int a = 0; a < roomData.Count; a++)
+        {
+            Debug.Log(roomData[a]);
+
+            //Debug.Log(roomData[a].Count);
+
+            int ticker = 0;
+            for (int d = 0; d < roomData[a].Length; d++)
+            {
+                if (roomData[a][d] != null) 
+                { 
+                    ticker++;
+                    //Debug.Log(roomData[a][d].position);
+                }
+            }
+
+            Debug.Log(ticker);
+        }
+
+
+        
     }
 
     private void GenerateRooms()
@@ -159,18 +206,9 @@ public class Level : MonoBehaviour
 
                 Transform[] thisRoom = room.GenerateWalls(doors[0], doors[1], doors[2], doors[3], roomsMade);
 
-                int ticker = 0;
-                for (int d = 0; d < 4 /*thisRoom.Length*/; d++)
-                {   
-                    if (thisRoom[d] != null)  ticker++;
+                roomData.Add(thisRoom);
 
-                }
-
-                for (int i = 0; i < 4; i++) 
-                {
-                    roomData.Add(thisRoom);
-                }
-                //roomsMade++;
+                roomsMade++;
 
                 room.transform.Translate(room.GetFullSize() * (pos - origin));
             }
