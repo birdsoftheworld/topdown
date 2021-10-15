@@ -15,11 +15,6 @@ public class Room : MonoBehaviour
     private Level level;
 
     public GameObject node;
-    public GameObject floorBox;
-
-    //public Transform[,] roomData;
-
-    //private int roomNumber = 0;
 
     private void OnDrawGizmos()
     {
@@ -199,10 +194,6 @@ public class Room : MonoBehaviour
                         nodeM.tag = "NodeCenter";
 
                         thisRoom[6] = nodeM.transform;
-
-                        GameObject floorHitter = Instantiate(floorBox, tilesChild);
-                        floorHitter.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f));
-                        floorHitter.GetComponent<storeInt>().integer = roomNumber;
                     }
 
                     if (up == true)
@@ -233,11 +224,12 @@ public class Room : MonoBehaviour
 
         }
 
+        this.GetComponent<storeRoomVars>().integer = roomNumber;
 
-        //for (int i = 0; i < thisRoom.Length; i++) {
-        //    roomData[roomNumber][i] = thisRoom[0];
-        //}
-        //roomNumber++;
+        this.GetComponent<storeRoomVars>().upExit = up;
+        this.GetComponent<storeRoomVars>().downExit = down;
+        this.GetComponent<storeRoomVars>().leftExit = left;
+        this.GetComponent<storeRoomVars>().rightExit = right;
 
         return thisRoom;
 

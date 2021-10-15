@@ -46,23 +46,26 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-
-        Hittable hitted = coll.GetComponent<Collider2D>().GetComponent<Hittable>();
-
-        Faction hitFact = hitted.faction;
-
-        if (hitted != null)
+        if (coll.GetComponent<Collider2D>().GetComponent<Hittable>() != null)
         {
-           if (hitted.CanHit(bulletFaction))
-           {
 
+            Hittable hitted = coll.GetComponent<Collider2D>().GetComponent<Hittable>();
 
-                Destroy(gameObject);
+            Faction hitFact = hitted.faction;
 
-                HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
-                if (health != null)
+            if (hitted != null)
+            {
+                if (hitted.CanHit(bulletFaction))
                 {
-                    health.DealDamage(bulletDamage);
+
+
+                    Destroy(gameObject);
+
+                    HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
+                    if (health != null)
+                    {
+                        health.DealDamage(bulletDamage);
+                    }
                 }
             }
         }

@@ -11,6 +11,7 @@ TagManager:
   - NodeCenter
   - NodeEnter
   - Floor
+  - LevelGenerator
   layers:
   - Default
   - TransparentFX

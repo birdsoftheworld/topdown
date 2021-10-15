@@ -30,10 +30,17 @@ public class nodeNavigation : MonoBehaviour
 
     public int location;
 
+    public Collider2D locationCol;
+    private GameObject levelGen;
+
+    private Vector2 nodeDirectionModifier;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+
+        levelGen = GameObject.FindGameObjectWithTag("LevelGenerator");
 
         rb2D = GetComponent<Rigidbody2D>();
 
@@ -42,6 +49,10 @@ public class nodeNavigation : MonoBehaviour
         targetL = target.transform;
 
         waiting = 0;
+
+        locationCol = GetComponent<Collider2D>();
+
+        nodeDirectionModifier = new Vector2(0.0f, 0.0f);
 
     }
 
@@ -103,13 +114,35 @@ public class nodeNavigation : MonoBehaviour
 
     private void setActiveBehavior()
     {
-        if (location == player.GetComponent<player>().location)
+
+        if (location == player.GetComponent<Player>().location)
         {
-            Debug.Log("flee!");
+            //Debug.Log("flee!");
+            Transform closestE = closestExit();
+            //Transform
+
+            if (Vector3.Distance(this.transform.position, closestE.position) > .5)
+            {
+                FaceTarget(closestE.position);
+            }
+
+            else
+            {
+                //MAKE this so that it essentially just makes the target 2 away from the player in a direction determined by nodeDirectionModifier
+
+                //new Vector2 adjustTarge = this.transform.position + Vector3.Up * nodeDirectionModifier.x;
+
+                //FaceTarget(this.transform.position + nodeDirectionModifier);
+            }
+
+            rb2D.AddForce(transform.up * speed * -100f);
+
         }
         else
         {
-            Debug.Log("to cover!");
+            //Debug.Log("to cover!");
+
+
         }
     }
 
@@ -136,7 +169,89 @@ public class nodeNavigation : MonoBehaviour
     {
         if (col.tag == "Floor")
         {
-            location = col.GetComponent<storeInt>().integer;
+            locationCol = col;
+
+            location = col.GetComponent<storeRoomVars>().integer;
         }
+    }
+
+    private Transform closestExit()
+    {
+        Transform closest;
+        float distance;
+        closest = this.transform;
+        distance = 9999;
+
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().upExit == true)
+        {
+            closest = levelGen.GetComponent<Level>().roomData[location][1];
+
+            distance = Vector3.Distance(this.transform.position, closest.transform.position);
+
+            nodeDirectionModifier = new Vector2(0.0f, 1.0f);
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().downExit == true)
+        {
+            if (closest == null)
+            {
+                closest = levelGen.GetComponent<Level>().roomData[location][11];
+
+                nodeDirectionModifier = new Vector2(0.0f, -1.0f);
+            }
+            else
+            {
+                float distance2 = Vector3.Distance(this.transform.position, levelGen.GetComponent<Level>().roomData[location][11].transform.position);
+                if (distance2 < distance)
+                {
+                    closest = levelGen.GetComponent<Level>().roomData[location][11];
+
+                    nodeDirectionModifier = new Vector2(0.0f, -1.0f);
+                }
+            }
+            distance = Vector3.Distance(this.transform.position, closest.transform.position);
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().leftExit == true)
+        {
+            if (closest == null)
+            {
+                closest = levelGen.GetComponent<Level>().roomData[location][5];
+
+                nodeDirectionModifier = new Vector2(-1.0f, 0.0f);
+            }
+            else
+            {
+                float distance2 = Vector3.Distance(this.transform.position, levelGen.GetComponent<Level>().roomData[location][5].transform.position);
+
+                if (distance2 < distance)
+                {
+                    closest = levelGen.GetComponent<Level>().roomData[location][5];
+
+                    nodeDirectionModifier = new Vector2(-1.0f, 0.0f);
+                }
+            }
+            distance = Vector3.Distance(this.transform.position, closest.transform.position);
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().rightExit == true)
+        {
+            if (closest == null)
+            {
+                closest = levelGen.GetComponent<Level>().roomData[location][7];
+
+                nodeDirectionModifier = new Vector2(1.0f, 0.0f);
+            }
+            else
+            {
+                float distance2 = Vector3.Distance(this.transform.position, levelGen.GetComponent<Level>().roomData[location][7].transform.position);
+
+                if (distance2 < distance)
+                {
+                    closest = levelGen.GetComponent<Level>().roomData[location][7];
+
+                    nodeDirectionModifier = new Vector2(1.0f, 0.0f);
+                }
+            }
+            distance = Vector3.Distance(this.transform.position, closest.transform.position);
+        }
+        return closest;
     }
 }

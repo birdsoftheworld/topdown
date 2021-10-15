@@ -16,9 +16,17 @@ public class Player : MonoBehaviour
 
     public int location;
 
+    public Collider2D locationCol;
+    private GameObject levelGen;
+
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
+
+        locationCol = GetComponent<Collider2D>();
+
+        levelGen = GameObject.FindGameObjectWithTag("LevelGenerator");
+
     }
 
     private void Update()
@@ -57,7 +65,10 @@ public class Player : MonoBehaviour
 
         transform.rotation = rotation;
 
-
+        /*if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log(closestExit().position);
+        }*/
 
     }
 
@@ -75,8 +86,74 @@ public class Player : MonoBehaviour
     {
         if (col.tag == "Floor")
         {
-            location = col.GetComponent<storeInt>().integer;
+            location = col.GetComponent<storeRoomVars>().integer;
+
+            locationCol = col;
+
         }
+    }
+
+    private Transform closestExit()
+    {
+        Transform closest;
+        float distance;
+        closest = this.transform;
+        distance = 9999;
+
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().upExit == true)
+        {
+            closest = levelGen.GetComponent<Level>().roomData[location][1];
+
+            distance = Vector3.Distance(this.transform.position, closest.transform.position);
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().downExit == true)
+        {
+            if (closest == null) 
+            {
+                closest = levelGen.GetComponent<Level>().roomData[location][11];
+            }
+            else
+            {
+                float distance2 = Vector3.Distance(this.transform.position, levelGen.GetComponent<Level>().roomData[location][11].transform.position);
+                if (distance2 < distance)
+                {
+                    closest = levelGen.GetComponent<Level>().roomData[location][11];
+                }
+            }
+            distance = Vector3.Distance(this.transform.position, closest.transform.position);
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().leftExit == true)
+        {
+            if (closest == null) {
+                closest = levelGen.GetComponent<Level>().roomData[location][5];
+            }
+            else {
+                float distance2 = Vector3.Distance(this.transform.position, levelGen.GetComponent<Level>().roomData[location][5].transform.position);
+
+                if (distance2 < distance)
+                {
+                    closest = levelGen.GetComponent<Level>().roomData[location][5];
+                }
+            }
+            distance = Vector3.Distance(this.transform.position, closest.transform.position);
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().rightExit == true)
+        {
+            if (closest == null) 
+            {
+                closest = levelGen.GetComponent<Level>().roomData[location][7];
+            }
+            else {
+                float distance2 = Vector3.Distance(this.transform.position, levelGen.GetComponent<Level>().roomData[location][7].transform.position);
+
+                if (distance2 < distance)
+                {
+                    closest = levelGen.GetComponent<Level>().roomData[location][7];
+                }
+            }
+            distance = Vector3.Distance(this.transform.position, closest.transform.position);
+        }
+        return closest;
     }
 
 }
