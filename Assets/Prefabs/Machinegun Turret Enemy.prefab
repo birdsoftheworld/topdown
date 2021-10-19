@@ -131,7 +131,7 @@ MonoBehaviour:
   fireSpeed: 15
   health: {fileID: 2125265401571518704}
   bullet: {fileID: 8464980748251324629, guid: bb26bab4cba51f84baaac207af44d6ea, type: 3}
-  bulletSpeed: 50
+  bulletSpeed: 1100
   bulletDamage: 1
   bulletFaction: 1
   bulletPrefab: {fileID: 8464980748251324624, guid: bb26bab4cba51f84baaac207af44d6ea, type: 3}

@@ -35,6 +35,14 @@ public class nodeNavigation : MonoBehaviour
 
     private Vector2 nodeDirectionModifier;
 
+    public bool movingToNode = false;
+    public bool inCover = false;
+
+    public Vector2 adjustTarge = new Vector2(0,0);
+
+    public Vector2 coverTarge = new Vector2(0, 0);
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -115,34 +123,60 @@ public class nodeNavigation : MonoBehaviour
     private void setActiveBehavior()
     {
 
-        if (location == player.GetComponent<Player>().location)
+        if (location == player.GetComponent<Player>().location || movingToNode == true)
         {
+            inCover = false;
+
             //Debug.Log("flee!");
             Transform closestE = closestExit();
+            
             //Transform
 
-            if (Vector3.Distance(this.transform.position, closestE.position) > .5)
+            if (Vector3.Distance(this.transform.position, closestE.position) > 1 && movingToNode == false)
             {
                 FaceTarget(closestE.position);
+
+                rb2D.AddForce(transform.up * speed * -100f);
+
+                float a1 = this.transform.position.x;
+                float b1 = this.transform.position.y;
+                float a2 = nodeDirectionModifier.x;
+                float b2 = nodeDirectionModifier.y;
+
+                adjustTarge = new Vector2(a1 + a2, b1 + b2);
             }
 
             else
             {
-                //MAKE this so that it essentially just makes the target 2 away from the player in a direction determined by nodeDirectionModifier
+                FaceTarget(adjustTarge);
 
-                //new Vector2 adjustTarge = this.transform.position + Vector3.Up * nodeDirectionModifier.x;
+                movingToNode = true;
 
-                //FaceTarget(this.transform.position + nodeDirectionModifier);
+                this.transform.position = Vector2.MoveTowards(this.transform.position, adjustTarge, speed * 2 * Time.deltaTime);
+
+                if (Vector2.Distance(adjustTarge, this.transform.position) < 1)
+                {
+                    movingToNode = false;
+
+                    coverTarge = findCover().position;
+                }
             }
-
-            rb2D.AddForce(transform.up * speed * -100f);
-
         }
         else
         {
-            //Debug.Log("to cover!");
+            if (inCover == false)
+            {
+                this.transform.position = Vector2.MoveTowards(this.transform.position, coverTarge, speed * 2 * Time.deltaTime);
 
-
+                if (Vector2.Distance(coverTarge, this.transform.position) < .1)
+                {
+                    inCover = true;
+                }
+            }
+            else
+            {
+                //make them run towards the nearest nodeEntrance until they see player, shoot, and then reassess what cover they want
+            }
         }
     }
 
@@ -188,15 +222,17 @@ public class nodeNavigation : MonoBehaviour
 
             distance = Vector3.Distance(this.transform.position, closest.transform.position);
 
-            nodeDirectionModifier = new Vector2(0.0f, 1.0f);
+            nodeDirectionModifier = new Vector2(0.0f, 5.0f);
+            //Debug.Log("up");
         }
         if (locationCol.gameObject.GetComponent<storeRoomVars>().downExit == true)
         {
-            if (closest == null)
+            if (closest == this.transform)
             {
                 closest = levelGen.GetComponent<Level>().roomData[location][11];
 
-                nodeDirectionModifier = new Vector2(0.0f, -1.0f);
+                nodeDirectionModifier = new Vector2(0.0f, -5.0f);
+                //Debug.Log("down");
             }
             else
             {
@@ -205,18 +241,22 @@ public class nodeNavigation : MonoBehaviour
                 {
                     closest = levelGen.GetComponent<Level>().roomData[location][11];
 
-                    nodeDirectionModifier = new Vector2(0.0f, -1.0f);
+                    nodeDirectionModifier = new Vector2(0.0f, -5.0f);
+                    //Debug.Log("down");
+
                 }
             }
             distance = Vector3.Distance(this.transform.position, closest.transform.position);
         }
         if (locationCol.gameObject.GetComponent<storeRoomVars>().leftExit == true)
         {
-            if (closest == null)
+            if (closest == this.transform)
             {
                 closest = levelGen.GetComponent<Level>().roomData[location][5];
 
-                nodeDirectionModifier = new Vector2(-1.0f, 0.0f);
+                nodeDirectionModifier = new Vector2(-5.0f, 0.0f);
+                //Debug.Log("left");
+
             }
             else
             {
@@ -226,18 +266,22 @@ public class nodeNavigation : MonoBehaviour
                 {
                     closest = levelGen.GetComponent<Level>().roomData[location][5];
 
-                    nodeDirectionModifier = new Vector2(-1.0f, 0.0f);
+                    nodeDirectionModifier = new Vector2(-5.0f, 0.0f);
+                    //Debug.Log("left");
+
                 }
             }
             distance = Vector3.Distance(this.transform.position, closest.transform.position);
         }
         if (locationCol.gameObject.GetComponent<storeRoomVars>().rightExit == true)
         {
-            if (closest == null)
+            if (closest == this.transform)
             {
                 closest = levelGen.GetComponent<Level>().roomData[location][7];
 
-                nodeDirectionModifier = new Vector2(1.0f, 0.0f);
+                nodeDirectionModifier = new Vector2(5.0f, 0.0f);
+                //Debug.Log("right");
+
             }
             else
             {
@@ -246,12 +290,124 @@ public class nodeNavigation : MonoBehaviour
                 if (distance2 < distance)
                 {
                     closest = levelGen.GetComponent<Level>().roomData[location][7];
+                    
+                    nodeDirectionModifier = new Vector2(5.0f, 0.0f);
+                    //Debug.Log("right");
 
-                    nodeDirectionModifier = new Vector2(1.0f, 0.0f);
                 }
             }
             distance = Vector3.Distance(this.transform.position, closest.transform.position);
         }
         return closest;
     }
+
+    private Transform findCover()
+    {
+        Transform closest;
+        closest = this.transform;
+        int lastNodeChosen = 0;
+
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().upExit == true)
+        {
+            int nodeChoice = checkTwoNodeDistances(0, 2, this.transform);
+
+            closest = levelGen.GetComponent<Level>().roomData[location][nodeChoice];
+            lastNodeChosen = nodeChoice;
+
+            //nodeDirectionModifier = new Vector2(0.0f, 5.0f);
+            //Debug.Log("up");
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().downExit == true)
+        {
+            if (closest == this.transform)
+            {
+                int nodeChoice = checkTwoNodeDistances(10, 12, this.transform);
+
+                closest = levelGen.GetComponent<Level>().roomData[location][nodeChoice];
+                lastNodeChosen = nodeChoice;
+
+            }
+            else
+            {
+                int nodeChoice = checkTwoNodeDistances(10, 12, this.transform);
+
+                if (checkTwoNodeDistances(nodeChoice, lastNodeChosen, this.transform) == nodeChoice)
+                {
+                    closest = levelGen.GetComponent<Level>().roomData[location][nodeChoice];
+                    lastNodeChosen = nodeChoice;
+                }
+            }
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().leftExit == true)
+        {
+            if (closest == this.transform)
+            {
+                int nodeChoice = checkTwoNodeDistances(3, 8, this.transform);
+
+                closest = levelGen.GetComponent<Level>().roomData[location][nodeChoice];
+                lastNodeChosen = nodeChoice;
+
+            }
+            else
+            {
+                int nodeChoice = checkTwoNodeDistances(3, 8, this.transform);
+
+                if (checkTwoNodeDistances(nodeChoice, lastNodeChosen, this.transform) == nodeChoice)
+                {
+                    closest = levelGen.GetComponent<Level>().roomData[location][nodeChoice];
+                    lastNodeChosen = nodeChoice;
+                }
+            }
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().rightExit == true)
+        {
+            if (closest == this.transform)
+            {
+                int nodeChoice = checkTwoNodeDistances(4, 9, this.transform);
+
+                closest = levelGen.GetComponent<Level>().roomData[location][nodeChoice];
+                lastNodeChosen = nodeChoice;
+
+            }
+            else
+            {
+                int nodeChoice = checkTwoNodeDistances(4, 9, this.transform);
+
+                if (checkTwoNodeDistances(nodeChoice, lastNodeChosen, this.transform) == nodeChoice)
+                {
+                    closest = levelGen.GetComponent<Level>().roomData[location][nodeChoice];
+                    lastNodeChosen = nodeChoice;
+                }
+            }
+        }
+        return closest;
+    }
+
+    public int checkTwoNodeDistances(int node1, int node2, Transform target)
+    {
+        //Debug.Log("node1 " + node1);
+        //Debug.Log("node2 " + node2);
+
+
+        float distance2 = Vector3.Distance(target.position, levelGen.GetComponent<Level>().roomData[location][node1].transform.position);
+        //distance2 = distance2 - Vector3.Distance(this.transform.position, levelGen.GetComponent<Level>().roomData[location][node1].transform.position);
+
+        float distance3 = Vector3.Distance(target.transform.position, levelGen.GetComponent<Level>().roomData[location][node2].transform.position);
+        //distance3 = distance3 - Vector3.Distance(this.transform.position, levelGen.GetComponent<Level>().roomData[location][node2].transform.position);
+
+        if (distance2 < distance3)
+        {
+            Debug.Log("node1 " + node1);
+            return node1;
+        }
+        else
+        {
+            Debug.Log("node2 " + node2);
+            return node2;
+        }
+
+        Debug.Log("fail");
+        return node1;
+    }
+
 }
