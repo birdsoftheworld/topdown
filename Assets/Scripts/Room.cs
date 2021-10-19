@@ -55,7 +55,6 @@ public class Room : MonoBehaviour
                         || (Mathf.Abs(y - height / 2) <= 1 && ((x == 0 && left) || (x == width - 1 && right))))
                     {
                         wall = Instantiate(level.floorTile, tilesChild);
-
                     }
                     else
                     {
