@@ -15,9 +15,6 @@ public class PlayerShootCommand : MonoBehaviour
 
     private void Update()
     {
-
-
-
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 position = bulletOrigin.position;
@@ -29,11 +26,6 @@ public class PlayerShootCommand : MonoBehaviour
             bullet.bulletSpeed = bulletSpeed;
             bullet.bulletFaction = bulletFaction;
             bullet.bulletDamage = bulletDamage;
-
-
         }
-
-
-
     }
 }
