@@ -444,11 +444,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5565209165297029935, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5565209165297029935, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5565209166116833457, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: playerHealth
@@ -544,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5565209166116833459, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5565209166116833471, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: health
@@ -554,6 +554,10 @@ PrefabInstance:
       propertyPath: monsterPosition
       value: 
       objectReference: {fileID: 7106166882898578028}
+    - target: {fileID: 5565209166120536429, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
 --- !u!224 &224774807 stripped
@@ -1980,7 +1984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4364936455462086941, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: mapSize
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4364936455462086941, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: straightLine
@@ -2004,7 +2008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6970680729138206994, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6970680729138206994, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: m_TagString
@@ -2519,7 +2523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6970680729138206994, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6970680729138206994, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: m_TagString
@@ -2642,7 +2646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7106166882898578027
 MonoBehaviour:
   m_ObjectHideFlags: 0
