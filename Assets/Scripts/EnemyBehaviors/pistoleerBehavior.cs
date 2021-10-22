@@ -33,6 +33,7 @@ public class pistoleerBehavior : MonoBehaviour
     public bool inCover = false;
     public bool isShooting = false;
     public bool inPanic = false;
+    public bool chasingTowardsPlayer = false;
 
     public Vector2 adjustTarge = new Vector2(0, 0);
     public Vector2 coverTarge = new Vector2(0, 0);
@@ -44,6 +45,7 @@ public class pistoleerBehavior : MonoBehaviour
     public int bulletDamage;
     public GameObject bulletPrefab;
 
+    private Transform chasingTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -185,13 +187,31 @@ public class pistoleerBehavior : MonoBehaviour
         }
         else
         {
-            if (playerTwoRoomsAway() == true)
+            if (playerTwoRoomsAway() == true && chasingTowardsPlayer == false)
             {
-                Debug.Log("player 2 away");
+                Debug.Log("player two away");
                 GameObject roomGoTo = sharedNearRoom();
+                /*
+                chasingTarget = roomGoTo.transform;
 
-                //Vector2 targetNode = 
 
+                //if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < 1)
+                //{
+                    chasingTowardsPlayer = true;
+
+                //}
+                //else
+                //{
+                    //this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeEnter", this.transform).position, speed * 2 * Time.deltaTime);
+                //}
+            }
+            else if (chasingTowardsPlayer == true)
+            {
+                if (Vector2.Distance(findNearestNodeOfType("NodeCenter", chasingTarget).position, this.transform.position) < 1)
+                {
+                    this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", chasingTarget).position, speed * 2 * Time.deltaTime);
+                }
+                */
             }
             else if (inCover == false)
             {
@@ -646,9 +666,10 @@ public class pistoleerBehavior : MonoBehaviour
             {
                 if (locationCol.gameObject.transform == rooms[i])
                 {
+                    //Debug.Log("this room");
                     //nothing should happen; this is the room they're in already
                 }
-                else if (Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) == 11)
+                else if (Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) == 11 /* && Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) < 22*/)
                 {
                     finalRooms[ticker] = rooms[i];
                     ticker++;
@@ -670,7 +691,7 @@ public class pistoleerBehavior : MonoBehaviour
                 {
                     //nothing should happen; this is the room they're in already
                 }
-                else if (Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) == 11)
+                else if (Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) == 11 /*&& Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) < 22*/)
                 {
                     finalRooms[ticker] = rooms[i];
                     ticker++;
@@ -698,9 +719,9 @@ public class pistoleerBehavior : MonoBehaviour
         {
             for (int a = 0; a < 4; a++)
             {
-                if (nearToMe[i].position == nearToPlayer[a].position)
+                if (nearToMe[i] == nearToPlayer[a] && nearToMe[i] != this.transform && nearToPlayer[a] != this.transform)
                 {
-                    Debug.Log(nearToMe[i].position);//WRONG WRONG WRONG WRONG
+                    Debug.Log(nearToMe[i]);
                     //intersection = nearToMe[i];
                     return true;
                 }
@@ -713,20 +734,20 @@ public class pistoleerBehavior : MonoBehaviour
     {
         Transform[] nearToMe = nearbyRoom(this.transform.gameObject);
         Transform[] nearToPlayer = nearbyRoom(player);
-        Transform intersection = this.transform;
+        GameObject intersection;
 
         for (int i = 0; i < 4; i++)
         {
             for (int a = 0; a < 4; a++)
             {
-                if (nearToMe[i].position == nearToPlayer[a].position)
+                if (nearToMe[i] == nearToPlayer[a] && nearToMe[i] != this.transform)
                 {
-                    intersection = nearToMe[i];
+                    intersection = nearToMe[i].gameObject;
+                    return intersection;
                 }
             }
         }
-
-        return intersection.gameObject;
+        return null;
     }
 
 }

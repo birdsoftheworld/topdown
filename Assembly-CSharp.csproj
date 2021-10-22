@@ -49,6 +49,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\HealthBar.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\nodeNavigation.cs" />
+     <Compile Include="Assets\Scripts\EnemyBehaviors\bruteBehavior.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\attackBehavior.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\Level.cs" />
@@ -59,6 +60,7 @@
      <Compile Include="Assets\Scripts\CamFollow.cs" />
      <Compile Include="Assets\Scripts\Hittable.cs" />
      <Compile Include="Assets\Scripts\storeRoomVars.cs" />
+     <Compile Include="Assets\Scripts\EnemyBehaviors\pistoleerBehavior.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\HealthTest.cs" />
@@ -66,8 +68,6 @@
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Room.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\idleBehavior.cs" />
-     <Compile Include="Assets\Scripts\EnemyBehaviors\pistoleerBehavior.cs" />
-     <Compile Include="Assets\Scripts\EnemyBehaviors\bruteBehavior.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
