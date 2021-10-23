@@ -79,6 +79,8 @@ public class pistoleerBehavior : MonoBehaviour
             Destroy(gameObject);
         }
 
+        Debug.Log("player two away?" + playerTwoRoomsAway());
+
         ////////  distance to activate
         float distance2 = Vector3.Distance(this.transform.position, player.transform.position);
 
@@ -189,12 +191,13 @@ public class pistoleerBehavior : MonoBehaviour
         {
             if (playerTwoRoomsAway() == true && chasingTowardsPlayer == false)
             {
-                Debug.Log("player two away");
+                //Debug.Log("player two away");
                 GameObject roomGoTo = sharedNearRoom();
-                /*
+                
                 chasingTarget = roomGoTo.transform;
-
-
+                
+                //Debug.Log(roomGoTo.transform.position);
+                /*
                 //if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < 1)
                 //{
                     chasingTowardsPlayer = true;
@@ -207,11 +210,11 @@ public class pistoleerBehavior : MonoBehaviour
             }
             else if (chasingTowardsPlayer == true)
             {
-                if (Vector2.Distance(findNearestNodeOfType("NodeCenter", chasingTarget).position, this.transform.position) < 1)
+                if (Vector2.Distance(chasingTarget.position, this.transform.position) > 1)
                 {
-                    this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", chasingTarget).position, speed * 2 * Time.deltaTime);
-                }
-                */
+                    this.transform.position = Vector2.MoveTowards(this.transform.position, chasingTarget.position, speed * 2 * Time.deltaTime);
+                }*/
+                
             }
             else if (inCover == false)
             {
@@ -651,6 +654,8 @@ public class pistoleerBehavior : MonoBehaviour
 
         Transform[] finalRooms = new Transform[4];
 
+        int ticker = 0;
+
         for (int i = 0; i < (gatherer.Length - 1); i++)
         {
             //Debug.Log(exits[i].transform.position);
@@ -660,7 +665,6 @@ public class pistoleerBehavior : MonoBehaviour
         }
         for (int i = 0; i < (gatherer.Length - 1); i++)
         {
-            int ticker = 0;
 
             if (searchFrom.GetComponent<Player>() == null)
             {
@@ -669,10 +673,13 @@ public class pistoleerBehavior : MonoBehaviour
                     //Debug.Log("this room");
                     //nothing should happen; this is the room they're in already
                 }
-                else if (Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) == 11 /* && Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) < 22*/)
+                else if (Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) == 11 || Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) == -11/* && Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) < 22*/)
                 {
+                    //Debug.Log(locationCol.gameObject.transform.position);
+                    //Debug.Log("me " + rooms[i].position);
                     finalRooms[ticker] = rooms[i];
                     ticker++;
+                    //Debug.Log(rooms[i].position);
                 }
             }
             else
@@ -681,30 +688,53 @@ public class pistoleerBehavior : MonoBehaviour
 
                 for (int b = 0; b < (gatherer.Length - 1); b++)
                 {
+                    //Debug.Log("leg " + gatherer.Length);
+                    //Debug.Log("gat " + gatherer[b].GetComponent<storeRoomVars>().integer);
+                    //Debug.Log("pla " + searchFrom.GetComponent<Player>().location);
+
                     if (gatherer[b].GetComponent<storeRoomVars>().integer == searchFrom.GetComponent<Player>().location)
                     {
                         playerRoom = gatherer[b].transform;
+
+                        //Debug.Log(playerRoom.position);
                     }
                 }
+                //Debug.Log(playerRoom.transform.position);
+                //Debug.Log(rooms[i].position);
 
-                if (playerRoom == rooms[i])
+                //Debug.Log(Vector3.Distance(playerRoom.transform.position, rooms[i].position));
+
+                /*if (playerRoom == rooms[i])
                 {
                     //nothing should happen; this is the room they're in already
                 }
-                else if (Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) == 11 /*&& Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) < 22*/)
+                else */if (Vector3.Distance(playerRoom.transform.position, rooms[i].position) == 11 || Vector3.Distance(playerRoom.transform.position, rooms[i].position) == -11/*&& Vector3.Distance(locationCol.gameObject.transform.position, rooms[i].position) < 22*/)
                 {
+                    //Debug.Log(playerRoom.transform.position);
+                    //Debug.Log("player " + rooms[i].position);
                     finalRooms[ticker] = rooms[i];
-                    ticker++;
+                    //Debug.Log(rooms[i].position);
+                    //Debug.Log(finalRooms[ticker].position);
+                    ticker = ticker + 1;
                 }
             }
         }
         for (int i = 0; i < 4; i++)
 
         {
+
+
             if (finalRooms[i] == null)
             {
                 finalRooms[i] = this.transform;
             }
+            //Debug.Log(finalRooms[i].position);
+
+            if (searchFrom.GetComponent<Player>() != null)
+            {
+                //Debug.Log(finalRooms[i].position);
+            }
+
         }
         return (finalRooms);
     }
@@ -715,13 +745,22 @@ public class pistoleerBehavior : MonoBehaviour
         Transform[] nearToPlayer = nearbyRoom(player);
         //Transform intersection;
 
+        //Debug.Log(nearToPlayer.Length);
+        //Debug.Log("player !!!!" + nearToPlayer[1].position);
+
+
         for (int i = 0; i < 4; i++)
         {
+            //Debug.Log("---------------");
             for (int a = 0; a < 4; a++)
             {
-                if (nearToMe[i] == nearToPlayer[a] && nearToMe[i] != this.transform && nearToPlayer[a] != this.transform)
+                //Debug.Log("me " + nearToMe[i].position);
+                //Debug.Log("player " + nearToPlayer[a].position);
+
+
+                if (nearToMe[i] == nearToPlayer[a] && nearToMe[i] != this.transform)
                 {
-                    Debug.Log(nearToMe[i]);
+
                     //intersection = nearToMe[i];
                     return true;
                 }
