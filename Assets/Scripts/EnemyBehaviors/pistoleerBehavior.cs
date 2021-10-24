@@ -20,7 +20,7 @@ public class pistoleerBehavior : MonoBehaviour
 
     public GameObject target;
 
-    private int waiting;
+    public int waiting;
 
     public int location;
 
@@ -69,6 +69,7 @@ public class pistoleerBehavior : MonoBehaviour
 
         adjustTarge = findNearestNodeOfType("NodeEnter", this.transform).position;
         coverTarge = findNearestNodeOfType("NodeCover", this.transform).position;
+
     }
 
     // Update is called once per frame
@@ -79,7 +80,7 @@ public class pistoleerBehavior : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Debug.Log("player two away?" + playerTwoRoomsAway());
+        //Debug.Log("player two away?" + playerTwoRoomsAway());
 
         ////////  distance to activate
         float distance2 = Vector3.Distance(this.transform.position, player.transform.position);
@@ -160,6 +161,7 @@ public class pistoleerBehavior : MonoBehaviour
         }*/
         else if (location == player.GetComponent<Player>().location || movingToNode == true)
         {
+            chasingTowardsPlayer = false;
             inCover = false;
             Transform closestE = closestExit(0);
 
@@ -183,6 +185,7 @@ public class pistoleerBehavior : MonoBehaviour
                 if (Vector2.Distance(adjustTarge, this.transform.position) < 1)
                 {
                     movingToNode = false;
+                    this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", player.transform).position, speed * 2 * Time.deltaTime);
                     coverTarge = findCover().position;
                 }
             }
@@ -194,10 +197,12 @@ public class pistoleerBehavior : MonoBehaviour
                 //Debug.Log("player two away");
                 GameObject roomGoTo = sharedNearRoom();
                 
-                chasingTarget = roomGoTo.transform;
+                chasingTarget = findNearestNodeOfType("NodeCenter", roomGoTo.transform);
+
+                chasingTarget = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[roomGoTo.GetComponent<storeRoomVars>().integer][6];
+
+                //Debug.Log(chasingTarget.position);
                 
-                //Debug.Log(roomGoTo.transform.position);
-                /*
                 //if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < 1)
                 //{
                     chasingTowardsPlayer = true;
@@ -210,17 +215,55 @@ public class pistoleerBehavior : MonoBehaviour
             }
             else if (chasingTowardsPlayer == true)
             {
-                if (Vector2.Distance(chasingTarget.position, this.transform.position) > 1)
+                if (Vector2.Distance(chasingTarget.position, this.transform.position) > .3)
                 {
-                    this.transform.position = Vector2.MoveTowards(this.transform.position, chasingTarget.position, speed * 2 * Time.deltaTime);
+                    this.transform.position = Vector2.MoveTowards(this.transform.position, chasingTarget.position, speed * 3 * Time.deltaTime);
+                }
+                else
+                {
+                    this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", player.transform).position, speed * 2 * Time.deltaTime);
+                    chasingTowardsPlayer = false;
+
+
+
+                    //find all cover
+                    GameObject[] exits;
+
+                    exits = GameObject.FindGameObjectsWithTag("NodeEnter");
+                    GameObject closest = null;
+                    float distance = Mathf.Infinity;
+                    Vector3 position = player.transform.position;
+
+                    foreach (GameObject go in exits)
+                    {
+                        //Debug.Log(go.transform.parent.gameObject.transform.position);
+                        //Debug.Log(locationCol.gameObject.transform.position);
+
+                        Vector3 diff = go.transform.position - position;
+                        float curDistance = diff.sqrMagnitude;
+                        if (curDistance < distance)
+                        {
+                            if (go.transform.parent.gameObject.transform.position == locationCol.gameObject.transform.position) 
+                            {
+                                closest = go;
+                                distance = curDistance;
+                            }
+                        }
+                    }
+                    //Debug.Log(closest.transform.position);
+                    coverTarge = closest.transform.position;
+                }
+                /*if (playerTwoRoomsAway() == false)
+                {
+                    chasingTowardsPlayer = false;
                 }*/
-                
+
             }
             else if (inCover == false)
             {
                 this.transform.position = Vector2.MoveTowards(this.transform.position, coverTarge, speed * 2 * Time.deltaTime);
 
-                if (Vector2.Distance(coverTarge, this.transform.position) < .1)
+                if (Vector2.Distance(coverTarge, this.transform.position) < .25)
                 {
                     inCover = true;
                 }
@@ -234,19 +277,24 @@ public class pistoleerBehavior : MonoBehaviour
                     hit = Physics2D.Raycast(findNearestNodeOfType("NodeEnter", this.transform).position, player.transform.position - findNearestNodeOfType("NodeEnter", this.transform).position, Mathf.Infinity, layerMask);
                     if (hit.collider.gameObject.tag == "Player")
                     {
-                        this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeEnter", this.transform).position, speed * 2 * Time.deltaTime);
+                        this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeEnter", this.transform).position, speed * 3 * Time.deltaTime);
 
                         if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < .1)
                         {
                             isShooting = true;
                             inCover = false;
+                            this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", player.transform).position, speed * 2 * Time.deltaTime);
                             coverTarge = findCover().position;
                         }
                     }
                     else
                     {
                         inCover = false;
+                        //this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", player.transform).position, speed * 2 * Time.deltaTime);
                         coverTarge = findCover().position;
+
+
+
                         if (ammo < ammoCap)
                         {
                             waiting = waiting + 7;
@@ -596,6 +644,12 @@ public class pistoleerBehavior : MonoBehaviour
                 }
             }
         }
+        if (Vector3.Distance(GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[player.GetComponent<Player>().location][6].position, this.transform.position) > 13)
+        {
+            StartCoroutine("FindCoverCoroutine");
+            return findNearestNodeOfType("NodeCenter", player.transform);
+            //movingToNode = true;
+        }
 
         if (checkTwoNodeDistances(lastNodeChosen, lastNodeChosen2, player.transform) == lastNodeChosen)
         {
@@ -605,9 +659,18 @@ public class pistoleerBehavior : MonoBehaviour
         {
             return levelGen.GetComponent<Level>().roomData[location][lastNodeChosen];
         }
+
+
     }
 
-    public Transform findNearestNodeOfType(string nodeTag, Transform from)
+    IEnumerator FindCoverCoroutine()
+    {
+        yield return new WaitForSeconds(5 / 4);
+        coverTarge = findCover().position;
+    }
+
+
+public Transform findNearestNodeOfType(string nodeTag, Transform from)
     {
         //find all cover
         GameObject[] cover;
@@ -775,12 +838,22 @@ public class pistoleerBehavior : MonoBehaviour
         Transform[] nearToPlayer = nearbyRoom(player);
         GameObject intersection;
 
+        //Debug.Log(nearToPlayer.Length);
+        //Debug.Log("player !!!!" + nearToPlayer[1].position);
+
+
         for (int i = 0; i < 4; i++)
         {
+            //Debug.Log("---------------");
             for (int a = 0; a < 4; a++)
             {
+                //Debug.Log("me " + nearToMe[i].position);
+                //Debug.Log("player " + nearToPlayer[a].position);
+
+
                 if (nearToMe[i] == nearToPlayer[a] && nearToMe[i] != this.transform)
                 {
+
                     intersection = nearToMe[i].gameObject;
                     return intersection;
                 }
@@ -788,5 +861,4 @@ public class pistoleerBehavior : MonoBehaviour
         }
         return null;
     }
-
-}
+    }

@@ -64,6 +64,8 @@ public class Room : MonoBehaviour
                     wall.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f));
                 }
 
+                //cover unaltered/close to door: new Vector2(74, 153)
+
                 if (x == 3)
                 {
                     if (up == true)
@@ -71,7 +73,7 @@ public class Room : MonoBehaviour
                         if (y == 9)
                         {
                             GameObject nodeC = Instantiate(node, tilesChild);
-                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(74, 153));
                             nodeC.tag = "NodeCover";
 
                             thisRoom[0] = nodeC.transform;
@@ -83,7 +85,7 @@ public class Room : MonoBehaviour
                         if (y == 1)
                         {
                             GameObject nodeC = Instantiate(node, tilesChild);
-                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(74, 153));
                             nodeC.tag = "NodeCover";
 
                             thisRoom[10] = nodeC.transform;
@@ -98,7 +100,7 @@ public class Room : MonoBehaviour
                         if (y == 9)
                         {
                             GameObject nodeC = Instantiate(node, tilesChild);
-                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(72, 153));
                             nodeC.tag = "NodeCover";
 
                             thisRoom[2] = nodeC.transform;
@@ -110,7 +112,7 @@ public class Room : MonoBehaviour
                         if (y == 1)
                         {
                             GameObject nodeC = Instantiate(node, tilesChild);
-                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(72, 153));
                             nodeC.tag = "NodeCover";
 
                             thisRoom[12] = nodeC.transform;
@@ -125,7 +127,7 @@ public class Room : MonoBehaviour
                         if (y == 7)
                         {
                             GameObject nodeC = Instantiate(node, tilesChild);
-                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 152));
                             nodeC.tag = "NodeCover";
 
                             thisRoom[3] = nodeC.transform;
@@ -134,7 +136,7 @@ public class Room : MonoBehaviour
                         if (y == 3)
                         {
                             GameObject nodeC = Instantiate(node, tilesChild);
-                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 154));
                             nodeC.tag = "NodeCover";
 
                             thisRoom[8] = nodeC.transform;
@@ -158,7 +160,7 @@ public class Room : MonoBehaviour
                         if (y == 7)
                         {
                             GameObject nodeC = Instantiate(node, tilesChild);
-                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 152));
                             nodeC.tag = "NodeCover";
 
                             thisRoom[4] = nodeC.transform;
@@ -167,7 +169,7 @@ public class Room : MonoBehaviour
                         if (y == 3)
                         {
                             GameObject nodeC = Instantiate(node, tilesChild);
-                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 153));
+                            nodeC.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f) - new Vector2(73, 154));
                             nodeC.tag = "NodeCover";
 
                             thisRoom[9] = nodeC.transform;
