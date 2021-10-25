@@ -2717,10 +2717,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69d0bfd73a77f64b8ce70cddd3b42fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upExit: 0
-  downExit: 0
+  upExit: 1
+  downExit: 1
   leftExit: 1
-  rightExit: 0
+  rightExit: 1
+  node: {fileID: 6591707737442466765, guid: d1a17fae2f4c5db41b88c09f8261b674, type: 3}
 --- !u!156049354 &8931961278151527305
 Grid:
   m_ObjectHideFlags: 0

@@ -58,16 +58,22 @@
      <Compile Include="Assets\Scripts\EnemyBehaviors\EnemyFacingBasic.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\emptyBehavior.cs" />
      <Compile Include="Assets\Scripts\CamFollow.cs" />
+     <Compile Include="Assets\Scripts\Flashbang.cs" />
+     <Compile Include="Assets\Scripts\Tracer.cs" />
      <Compile Include="Assets\Scripts\Hittable.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\PlayerRifle.cs" />
      <Compile Include="Assets\Scripts\storeRoomVars.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\pistoleerBehavior.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\PlayerPistol.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\PlayerCarbine.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\HealthTest.cs" />
-     <Compile Include="Assets\Scripts\PlayerShootCommand.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\PlayerShootCommand.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Room.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\idleBehavior.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\PlayerKnife.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
