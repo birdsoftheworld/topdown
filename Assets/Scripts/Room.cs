@@ -77,6 +77,8 @@ public class Room : MonoBehaviour
                             nodeC.tag = "NodeCover";
 
                             thisRoom[0] = nodeC.transform;
+
+                            nodeC.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
                     }
 
@@ -89,6 +91,8 @@ public class Room : MonoBehaviour
                             nodeC.tag = "NodeCover";
 
                             thisRoom[10] = nodeC.transform;
+
+                            nodeC.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
                     }
                 }
@@ -104,6 +108,8 @@ public class Room : MonoBehaviour
                             nodeC.tag = "NodeCover";
 
                             thisRoom[2] = nodeC.transform;
+
+                            nodeC.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
                     }
 
@@ -116,6 +122,8 @@ public class Room : MonoBehaviour
                             nodeC.tag = "NodeCover";
 
                             thisRoom[12] = nodeC.transform;
+
+                            nodeC.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
                     }
                 }
@@ -131,6 +139,8 @@ public class Room : MonoBehaviour
                             nodeC.tag = "NodeCover";
 
                             thisRoom[3] = nodeC.transform;
+
+                            nodeC.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
 
                         if (y == 3)
@@ -140,6 +150,8 @@ public class Room : MonoBehaviour
                             nodeC.tag = "NodeCover";
 
                             thisRoom[8] = nodeC.transform;
+
+                            nodeC.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
 
                         if (y == 5)
@@ -149,6 +161,8 @@ public class Room : MonoBehaviour
                             nodeE.tag = "NodeEnter";
 
                             thisRoom[5] = nodeE.transform;
+
+                            nodeE.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
                     }
                 }
@@ -164,6 +178,8 @@ public class Room : MonoBehaviour
                             nodeC.tag = "NodeCover";
 
                             thisRoom[4] = nodeC.transform;
+
+                            nodeC.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
 
                         if (y == 3)
@@ -173,6 +189,8 @@ public class Room : MonoBehaviour
                             nodeC.tag = "NodeCover";
 
                             thisRoom[9] = nodeC.transform;
+
+                            nodeC.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
 
                         if (y == 5)
@@ -182,6 +200,8 @@ public class Room : MonoBehaviour
                             nodeE.tag = "NodeEnter";
 
                             thisRoom[7] = nodeE.transform;
+
+                            nodeE.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
                     }
                 }
@@ -195,6 +215,8 @@ public class Room : MonoBehaviour
                         nodeM.tag = "NodeCenter";
 
                         thisRoom[6] = nodeM.transform;
+
+                        nodeM.GetComponent<storeRoomVars>().integer = roomNumber;
                     }
 
                     if (up == true)
@@ -206,6 +228,8 @@ public class Room : MonoBehaviour
                             nodeE.tag = "NodeEnter";
 
                             thisRoom[1] = nodeE.transform;
+
+                            nodeE.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
                     }
 
@@ -218,6 +242,8 @@ public class Room : MonoBehaviour
                             nodeE.tag = "NodeEnter";
 
                             thisRoom[11] = nodeE.transform;
+
+                            nodeE.GetComponent<storeRoomVars>().integer = roomNumber;
                         }
                     }
                 }

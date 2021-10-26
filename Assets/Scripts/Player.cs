@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     public int slowDown = 3;
 
     public int waiting = 0;
+    public int waiting2 = 0;
+    public int waiting3 = 0;
 
     private void Start()
     {
@@ -40,7 +42,11 @@ public class Player : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
 
         slowDown = slowDownMax;
-    }
+
+        waiting = 0;
+        waiting2 = 0;
+        waiting3 = 0;
+}
 
     private void Update()
     {
@@ -79,7 +85,7 @@ public class Player : MonoBehaviour
         {
             weapons[0].SetActive(true);
             weapons[1].SetActive(false);
-            //weapons[2].SetActive(false);
+            weapons[2].SetActive(false);
             //weapons[3].SetActive(false);
             //weapons[4].SetActive(false);
         }
@@ -87,7 +93,7 @@ public class Player : MonoBehaviour
         {
             weapons[0].SetActive(false);
             weapons[1].SetActive(true);
-            //weapons[2].SetActive(false);
+            weapons[2].SetActive(true);
             //weapons[3].SetActive(false);
             //weapons[4].SetActive(false);
         }

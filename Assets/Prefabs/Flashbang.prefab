@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1196059557230160451}
   - component: {fileID: 1196059557230160449}
   - component: {fileID: -6031810576257789515}
+  - component: {fileID: -8091490767374335105}
   m_Layer: 0
   m_Name: Flashbang
   m_TagString: Untagged
@@ -134,6 +135,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8da7583b0cdca46a713787a810e019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletFaction: 0
   bulletSpeed: 0
+  countdownMax: 0
   countdown: 150
+--- !u!114 &-8091490767374335105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196059557230160448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c746e0982e6210140912f413c5896d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faction: 2

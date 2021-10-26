@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Flashbang : MonoBehaviour
 {
-    public Faction bulletFaction;
 
 
     public float bulletSpeed;
@@ -45,7 +44,7 @@ public class Flashbang : MonoBehaviour
         }
         else
         {
-            if (countdown != (countdownMax / -10)) 
+            if (countdown > (countdownMax / -10)) 
             { 
                 countdown--;
                 rb2D.velocity = Vector3.zero;
@@ -82,18 +81,13 @@ public class Flashbang : MonoBehaviour
                 {
                     coll.GetComponent<pistoleerBehavior>().waiting = 100;
                 }
-                if (coll.GetComponent<PlayerCarbine>() != null)
-                {
-                    coll.GetComponent<PlayerCarbine>().waiting = 75;
-                }
-                if (coll.GetComponent<PlayerRifle>() != null)
-                {
-                    coll.GetComponent<PlayerRifle>().waiting = 75;
-                }
                 if (coll.GetComponent<Player>() != null)
                 {
                     coll.GetComponent<Player>().waiting = 75;
+                    coll.GetComponent<Player>().waiting2 = 75;
+                    coll.GetComponent<Player>().waiting3 = 75;
                 }
+
 
                 Hittable hitted = coll.GetComponent<Collider2D>().GetComponent<Hittable>();
 

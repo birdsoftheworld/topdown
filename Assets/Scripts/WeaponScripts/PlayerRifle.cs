@@ -20,23 +20,23 @@ public class PlayerRifle : MonoBehaviour
 
     public int waiting = 0;
 
-    private int fireTickMax = 30;
-    private int fireTick = 30;
 
-    private int specialTickMax = 45;
-    private int specialTick = 45;
+
+    public Player player;
 
     private void Start()
     {
         ammo = ammoCap;
         //bulletOrigin = this.transform;
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     private void FixedUpdate()
     {
-        if (waiting > 0)
+        if (player.waiting2 > 0)
         {
-            waiting--;
+            player.waiting2--;
         }
         else
         {
@@ -44,8 +44,8 @@ public class PlayerRifle : MonoBehaviour
             {
                 if (ammo > 0)
                 {
-                    if (fireTick == fireTickMax)
-                    {
+                    //if (fireTick == fireTickMax)
+                    //{
                         ammo--;
 
                         Vector2 position = bulletOrigin.position;
@@ -57,37 +57,16 @@ public class PlayerRifle : MonoBehaviour
                         bullet.bulletSpeed = bulletSpeed;
                         bullet.bulletFaction = bulletFaction;
                         bullet.bulletDamage = bulletDamage;
-                        //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
+                    //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
 
-                        fireTick = 0;
-                    }
+                    player.waiting2 = 25;
+
+                        //fireTick = 0;
+                        //}
                 }
                 else
                 {
                     //Debug.Log("You need to reload!");
-                }
-            }
-            else if (Input.GetMouseButton(1))
-            {
-                if (ammo > 0)
-                {
-                    if (specialTick == specialTickMax)
-                    {
-                        ammo--;
-
-                        Vector2 position = bulletOrigin.position;
-                        GameObject clone = Instantiate(tracerPrefab, position, bulletOrigin.rotation);
-                        clone.gameObject.SetActive(true);
-
-                        Tracer flare = clone.gameObject.GetComponent("Tracer") as Tracer;
-
-                        flare.bulletSpeed = bulletSpeed;
-                        flare.bulletFaction = bulletFaction;
-                        //bullet.bulletDamage = bulletDamage;
-                        //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
-
-                        specialTick = 0;
-                    }
                 }
             }
             else if (Input.GetKey(KeyCode.R))
@@ -96,7 +75,7 @@ public class PlayerRifle : MonoBehaviour
                 {
                     ammo++;
                     Debug.Log("Reloaded one bullet! You have " + ammo + " bullets loaded.");
-                    waiting = 50;
+                    player.waiting2 = 50;
                 }
                 else
                 {
@@ -104,14 +83,31 @@ public class PlayerRifle : MonoBehaviour
                 }
             }
 
-        }
-        if (fireTick != fireTickMax)
-        {
-            fireTick++;
-        }
-        if (specialTick != specialTickMax)
-        {
-            specialTick++;
+
+            if (player.waiting3 > 0)
+            {
+                player.waiting3--;
+            }
+            else if (Input.GetMouseButton(1))
+            {
+                if (ammo > 0)
+                {
+                    ammo--;
+
+                    Vector2 position = bulletOrigin.position;
+                    GameObject clone = Instantiate(tracerPrefab, position, bulletOrigin.rotation);
+                    clone.gameObject.SetActive(true);
+
+                    Tracer flare = clone.gameObject.GetComponent("Tracer") as Tracer;
+
+                    flare.bulletSpeed = bulletSpeed;
+                    flare.bulletFaction = bulletFaction;
+                    //bullet.bulletDamage = bulletDamage;
+                    //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
+                    player.waiting3 = 25;
+
+                }
+            }
         }
     }
 }

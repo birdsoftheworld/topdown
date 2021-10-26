@@ -267,6 +267,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 127758394}
   offset: {x: 0, y: 0, z: -10}
+--- !u!1 &102922849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 102922850}
+  - component: {fileID: 102922851}
+  m_Layer: 0
+  m_Name: Flashbang
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &102922850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102922849}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 127758394}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &102922851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102922849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18521745b7d2bc844ac7874a41347751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletOrigin: {fileID: 127758394}
+  flashbangPrefab: {fileID: 1196059557230160448, guid: 5831854ba4271f342bb8d87964d6c41d, type: 3}
+  grenadeTimer: 100
+  throwSpeed: 12
+  player: {fileID: 0}
 --- !u!1 &127758389
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +443,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 647207702}
   - {fileID: 1473926811}
-  - {fileID: 0}
+  - {fileID: 102922849}
   - {fileID: 0}
   - {fileID: 0}
   dashRechargeMax: 100
@@ -403,6 +451,8 @@ MonoBehaviour:
   slowDownMax: 3
   slowDown: 3
   waiting: 0
+  waiting2: 0
+  waiting3: 0
 --- !u!4 &127758394
 Transform:
   m_ObjectHideFlags: 0
@@ -416,6 +466,7 @@ Transform:
   m_Children:
   - {fileID: 647207703}
   - {fileID: 1473926812}
+  - {fileID: 102922850}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -457,11 +508,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5565209165297029935, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5565209165297029935, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5565209166116833457, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: playerHealth
@@ -557,7 +608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5565209166116833459, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5565209166116833471, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
       propertyPath: health
@@ -788,6 +839,7 @@ MonoBehaviour:
   ammoCap: 5
   ammo: 0
   waiting: 0
+  player: {fileID: 0}
 --- !u!212 &647207705
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1647,15 +1699,14 @@ MonoBehaviour:
   bulletFaction: 0
   bulletOrigin: {fileID: 127758394}
   bulletPrefab: {fileID: 8464980748251324624, guid: bb26bab4cba51f84baaac207af44d6ea, type: 3}
-  flashbangPrefab: {fileID: 1196059557230160448, guid: 5831854ba4271f342bb8d87964d6c41d, type: 3}
   bulletSpeed: 12
   bulletDamage: 1
   ammoCap: 15
   ammo: 0
-  grenadeTimer: 80
   waiting: 0
   burstTick: 5
   fireTick: 5
+  player: {fileID: 0}
 --- !u!1 &1536954316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,7 +2207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4364936455462086941, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: mapSize
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4364936455462086941, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: straightLine
@@ -2794,7 +2845,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3096087901505825803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.49, y: -2.5211215, z: 0}
+  m_LocalPosition: {x: 5.49, y: 2.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

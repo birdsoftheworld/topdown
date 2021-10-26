@@ -6,18 +6,18 @@ public class PlayerCarbine : MonoBehaviour
 {
     //public Rigidbody2D bullet;
 
+
+
     public Faction bulletFaction;
 
     public Transform bulletOrigin;
 
     public GameObject bulletPrefab;
-    public GameObject flashbangPrefab;
 
     public float bulletSpeed = 12;
     public int bulletDamage = 3;
     public int ammoCap = 5;
     public int ammo;
-    public int grenadeTimer = 100;
 
     public int waiting = 0;
 
@@ -26,21 +26,22 @@ public class PlayerCarbine : MonoBehaviour
     public int burstTick = 5;
     public int fireTick = 5;
 
-    private int specialTickMax = 45;
-    private int specialTick = 45;
+    public Player player;
 
     private void Start()
     {
         ammo = ammoCap;
         fireTick = fireTickMax / 10;
         //bulletOrigin = this.transform;
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     private void FixedUpdate()
     {
-        if (waiting > 0)
+        if (player.waiting2 > 0)
         {
-            waiting--;
+            player.waiting2--;
         }
         else
         {
@@ -72,36 +73,14 @@ public class PlayerCarbine : MonoBehaviour
                     //Debug.Log("You need to reload!");
                 }
             }
-            else if (Input.GetMouseButton(1))
-            {
-                if (ammo > 0)
-                {
-                    if (specialTick == specialTickMax)
-                    {
-                        Vector2 position = bulletOrigin.position;
-                        GameObject clone = Instantiate(flashbangPrefab, position, bulletOrigin.rotation);
-                        clone.gameObject.SetActive(true);
 
-                        Flashbang grenade = clone.gameObject.GetComponent("Flashbang") as Flashbang;
-
-                        grenade.bulletSpeed = bulletSpeed;
-                        grenade.countdownMax = grenadeTimer;
-                        grenade.countdown = grenadeTimer;
-                        grenade.bulletFaction = bulletFaction;
-                        //bullet.bulletDamage = bulletDamage;
-                        //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
-
-                        specialTick = 0;
-                    }
-                }
-            }
             else if (Input.GetKey(KeyCode.R))
             {
                 if (ammo < ammoCap)
                 {
                     ammo = ammoCap;
                     Debug.Log("Rrrrreloading!");
-                    waiting = 150;
+                    player.waiting2 = 150;
                 }
                 else
                 {
@@ -126,7 +105,7 @@ public class PlayerCarbine : MonoBehaviour
         else if (burstTick == 0)
         {
             burstTick = burstTickMax;
-            waiting = 50;
+            player.waiting2 = 50;
             if (fireTick < (fireTickMax))
             {
                 fireTick++;
@@ -139,9 +118,6 @@ public class PlayerCarbine : MonoBehaviour
                 fireTick++;
             }
         }
-        if (specialTick != specialTickMax)
-        {
-            specialTick++;
-        }
+
     }
 }

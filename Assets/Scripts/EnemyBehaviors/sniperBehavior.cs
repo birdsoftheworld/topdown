@@ -30,10 +30,10 @@ public class sniperBehavior : MonoBehaviour
     private Vector2 nodeDirectionModifier;
 
     public bool movingToNode = false;
-    public bool inCover = false;
+    public bool movingToCenter = false;
     public bool isShooting = false;
     public bool inPanic = false;
-    public bool chasingTowardsPlayer = false;
+    public bool movingToFurther = false;
 
     public Vector2 adjustTarge = new Vector2(0, 0);
     public Vector2 coverTarge = new Vector2(0, 0);
@@ -67,6 +67,7 @@ public class sniperBehavior : MonoBehaviour
         locationCol = GetComponent<Collider2D>();
 
         nodeDirectionModifier = new Vector2(0.0f, 0.0f);
+
 
         //adjustTarge = findNearestNodeOfType("NodeEnter", this.transform).position;
         //coverTarge = findNearestNodeOfType("NodeCover", this.transform).position;
@@ -150,13 +151,11 @@ public class sniperBehavior : MonoBehaviour
                 isShooting = false;
             }
         }
-        else if (location == player.GetComponent<Player>().location || movingToNode == true)
+        else if (location == player.GetComponent<Player>().location || movingToNode)
         {
-            chasingTowardsPlayer = false;
-            inCover = false;
             Transform closestE = closestExit(0);
 
-            if (Vector3.Distance(this.transform.position, closestE.position) > 1 && movingToNode == false)
+            if (Vector3.Distance(this.transform.position, closestE.position) > .5 && movingToNode == false)
             {
                 this.transform.position = Vector2.MoveTowards(this.transform.position, closestE.position, speed * 2 * Time.deltaTime);
 
@@ -173,11 +172,12 @@ public class sniperBehavior : MonoBehaviour
             {
                 this.transform.position = Vector2.MoveTowards(this.transform.position, adjustTarge, speed * 2 * Time.deltaTime);
 
-                if (Vector2.Distance(adjustTarge, this.transform.position) < 1)
+                if (Vector2.Distance(adjustTarge, this.transform.position) < .5)
                 {
                     movingToNode = false;
                     this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", player.transform).position, speed * 2 * Time.deltaTime);
                     centerTarge = findNearestNodeOfType("NodeCenter", this.transform).position;
+                    movingToCenter = true;
                 }
             }
         }
@@ -186,114 +186,46 @@ public class sniperBehavior : MonoBehaviour
             if (playerTwoRoomsAway() == true/* && chasingTowardsPlayer == false*/)
             {
                 //Debug.Log("player two away");
+                //Debug.Log(checkSightToPlayer());
                 if (checkSightToPlayer() == true)
                 {
+                    Debug.Log("shoot");
                     isShooting = true;
                 }
-                
-                GameObject roomGoTo = sharedNearRoom();
-
-                chasingTarget = findNearestNodeOfType("NodeCenter", roomGoTo.transform);
-
-                chasingTarget = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[roomGoTo.GetComponent<storeRoomVars>().integer][6];
-
-
-            }
-            /*else if (chasingTowardsPlayer == true)
-            {
-                if (Vector2.Distance(chasingTarget.position, this.transform.position) > .3)
-                {
-                    this.transform.position = Vector2.MoveTowards(this.transform.position, chasingTarget.position, speed * 3 * Time.deltaTime);
-                }
                 else
                 {
-                    this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", player.transform).position, speed * 2 * Time.deltaTime);
-                    chasingTowardsPlayer = false;
-
-
-
-                    //find all cover
-                    GameObject[] exits;
-
-                    exits = GameObject.FindGameObjectsWithTag("NodeEnter");
-                    GameObject closest = null;
-                    float distance = Mathf.Infinity;
-                    Vector3 position = player.transform.position;
-
-                    foreach (GameObject go in exits)
-                    {
-                        //Debug.Log(go.transform.parent.gameObject.transform.position);
-                        //Debug.Log(locationCol.gameObject.transform.position);
-
-                        Vector3 diff = go.transform.position - position;
-                        float curDistance = diff.sqrMagnitude;
-                        if (curDistance < distance)
-                        {
-                            if (go.transform.parent.gameObject.transform.position == locationCol.gameObject.transform.position)
-                            {
-                                closest = go;
-                                distance = curDistance;
-                            }
-                        }
-                    }
-                    //Debug.Log(closest.transform.position);
-                    coverTarge = closest.transform.position;
-                }
-                /*if (playerTwoRoomsAway() == false)
-                {
-                    chasingTowardsPlayer = false;
-                }*/
-
-            //}
-            /*else if (inCover == false)
-            {
-                this.transform.position = Vector2.MoveTowards(this.transform.position, coverTarge, speed * 2 * Time.deltaTime);
-
-                if (Vector2.Distance(coverTarge, this.transform.position) < .25)
-                {
-                    inCover = true;
-                }
-            }*/
-            /*else
-            {
-                if (ammo > 0)
-                {
-                    int layerMask = 1 << 0;
-                    RaycastHit2D hit;
-                    hit = Physics2D.Raycast(findNearestNodeOfType("NodeEnter", this.transform).position, player.transform.position - findNearestNodeOfType("NodeEnter", this.transform).position, Mathf.Infinity, layerMask);
-                    if (hit.collider.gameObject.tag == "Player")
-                    {
-                        this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeEnter", this.transform).position, speed * 3 * Time.deltaTime);
-
-                        if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < .1)
-                        {
-                            isShooting = true;
-                            inCover = false;
-                            this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", player.transform).position, speed * 2 * Time.deltaTime);
-                            coverTarge = findCover().position;
-                        }
-                    }
-                    else
-                    {
-                        inCover = false;
-                        //this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", player.transform).position, speed * 2 * Time.deltaTime);
-                        coverTarge = findCover().position;
-
-
-
-                        if (ammo < ammoCap)
-                        {
-                            waiting = waiting + 7;
-                            ammo++;
-                        }
-                    }
-                }*/
-                else
-                {
-                    //waiting = waiting + (7 * ammoCap);
-                    //ammo = ammoCap;
+                    this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", this.transform).position, speed * 2 * Time.deltaTime);
                 }
             }
+            else if (movingToCenter)
+            {
+                this.transform.position = Vector2.MoveTowards(this.transform.position, centerTarge, speed * 2 * Time.deltaTime);
+
+                if (Vector2.Distance(centerTarge, this.transform.position) < .5)
+                {
+                    chasingTarget = closestCenterSansPlayer(1);
+                    movingToCenter = false;
+                    movingToFurther = true;
+                    //this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", this.transform).position, speed * 2 * Time.deltaTime);
+                }
+            }
+            else if (movingToFurther == true)
+            {
+                this.transform.position = Vector2.MoveTowards(this.transform.position, chasingTarget.position, speed * 2 * Time.deltaTime);
+                if (Vector2.Distance(chasingTarget.position, this.transform.position) < .5)
+                {
+                    movingToCenter = false;
+                    movingToFurther = false;
+                    //this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", this.transform).position, speed * 2 * Time.deltaTime);
+                }
+            }
+            else
+            {
+                chasingTarget = closestCenterSansPlayer(1);
+                movingToFurther = true;
+            }
+
+        }
         }
         /*if (Vector3.Distance(this.transform.position, player.transform.position) < 1)
         {
@@ -359,6 +291,81 @@ public class sniperBehavior : MonoBehaviour
             location = col.GetComponent<storeRoomVars>().integer;
         }
     }
+
+    private Transform closestCenterSansPlayer(int positionFind)
+    {
+        GameObject[] centers;
+
+        centers = GameObject.FindGameObjectsWithTag("NodeCenter");
+
+        List<Transform> trueCenters = new List<Transform>();
+        List<float> distances = new List<float>();
+
+        Transform fallback = this.transform;
+
+        //Debug.Log(exits.Length);
+
+        for (int i = 0; i < (centers.Length - 1); i++)
+        {
+            //Debug.Log(exits[i].transform.position);
+
+            trueCenters.Add(centers[i].transform);
+            distances.Add(Vector3.Distance(this.transform.position, centers[i].transform.position));
+        }
+
+        distances.Sort();
+
+        for (int i = 0; i < centers.Length - 1; i++)
+        {
+            if (Mathf.Abs(Vector3.Distance(this.transform.position, trueCenters[i].position) - distances[positionFind]) < .5)
+            {
+                //Debug.Log(trueExits[i].position);
+                /*
+                if (trueCenters[i].position.y > findNearestNodeOfType("NodeCenter", this.transform).position.y)
+                {
+                    nodeDirectionModifier = new Vector2(0.0f, 4.0f);
+                }
+                if (trueCenters[i].position.y < findNearestNodeOfType("NodeCenter", this.transform).position.y)
+                {
+                    nodeDirectionModifier = new Vector2(0.0f, -4.0f);
+                }
+                if (trueCenters[i].position.x > findNearestNodeOfType("NodeCenter", this.transform).position.x)
+                {
+                    nodeDirectionModifier = new Vector2(4.0f, 0.0f);
+                }
+                if (trueCenters[i].position.x < findNearestNodeOfType("NodeCenter", this.transform).position.x)
+                {
+                    nodeDirectionModifier = new Vector2(-4.0f, 0.0f);
+                }*/
+
+                if (centers[i].GetComponent<storeRoomVars>().integer == location)
+                {
+
+                }
+                else if (centers[i].GetComponent<storeRoomVars>().integer == player.GetComponent<Player>().location)
+                {
+                    fallback = trueCenters[i];
+                }
+                else
+                {
+                    Debug.Log(trueCenters[i].position);
+                    return trueCenters[i];
+                }
+            }
+        }
+
+        if (fallback == this.transform)
+        {
+            Debug.Log("total failure");
+        }
+        Debug.Log("fallback");
+        return fallback;
+
+        //return exitDistances[positionFind];
+
+        //trueExits.Sort(exitDistances);
+    }
+
 
     private Transform closestExit(int positionFind)
     {
