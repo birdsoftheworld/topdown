@@ -39,7 +39,6 @@ public class sniperBehavior : MonoBehaviour
     public Vector2 coverTarge = new Vector2(0, 0);
     public Vector2 centerTarge = new Vector2(0, 0);
 
-    public int firingSpeed;
     public int ammoCap;
     public int ammo;
     public int bulletSpeed;
@@ -125,16 +124,20 @@ public class sniperBehavior : MonoBehaviour
 
     private void setActiveBehavior()
     {
+        //Debug.Log(playerNear());
         if (isShooting == true)
         {
-            if (ammo > 0)
+            if (Vector2.Distance(this.transform.position, player.transform.position) > 10)
             {
-                if (checkSightToPlayer() == true)
+                if (ammo > 0)
                 {
-                    shoot();
                     if (checkSightToPlayer() == true)
                     {
-                        waiting = firingSpeed;
+                        shoot();
+
+                            waiting = 50;
+
+                            isShooting = false;
                     }
                     else
                     {
@@ -144,16 +147,30 @@ public class sniperBehavior : MonoBehaviour
                 else
                 {
                     isShooting = false;
+                    waiting = 75;
+                    ammo++;
                 }
             }
             else
             {
-                isShooting = false;
+                if (checkSightToPlayer() == true)
+                {
+                    pistolShoot();
+                    waiting = 25;
+                    //waiting = 50;
+                    isShooting = false;
+                }
+                else
+                {
+                    isShooting = false;
+                }
             }
         }
         else if (location == player.GetComponent<Player>().location || movingToNode)
         {
             Transform closestE = closestExit(0);
+            movingToFurther = false;
+            movingToCenter = false;
 
             if (Vector3.Distance(this.transform.position, closestE.position) > .5 && movingToNode == false)
             {
@@ -183,17 +200,22 @@ public class sniperBehavior : MonoBehaviour
         }
         else
         {
-            if (playerTwoRoomsAway() == true/* && chasingTowardsPlayer == false*/)
+            if (playerNear() == true/* && chasingTowardsPlayer == false*/)
             {
                 //Debug.Log("player two away");
                 //Debug.Log(checkSightToPlayer());
                 if (checkSightToPlayer() == true)
                 {
-                    Debug.Log("shoot");
+                    //Debug.Log("shoot");
                     isShooting = true;
                 }
                 else
                 {
+                    if (ammo <= 0)
+                    {
+                        waiting = 75;
+                        ammo++;
+                    }
                     this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", this.transform).position, speed * 2 * Time.deltaTime);
                 }
             }
@@ -204,8 +226,15 @@ public class sniperBehavior : MonoBehaviour
                 if (Vector2.Distance(centerTarge, this.transform.position) < .5)
                 {
                     chasingTarget = closestCenterSansPlayer(1);
+                    if (chasingTarget.gameObject.GetComponent<storeRoomVars>().integer == player.GetComponent<Player>().location)
+                    {
+                        isShooting = true;
+                    }
                     movingToCenter = false;
-                    movingToFurther = true;
+                    if (playerNear() == false)
+                    {
+                        movingToFurther = true;
+                    }
                     //this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", this.transform).position, speed * 2 * Time.deltaTime);
                 }
             }
@@ -222,18 +251,74 @@ public class sniperBehavior : MonoBehaviour
             else
             {
                 chasingTarget = closestCenterSansPlayer(1);
+                if (chasingTarget.gameObject.GetComponent<storeRoomVars>().integer == player.GetComponent<Player>().location)
+                {
+                    isShooting = true;
+                }
                 movingToFurther = true;
             }
 
         }
         }
-        /*if (Vector3.Distance(this.transform.position, player.transform.position) < 1)
-        {
-            inPanic = true;
-        }*/
+    /*if (Vector3.Distance(this.transform.position, player.transform.position) < 1)
+    {
+        inPanic = true;
+    }*/
     //}
 
-    private bool checkSightToPlayer()
+    private bool playerNear() //ADD TO OTHER ENEMY!!!!!!!?????????????????? MAYBE CAN ONLY DETECT ORTHANGONAL ADJACENCY IDK
+    {
+        List<GameObject> playerNears = new List<GameObject>();
+        List<GameObject> meNears = new List<GameObject>();
+
+        GameObject[] centralNodes;
+
+        centralNodes = GameObject.FindGameObjectsWithTag("NodeCenter");
+        Vector3 position = this.transform.position;
+
+        Transform playerCenter = findNearestNodeOfType("NodeCenter", player.transform);
+        Transform meCenter = findNearestNodeOfType("NodeCenter", this.transform);
+
+
+        foreach (GameObject go in centralNodes)
+        {
+            //Debug.Log(Vector2.Distance(playerCenter.position, go.transform.position));
+            if (Vector2.Distance(playerCenter.position, go.transform.position) == 11)
+            {
+                playerNears.Add(go);
+                //Debug.Log(go.transform.position);
+            }
+        }
+        foreach (GameObject go2 in centralNodes)
+        {
+            //Debug.Log(Vector2.Distance(meCenter.position, go2.transform.position));
+            if (Vector2.Distance(meCenter.position, go2.transform.position) == 11)
+            {
+                meNears.Add(go2);
+                //Debug.Log(go2.transform.position);
+            }
+        }
+        //Debug.Log(playerNears.Count);
+        //Debug.Log("----");
+        for (int i = 0; i < playerNears.Count; i++)
+        {
+            //Debug.Log("p " + playerNears[i].transform.position);
+            for (int b = 0; b < meNears.Count; b++)
+            {
+                //Debug.Log("i " + meNears[b].transform.position);
+
+                if (playerNears[i].transform.position == meNears[b].transform.position)
+                {
+                    //Debug.Log("success!!");
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+        private bool checkSightToPlayer()
     {
         int layerMask = 1 << 0;
         RaycastHit2D hit;
@@ -282,6 +367,20 @@ public class sniperBehavior : MonoBehaviour
         bullet.bulletDamage = bulletDamage;
     }
 
+    private void pistolShoot()
+    {
+        FaceTarget(player.transform.position);
+
+        GameObject clone = Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
+        clone.gameObject.SetActive(true);
+
+        Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
+
+        bullet.bulletSpeed = 10;
+        bullet.bulletFaction = (Faction)1;
+        bullet.bulletDamage = 2;
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Floor")
@@ -294,64 +393,38 @@ public class sniperBehavior : MonoBehaviour
 
     private Transform closestCenterSansPlayer(int positionFind)
     {
+        //find all cover
         GameObject[] centers;
-
-        centers = GameObject.FindGameObjectsWithTag("NodeCenter");
-
-        List<Transform> trueCenters = new List<Transform>();
-        List<float> distances = new List<float>();
 
         Transform fallback = this.transform;
 
-        //Debug.Log(exits.Length);
-
-        for (int i = 0; i < (centers.Length - 1); i++)
+        centers = GameObject.FindGameObjectsWithTag("NodeCenter");
+        Transform closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = this.transform.position;
+        foreach (GameObject go in centers)
         {
-            //Debug.Log(exits[i].transform.position);
-
-            trueCenters.Add(centers[i].transform);
-            distances.Add(Vector3.Distance(this.transform.position, centers[i].transform.position));
-        }
-
-        distances.Sort();
-
-        for (int i = 0; i < centers.Length - 1; i++)
-        {
-            if (Mathf.Abs(Vector3.Distance(this.transform.position, trueCenters[i].position) - distances[positionFind]) < .5)
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
             {
-                //Debug.Log(trueExits[i].position);
-                /*
-                if (trueCenters[i].position.y > findNearestNodeOfType("NodeCenter", this.transform).position.y)
+                if (go.GetComponent<storeRoomVars>().integer != location)
                 {
-                    nodeDirectionModifier = new Vector2(0.0f, 4.0f);
-                }
-                if (trueCenters[i].position.y < findNearestNodeOfType("NodeCenter", this.transform).position.y)
-                {
-                    nodeDirectionModifier = new Vector2(0.0f, -4.0f);
-                }
-                if (trueCenters[i].position.x > findNearestNodeOfType("NodeCenter", this.transform).position.x)
-                {
-                    nodeDirectionModifier = new Vector2(4.0f, 0.0f);
-                }
-                if (trueCenters[i].position.x < findNearestNodeOfType("NodeCenter", this.transform).position.x)
-                {
-                    nodeDirectionModifier = new Vector2(-4.0f, 0.0f);
-                }*/
-
-                if (centers[i].GetComponent<storeRoomVars>().integer == location)
-                {
-
-                }
-                else if (centers[i].GetComponent<storeRoomVars>().integer == player.GetComponent<Player>().location)
-                {
-                    fallback = trueCenters[i];
-                }
-                else
-                {
-                    Debug.Log(trueCenters[i].position);
-                    return trueCenters[i];
+                    if (go.GetComponent<storeRoomVars>().integer == player.GetComponent<Player>().location)
+                    {
+                        fallback = go.transform;
+                    }
+                    else
+                    {
+                        closest = go.transform;
+                        distance = curDistance;
+                    }
                 }
             }
+        }
+        if (closest != null)
+        {
+            return closest.transform;
         }
 
         if (fallback == this.transform)
@@ -360,10 +433,6 @@ public class sniperBehavior : MonoBehaviour
         }
         Debug.Log("fallback");
         return fallback;
-
-        //return exitDistances[positionFind];
-
-        //trueExits.Sort(exitDistances);
     }
 
 
