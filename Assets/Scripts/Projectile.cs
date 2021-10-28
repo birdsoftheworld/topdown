@@ -46,19 +46,14 @@ public class Projectile : MonoBehaviour
     {
         if (coll.GetComponent<Collider2D>().GetComponent<Hittable>() != null)
         {
-
             Hittable hitted = coll.GetComponent<Collider2D>().GetComponent<Hittable>();
-
             Faction hitFact = hitted.faction;
 
             if (hitted != null)
             {
                 if (hitted.CanHit(bulletFaction))
                 {
-
-
                     Destroy(gameObject);
-
                     HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
                     if (health != null)
                     {

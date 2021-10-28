@@ -81,6 +81,10 @@ public class Flashbang : MonoBehaviour
                 {
                     coll.GetComponent<pistoleerBehavior>().waiting = 100;
                 }
+                if (coll.GetComponent<sniperBehavior>() != null)
+                {
+                    coll.GetComponent<sniperBehavior>().waiting = 100;
+                }
                 if (coll.GetComponent<Player>() != null)
                 {
                     coll.GetComponent<Player>().waiting = 75;

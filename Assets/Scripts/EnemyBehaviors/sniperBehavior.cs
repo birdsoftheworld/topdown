@@ -34,6 +34,7 @@ public class sniperBehavior : MonoBehaviour
     public bool isShooting = false;
     public bool inPanic = false;
     public bool movingToFurther = false;
+    public bool takingShot = false;
 
     public Vector2 adjustTarge = new Vector2(0, 0);
     public Vector2 coverTarge = new Vector2(0, 0);
@@ -44,13 +45,14 @@ public class sniperBehavior : MonoBehaviour
     public int bulletSpeed;
     public int bulletDamage;
     public GameObject bulletPrefab;
+    public GameObject tracerPrefab;
 
     private Transform chasingTarget;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        takingShot = false;
         ammo = ammoCap;
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -133,11 +135,18 @@ public class sniperBehavior : MonoBehaviour
                 {
                     if (checkSightToPlayer() == true)
                     {
-                        shoot();
-
-                            waiting = 50;
-
+                        if (takingShot == true)
+                        {
+                            //Debug.Log("bang");
+                            snipe();
+                            waiting = 60;
+                            takingShot = false;
                             isShooting = false;
+                        }
+                        else {
+                            targeting();
+                            waiting = 30;
+                        }
                     }
                     else
                     {
@@ -146,8 +155,7 @@ public class sniperBehavior : MonoBehaviour
                 }
                 else
                 {
-                    isShooting = false;
-                    waiting = 75;
+                    waiting = 90;
                     ammo++;
                 }
             }
@@ -213,7 +221,7 @@ public class sniperBehavior : MonoBehaviour
                 {
                     if (ammo <= 0)
                     {
-                        waiting = 75;
+                        waiting = 90;
                         ammo++;
                     }
                     this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", this.transform).position, speed * 2 * Time.deltaTime);
@@ -352,19 +360,35 @@ public class sniperBehavior : MonoBehaviour
     {
     }
 
-    private void shoot()
+    private void targeting()
     {
-        ammo--;
         FaceTarget(player.transform.position);
 
-        GameObject clone = Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
+        GameObject clone = Instantiate(tracerPrefab, this.transform.position, this.transform.rotation);
         clone.gameObject.SetActive(true);
 
-        Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
+        SniperTargetter tracer = clone.gameObject.GetComponent("SniperTargetter") as SniperTargetter;
 
-        bullet.bulletSpeed = bulletSpeed;
-        bullet.bulletFaction = (Faction)1;
-        bullet.bulletDamage = bulletDamage;
+        tracer.bulletSpeed = bulletSpeed;
+        tracer.bulletFaction = (Faction)1;
+        tracer.sniper = this.gameObject;
+    }
+
+    private void snipe()
+    {
+            ammo--;
+
+
+            FaceTarget(player.transform.position);
+
+            GameObject clone = Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
+            clone.gameObject.SetActive(true);
+
+            Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
+
+            bullet.bulletSpeed = bulletSpeed;
+            bullet.bulletFaction = (Faction)1;
+            bullet.bulletDamage = bulletDamage;
     }
 
     private void pistolShoot()

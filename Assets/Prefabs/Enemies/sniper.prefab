@@ -178,11 +178,13 @@ MonoBehaviour:
   isShooting: 0
   inPanic: 0
   movingToFurther: 0
+  takingShot: 0
   adjustTarge: {x: 0, y: 0}
   coverTarge: {x: 0, y: 0}
   centerTarge: {x: 0, y: 0}
   ammoCap: 1
   ammo: 1
-  bulletSpeed: 25
+  bulletSpeed: 30
   bulletDamage: 5
   bulletPrefab: {fileID: 7313259170505084681, guid: de86c533caa0f574e924019a5f4c8858, type: 3}
+  tracerPrefab: {fileID: 8567409535944632221, guid: 5aedd57deaa344146b6b1e13e35f74c3, type: 3}
