@@ -5,26 +5,25 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
 
-    public GameObject enemyPrefab;
+    //public GameObject enemyPrefab;
     public GameObject healthPrefab;
 
     public Transform origin;
 
-  //  public GameObject player;
+    //  public GameObject player;
 
-  //  public GameObject canvas;
+    //  public GameObject canvas;
+
+    public List<GameObject> enemyPrefabs;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
         Vector3 position = origin.position;
 
         Spawn(position, origin);
-
-
-
-
     }
 
     // Update is called once per frame
@@ -35,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Spawn(Vector3 position, Transform rotation)
     {
-        GameObject clone = Instantiate(enemyPrefab, position, origin.rotation);
+        GameObject clone = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], position, origin.rotation);
    //     clone.GetComponent<EnemyFacingBasic>().player = player;
 
         GameObject cloneHealth = Instantiate(healthPrefab, position, origin.rotation);

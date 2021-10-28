@@ -18,7 +18,10 @@ public class turretBehavior : MonoBehaviour
 
     public List<GameObject> nearbyOtherRooms;
 
+    public List<float> swivels;
+
     public int waiting;
+    public int scanning = 0;
 
     public int location;
 
@@ -26,8 +29,6 @@ public class turretBehavior : MonoBehaviour
     private GameObject levelGen;
 
 
-    public int ammoCap;
-    public int ammo;
     public int bulletSpeed;
     public int bulletDamage;
     public GameObject bulletPrefab;
@@ -38,13 +39,23 @@ public class turretBehavior : MonoBehaviour
 
     public Transform facingTarge;
 
+    public PolygonCollider2D cone;
+
+    private bool isShooting = false;
+
+    private bool sensingPlayer = false;
+
+    public int killCounterMax = 30;
+    private int killCounter = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        killCounter = 0;
 
         nearbyOtherRooms = new List<GameObject>();
+        swivels = new List<float>();
 
-        ammo = ammoCap;
 
         player = GameObject.FindGameObjectWithTag("Player");
 
@@ -54,7 +65,8 @@ public class turretBehavior : MonoBehaviour
 
         rb2D = GetComponent<Rigidbody2D>();
 
-        waiting = 0;
+        waiting = 1;
+        scanning = 0;
 
         locationCol = GetComponent<Collider2D>();
 
@@ -65,9 +77,9 @@ public class turretBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (nearbyOtherRooms.Count == 0)
+        if (swivels.Count == 0)
         {
-            validExits();
+            defineSwivels();
         }
 
         if (health.curHealth <= 0)
@@ -78,7 +90,7 @@ public class turretBehavior : MonoBehaviour
         ////////  distance to activate
         float distance2 = Vector3.Distance(this.transform.position, player.transform.position);
 
-        if (distance2 <= distance)
+        /*if (distance2 <= distance)
         {
             if (checkSightToPlayer() == true)
             {
@@ -87,10 +99,19 @@ public class turretBehavior : MonoBehaviour
             else
             {
             }
-        }
-        if (active == true && distance2 >= distance * 3)
+        }*/
+        if (active == true && sensingPlayer == false && checkSightToPlayer() == false)
         {
             active = false;
+
+            //Debug.Log(transform.localEulerAngles.z);
+            //Debug.Log(Mathf.Round(transform.localEulerAngles.z));
+            //Debug.Log(transform.localEulerAngles.z -Mathf.Round(transform.localEulerAngles.z));
+            float fixRotation = transform.localEulerAngles.z - Mathf.Round(transform.localEulerAngles.z);
+
+            this.transform.Rotate(0.0f, 0.0f, -fixRotation, Space.World);
+
+            scanning = 60;
         }
     }
 
@@ -108,91 +129,137 @@ public class turretBehavior : MonoBehaviour
             }
             else
             {
+                if (scanForPlayer() == true)
+                {
+                    active = true;
+                    scanning = 0;
+                }
+                else if (scanning > 0)
+                {
+                    scanning--;
+                }
+                else if (transform.localEulerAngles.z > (swivels[facingNumber] - .1) && transform.localEulerAngles.z < (swivels[facingNumber] + .1))
+                {
+                    scanning = 30;
+                    if (facingNumber == swivels.Count - 1)
+                    {
+                        facingNumber = 0;
+                    }
+                    else
+                    {
+                        facingNumber++;
+                    }
+                }
+                else
+                {
+                    this.transform.Rotate(0.0f, 0.0f, -1.0f, Space.World);
+                }
             }
         }
     }
 
     private void setActiveBehavior()
     {
-        //facingTarge = nearbyOtherRooms[facingNumber].transform;
-
-        Vector3 dirFromAtoB = (nearbyOtherRooms[facingNumber].transform.position - this.transform.position).normalized;
-        float dotProd = Vector3.Dot(dirFromAtoB, this.transform.forward);
-
-        //Debug.Log(dotProd);
-
-        //if (dotProd == 0)
-        //Debug.Log(Mathf.Round(this.transform.rotation.z)); // ADD BEHAVIOR SO IT COMPLETE FULL 90 DEGREES
-        if (this.transform.rotation.z < 1)
+        if (isShooting == true)
         {
-            //Debug.Log(nearbyOtherRooms[facingNumber].transform.position);
-            //Debug.Log(facingNumber);
-            //Debug.Log(nearbyOtherRooms.Count);
-            waiting = 0;
-
-            if (facingNumber == nearbyOtherRooms.Count - 1)
+            if (killCounter > 0)
             {
-                facingNumber = 0;
+                Vector3 vectorToTarget = facingTarge.position - transform.position;
+                float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+                Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+                transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed / 2);
+
+                shoot();
+                waiting = 5;
+                killCounter = killCounter - 5;
             }
             else
             {
-                facingNumber++;
+                isShooting = false;
+                waiting = 60;
             }
-            facingTarge = nearbyOtherRooms[facingNumber].transform;
         }
         else
         {
-            facingTarge = nearbyOtherRooms[facingNumber].transform;
-        }
-        
-        Vector3 vectorToTarget = facingTarge.position - transform.position;
-        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
-    }
+            Vector3 vectorToTarget = facingTarge.position - transform.position;
+            float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+            Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
 
-    public Transform findNearestNodeOfType(string nodeTag, Transform from)
-    {
-        //find all cover
-        GameObject[] cover;
-
-        cover = GameObject.FindGameObjectsWithTag(nodeTag);
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        Vector3 position = from.position;
-        foreach (GameObject go in cover)
-        {
-            Vector3 diff = go.transform.position - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
+            if (scanForPlayer() == true)
             {
-                closest = go;
-                distance = curDistance;
+                killCounter = killCounter + 2;
+                if (killCounter >= killCounterMax)
+                {
+                    isShooting = true;
+                }
+            }
+            else if (killCounter > 0)
+            {
+                killCounter--;
             }
         }
-        Debug.Log("ping");
-        return closest.transform;
     }
 
-    private void validExits()
+
+    private void shoot()
     {
 
-        GameObject[] centralNodes;
+        Quaternion rotationV = new Quaternion();
+        rotationV.eulerAngles = new Vector3(0, 0, transform.localEulerAngles.z + 90);
 
-        centralNodes = GameObject.FindGameObjectsWithTag("NodeCenter");
 
-        Vector3 position = this.transform.position;
+        GameObject clone = Instantiate(bulletPrefab, this.transform.position, rotationV);
+        clone.gameObject.SetActive(true);
 
-        Transform meCenter = this.transform;
+        Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
 
-        foreach (GameObject go2 in centralNodes)
+        bullet.bulletSpeed = bulletSpeed;
+        bullet.bulletFaction = (Faction)1;
+        bullet.bulletDamage = bulletDamage;
+    }
+
+    private bool scanForPlayer()
+    {
+        if (sensingPlayer == true)
         {
-            //Debug.Log(Vector2.Distance(meCenter.position, go2.transform.position));
-            if (Vector2.Distance(meCenter.position, go2.transform.position) > 10 && Vector2.Distance(meCenter.position, go2.transform.position) < 12)
+            int layerMask = 1 << 0;
+            RaycastHit2D hit;
+            hit = Physics2D.Raycast(transform.position, player.transform.position - this.transform.position, Mathf.Infinity, layerMask);
+            if (hit.collider.gameObject.tag == "Player")
             {
-                nearbyOtherRooms.Add(go2);
-                Debug.Log(go2.transform.position);
+                return true;
             }
+            else
+            {
+
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    
+    private void defineSwivels()
+    {
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().rightExit == true)
+        {
+            swivels.Add(0);
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().downExit == true)
+        {
+            swivels.Add(270);
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().leftExit == true)
+        {
+            swivels.Add(180);
+        }
+        if (locationCol.gameObject.GetComponent<storeRoomVars>().upExit == true)
+        {
+            swivels.Add(90);
         }
     }
 
@@ -219,5 +286,19 @@ public class turretBehavior : MonoBehaviour
 
             location = col.GetComponent<storeRoomVars>().integer;
         }
+        if (col.tag == "Player") {
+            sensingPlayer = true;
+        }
     }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+
+        if (col.tag == "Player")
+        {
+            sensingPlayer = false;
+        }
+    }
+
 }
+

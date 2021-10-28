@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\EnemyBehaviors\ChaserScript.cs" />
      <Compile Include="Assets\Scripts\UIFollow.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\EnemyFacingBasic.cs" />
+     <Compile Include="Assets\Scripts\EnemyBehaviors\turretBehavior.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\emptyBehavior.cs" />
      <Compile Include="Assets\Scripts\CamFollow.cs" />
      <Compile Include="Assets\Scripts\Flashbang.cs" />
@@ -65,6 +66,7 @@
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerRifle.cs" />
      <Compile Include="Assets\Scripts\storeRoomVars.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerFlashbang.cs" />
+     <Compile Include="Assets\Scripts\EnemyBehaviors\SniperTargetter.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\pistoleerBehavior.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerPistol.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerCarbine.cs" />

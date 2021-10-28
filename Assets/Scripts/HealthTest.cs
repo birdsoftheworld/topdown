@@ -29,7 +29,7 @@ public class HealthTest : MonoBehaviour
         int hurt = damage - armor;
         if (hurt <= 0)
         {
-            hurt = 1;
+            hurt = 0;
         }
 
         curHealth -= hurt;
