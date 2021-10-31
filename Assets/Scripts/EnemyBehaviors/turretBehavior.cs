@@ -48,6 +48,8 @@ public class turretBehavior : MonoBehaviour
     public int killCounterMax = 30;
     private int killCounter = 0;
 
+    private float swingnumber = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,22 +67,16 @@ public class turretBehavior : MonoBehaviour
 
         rb2D = GetComponent<Rigidbody2D>();
 
-        waiting = 1;
+        waiting = 5;
         scanning = 0;
 
         locationCol = GetComponent<Collider2D>();
-
-
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (swivels.Count == 0)
-        {
-            defineSwivels();
-        }
 
         if (health.curHealth <= 0)
         {
@@ -123,6 +119,10 @@ public class turretBehavior : MonoBehaviour
         }
         else
         {
+            if (swivels.Count == 0)
+            {
+                defineSwivels();
+            }
             if (active == true)
             {
                 setActiveBehavior();
@@ -149,10 +149,47 @@ public class turretBehavior : MonoBehaviour
                     {
                         facingNumber++;
                     }
+
+                    float a = Mathf.Round(transform.localEulerAngles.z);
+                    //Debug.Log(a);
+                    if (a == 0 || a == 1)
+                    {
+                        if (swivels[facingNumber] == 90)
+                        {
+                            swingnumber = 1f;
+                        }
+                        else
+                        {
+                            swingnumber = -1f;
+                        }
+                    }
+                    else if (transform.localEulerAngles.z > swivels[facingNumber])
+                    {
+                        swingnumber = -1f;
+                    }
+                    else
+                    {
+                        swingnumber = 1f;
+                    }
+
                 }
                 else
                 {
-                    this.transform.Rotate(0.0f, 0.0f, -1.0f, Space.World);
+                    this.transform.Rotate(0.0f, 0.0f, swingnumber, Space.World);
+
+                    /*if (transform.localEulerAngles.z > swivels[facingNumber])
+                    {
+                        this.transform.Rotate(0.0f, 0.0f, 1.0f, Space.World);
+                    }
+                    else if (facingNumber == 270 && transform.localEulerAngles.z > 0)
+                    {
+                        this.transform.Rotate(0.0f, 0.0f, -1.0f, Space.World);
+
+                    }
+                    else
+                    {
+                        this.transform.Rotate(0.0f, 0.0f, -1.0f, Space.World);
+                    }*/
                 }
             }
         }
@@ -199,6 +236,7 @@ public class turretBehavior : MonoBehaviour
                 killCounter--;
             }
         }
+
     }
 
 
@@ -242,25 +280,55 @@ public class turretBehavior : MonoBehaviour
         }
     }
 
-    
+
     private void defineSwivels()
     {
-        if (locationCol.gameObject.GetComponent<storeRoomVars>().rightExit == true)
+            for (int i = 0; i < swivels.Count; i++)
+            {
+                swivels.Remove(i);
+            }
+        //Debug.Log(GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.position);
+        //Debug.Log(GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.parent.gameObject.GetComponent<storeRoomVars>().rightExit);
+        if (GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.parent.gameObject.GetComponent<storeRoomVars>() != null)
+        {
+            storeRoomVars roomVars = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.parent.gameObject.GetComponent<storeRoomVars>();
+            //Debug.Log(checker1.transform.position);
+            //Debug.Log(roomVars.rightExit);
+            if (roomVars.rightExit == true)
+            {
+                swivels.Add(0);
+            }
+            if (roomVars.downExit == true)
+            {
+                swivels.Add(270);
+            }
+            if (roomVars.leftExit == true)
+            {
+                swivels.Add(180);
+            }
+            if (roomVars.upExit == true)
+            {
+                swivels.Add(90);
+            }
+        }
+
+        //Debug.Log(checker2.transform.position);
+        /*if (checker2.gameObject.GetComponent<storeRoomVars>().rightExit == true)
         {
             swivels.Add(0);
         }
-        if (locationCol.gameObject.GetComponent<storeRoomVars>().downExit == true)
+        if (checker2.gameObject.GetComponent<storeRoomVars>().downExit == true)
         {
             swivels.Add(270);
         }
-        if (locationCol.gameObject.GetComponent<storeRoomVars>().leftExit == true)
+        if (checker2.gameObject.GetComponent<storeRoomVars>().leftExit == true)
         {
             swivels.Add(180);
         }
-        if (locationCol.gameObject.GetComponent<storeRoomVars>().upExit == true)
+        if (checker2.gameObject.GetComponent<storeRoomVars>().upExit == true)
         {
             swivels.Add(90);
-        }
+        }*/
     }
 
     private bool checkSightToPlayer()
@@ -278,13 +346,16 @@ public class turretBehavior : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col)
     {
         if (col.tag == "Floor")
         {
-            locationCol = col;
+            if (Vector3.Distance(col.gameObject.transform.position, this.transform.position) < 6)
+            {
+                locationCol = col;
 
-            location = col.GetComponent<storeRoomVars>().integer;
+                location = col.GetComponent<storeRoomVars>().integer;
+            }
         }
         if (col.tag == "Player") {
             sensingPlayer = true;
@@ -293,12 +364,9 @@ public class turretBehavior : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D col)
     {
-
         if (col.tag == "Player")
         {
             sensingPlayer = false;
         }
     }
-
 }
-

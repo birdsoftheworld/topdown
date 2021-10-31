@@ -49,7 +49,11 @@ public class Projectile : MonoBehaviour
             Hittable hitted = coll.GetComponent<Collider2D>().GetComponent<Hittable>();
             Faction hitFact = hitted.faction;
 
-            if (hitted != null)
+            if (coll.GetComponent<Collider2D>().isTrigger == true)
+            {
+
+            }
+            else if (hitted != null)
             {
                 if (hitted.CanHit(bulletFaction))
                 {
