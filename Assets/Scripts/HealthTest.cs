@@ -7,7 +7,7 @@ public class HealthTest : MonoBehaviour
     public int curHealth;
     public int maxHealth;
 
-    public int armor = 0;
+    public int armor;
 
     public HealthBar healthBar;
 
@@ -27,12 +27,15 @@ public class HealthTest : MonoBehaviour
     public void DealDamage(int damage)
     {
         int hurt = damage - armor;
-        if (hurt <= 0)
+        if (hurt < 0)
         {
             hurt = 0;
         }
-
+        //Debug.Log(hurt);
         curHealth -= hurt;
-        healthBar.SetHealth(curHealth);
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(curHealth);
+        }
     }
 }

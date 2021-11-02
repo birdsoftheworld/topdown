@@ -25,7 +25,7 @@ public class turretBehavior : MonoBehaviour
 
     public int location;
 
-    public Collider2D locationCol;
+    public GameObject locationCol;
     private GameObject levelGen;
 
 
@@ -50,6 +50,8 @@ public class turretBehavior : MonoBehaviour
 
     private float swingnumber = -1;
 
+    public TurretCone TC;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,13 +72,17 @@ public class turretBehavior : MonoBehaviour
         waiting = 5;
         scanning = 0;
 
-        locationCol = GetComponent<Collider2D>();
+        locationCol = this.gameObject;// GetComponent<Collider2D>();
+
+        TC.gameObject.SetActive(false);
     }
 
 
     // Update is called once per frame
     void Update()
     {
+
+        sensingPlayer = TC.sensingPlayer;
 
         if (health.curHealth <= 0)
         {
@@ -122,6 +128,7 @@ public class turretBehavior : MonoBehaviour
             if (swivels.Count == 0)
             {
                 defineSwivels();
+                TC.gameObject.SetActive(true);
             }
             if (active == true)
             {
@@ -171,25 +178,10 @@ public class turretBehavior : MonoBehaviour
                     {
                         swingnumber = 1f;
                     }
-
                 }
                 else
                 {
                     this.transform.Rotate(0.0f, 0.0f, swingnumber, Space.World);
-
-                    /*if (transform.localEulerAngles.z > swivels[facingNumber])
-                    {
-                        this.transform.Rotate(0.0f, 0.0f, 1.0f, Space.World);
-                    }
-                    else if (facingNumber == 270 && transform.localEulerAngles.z > 0)
-                    {
-                        this.transform.Rotate(0.0f, 0.0f, -1.0f, Space.World);
-
-                    }
-                    else
-                    {
-                        this.transform.Rotate(0.0f, 0.0f, -1.0f, Space.World);
-                    }*/
                 }
             }
         }
@@ -289,9 +281,11 @@ public class turretBehavior : MonoBehaviour
             }
         //Debug.Log(GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.position);
         //Debug.Log(GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.parent.gameObject.GetComponent<storeRoomVars>().rightExit);
-        if (GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.parent.gameObject.GetComponent<storeRoomVars>() != null)
+        //if (GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.parent.gameObject.GetComponent<storeRoomVars>() != null)
+        //{
+        if (locationCol.GetComponent<storeRoomVars>() != null) 
         {
-            storeRoomVars roomVars = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.parent.gameObject.GetComponent<storeRoomVars>();
+            storeRoomVars roomVars = locationCol.GetComponent<storeRoomVars>();//GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>().roomData[location][6].transform.parent.gameObject.transform.parent.gameObject.GetComponent<storeRoomVars>();
             //Debug.Log(checker1.transform.position);
             //Debug.Log(roomVars.rightExit);
             if (roomVars.rightExit == true)
@@ -346,27 +340,30 @@ public class turretBehavior : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D col)
-    {
-        if (col.tag == "Floor")
-        {
-            if (Vector3.Distance(col.gameObject.transform.position, this.transform.position) < 6)
-            {
-                locationCol = col;
 
-                location = col.GetComponent<storeRoomVars>().integer;
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (TC.gameObject.activeSelf == false)
+        {
+            if (col.gameObject.tag == "Floor")
+            {
+                locationCol = col.gameObject;
+
+                location = col.gameObject.GetComponent<storeRoomVars>().integer;
             }
-        }
-        if (col.tag == "Player") {
-            sensingPlayer = true;
         }
     }
 
-    void OnTriggerExit2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Player")
+        if (TC.gameObject.activeSelf == false)
         {
-            sensingPlayer = false;
+            if (col.tag == "Floor")
+            {
+                locationCol = col.gameObject;
+
+                location = col.GetComponent<storeRoomVars>().integer;
+            }
         }
     }
 }
