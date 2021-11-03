@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRifle : MonoBehaviour
+public class PlayerSeeking : MonoBehaviour
 {
     //public Rigidbody2D bullet;
 
@@ -11,7 +11,6 @@ public class PlayerRifle : MonoBehaviour
     public Transform bulletOrigin;
 
     public GameObject bulletPrefab;
-    public GameObject tracerPrefab;
 
     public float bulletSpeed = 15;
     public float turnSpeed = 2;
@@ -47,23 +46,30 @@ public class PlayerRifle : MonoBehaviour
                 {
                     //if (fireTick == fireTickMax)
                     //{
-                        ammo--;
+                    ammo--;
 
-                        Vector2 position = bulletOrigin.position;
-                        GameObject clone = Instantiate(bulletPrefab, position, bulletOrigin.rotation);
-                        clone.gameObject.SetActive(true);
+                    Vector2 position = bulletOrigin.position;
+                    GameObject clone = Instantiate(bulletPrefab, position, bulletOrigin.rotation);
+                    clone.gameObject.SetActive(true);
 
-                        Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
+                    SeekingMissile bullet = clone.gameObject.GetComponent("SeekingMissile") as SeekingMissile;
 
-                        bullet.bulletSpeed = bulletSpeed;
-                        bullet.bulletFaction = bulletFaction;
-                        bullet.bulletDamage = bulletDamage;
+                    bullet.bulletSpeed = bulletSpeed;
+                    bullet.turnSpeed = turnSpeed;
+                    bullet.bulletFaction = bulletFaction;
+                    bullet.bulletDamage = bulletDamage;
+
+                   // Vector3 mousePos = Input.mousePosition;
+                    //mousePos.z = Camera.main.nearClipPlane;
+
+                    //bullet.target = findNearestNodeOfType("Enemy", mousePos);
+
                     //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
 
                     player.waiting2 = 25;
 
-                        //fireTick = 0;
-                        //}
+                    //fireTick = 0;
+                    //}
                 }
                 else
                 {
@@ -89,26 +95,28 @@ public class PlayerRifle : MonoBehaviour
             {
                 player.waiting3--;
             }
-            else if (Input.GetMouseButton(1))
-            {
-                if (ammo > 0)
-                {
-                    ammo--;
-
-                    Vector2 position = bulletOrigin.position;
-                    GameObject clone = Instantiate(tracerPrefab, position, bulletOrigin.rotation);
-                    clone.gameObject.SetActive(true);
-
-                    Tracer flare = clone.gameObject.GetComponent("Tracer") as Tracer;
-
-                    flare.bulletSpeed = bulletSpeed;
-                    flare.bulletFaction = bulletFaction;
-                    //bullet.bulletDamage = bulletDamage;
-                    //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
-                    player.waiting3 = 25;
-
-                }
-            }
         }
     }
+
+    /*public Transform findNearestNodeOfType(string nodeTag, Vector3 from)
+    {
+        //find all cover
+        GameObject[] cover;
+
+        cover = GameObject.FindGameObjectsWithTag(nodeTag);
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = from;
+        foreach (GameObject go in cover)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        return closest.transform;
+    }*/
 }

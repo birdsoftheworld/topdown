@@ -444,7 +444,7 @@ MonoBehaviour:
   - {fileID: 647207702}
   - {fileID: 1473926811}
   - {fileID: 102922849}
-  - {fileID: 0}
+  - {fileID: 1545703926}
   - {fileID: 0}
   dashRechargeMax: 100
   dashRecharge: 50
@@ -467,6 +467,7 @@ Transform:
   - {fileID: 647207703}
   - {fileID: 1473926812}
   - {fileID: 102922850}
+  - {fileID: 1545703927}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -835,6 +836,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7313259170505084681, guid: de86c533caa0f574e924019a5f4c8858, type: 3}
   tracerPrefab: {fileID: 5475462987552926294, guid: 42255862775b08644a06ca7d73683e5d, type: 3}
   bulletSpeed: 15
+  turnSpeed: 2
   bulletDamage: 3
   ammoCap: 5
   ammo: 0
@@ -1789,6 +1791,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1545703926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1545703927}
+  - component: {fileID: 1545703928}
+  m_Layer: 0
+  m_Name: Missile Launcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1545703927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545703926}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 127758394}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1545703928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545703926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ed39e544bf6e541af2cc4f88169452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletFaction: 0
+  bulletOrigin: {fileID: 127758394}
+  bulletPrefab: {fileID: 7363535889491197708, guid: 8417ee26fc5e64549833b96e27f71395, type: 3}
+  bulletSpeed: 30
+  turnSpeed: 2
+  bulletDamage: 3
+  ammoCap: 1
+  ammo: 1
+  waiting: 0
+  player: {fileID: 0}
 --- !u!1 &1600252768
 GameObject:
   m_ObjectHideFlags: 0

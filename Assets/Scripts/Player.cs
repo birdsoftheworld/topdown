@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
             weapons[0].SetActive(true);
             weapons[1].SetActive(false);
             weapons[2].SetActive(false);
-            //weapons[3].SetActive(false);
+            weapons[3].SetActive(false);
             //weapons[4].SetActive(false);
         }
         if (Input.GetKeyDown("2"))
@@ -94,7 +94,15 @@ public class Player : MonoBehaviour
             weapons[0].SetActive(false);
             weapons[1].SetActive(true);
             weapons[2].SetActive(true);
-            //weapons[3].SetActive(false);
+            weapons[3].SetActive(false);
+            //weapons[4].SetActive(false);
+        }
+        if (Input.GetKeyDown("3"))
+        {
+            weapons[0].SetActive(false);
+            weapons[1].SetActive(false);
+            weapons[2].SetActive(false);
+            weapons[3].SetActive(true);
             //weapons[4].SetActive(false);
         }
 

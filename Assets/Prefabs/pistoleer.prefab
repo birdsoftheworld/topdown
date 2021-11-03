@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3233176899489952972}
   m_Layer: 0
   m_Name: pistoleer
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,14 +154,12 @@ MonoBehaviour:
   active: 0
   speed: 3
   target: {fileID: 0}
-  waiting: 0
   location: 0
   locationCol: {fileID: 0}
   movingToNode: 0
   inCover: 0
   isShooting: 0
   inPanic: 0
-  chasingTowardsPlayer: 0
   adjustTarge: {x: 0, y: 0}
   coverTarge: {x: 0, y: 0}
   firingSpeed: 18

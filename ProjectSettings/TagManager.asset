@@ -12,6 +12,7 @@ TagManager:
   - NodeEnter
   - Floor
   - LevelGenerator
+  - Enemy
   layers:
   - Default
   - TransparentFX

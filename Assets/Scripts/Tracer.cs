@@ -61,7 +61,7 @@ public class Tracer : MonoBehaviour
                     if (coll.GetComponent<Collider2D>().GetComponent<HealthTest>() != null)
                     {
                         coll.GetComponent<Collider2D>().GetComponent<HealthTest>().armor--;
-                        coll.GetComponent<Collider2D>().GetComponent<HealthTest>().armor--;
+                        //coll.GetComponent<Collider2D>().GetComponent<HealthTest>().armor--;
                     }
                     /*if (armor > -1)
                     {

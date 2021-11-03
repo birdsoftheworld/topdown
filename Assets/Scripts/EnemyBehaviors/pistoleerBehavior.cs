@@ -215,7 +215,7 @@ public class pistoleerBehavior : MonoBehaviour
             }
             else if (chasingTowardsPlayer == true)
             {
-                if (Vector2.Distance(chasingTarget.position, this.transform.position) > .3)
+                if (Vector2.Distance(chasingTarget.position, this.transform.position) > .5)
                 {
                     this.transform.position = Vector2.MoveTowards(this.transform.position, chasingTarget.position, speed * 3 * Time.deltaTime);
                 }
@@ -263,7 +263,7 @@ public class pistoleerBehavior : MonoBehaviour
             {
                 this.transform.position = Vector2.MoveTowards(this.transform.position, coverTarge, speed * 2 * Time.deltaTime);
 
-                if (Vector2.Distance(coverTarge, this.transform.position) < .25)
+                if (Vector2.Distance(coverTarge, this.transform.position) < .5)
                 {
                     inCover = true;
                 }
@@ -279,7 +279,7 @@ public class pistoleerBehavior : MonoBehaviour
                     {
                         this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeEnter", this.transform).position, speed * 3 * Time.deltaTime);
 
-                        if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < .1)
+                        if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < .25)
                         {
                             isShooting = true;
                             inCover = false;
