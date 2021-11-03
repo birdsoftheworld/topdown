@@ -28,6 +28,8 @@ public class PlayerCarbine : MonoBehaviour
 
     public Player player;
 
+    public AmmoTracker ammoCounter;
+
     private void Start()
     {
         ammo = ammoCap;
@@ -35,6 +37,12 @@ public class PlayerCarbine : MonoBehaviour
         //bulletOrigin = this.transform;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
+
+    private void Update()
+    {
+        ammoCounter.define1(ammo.ToString());
+        ammoCounter.define2(ammoCap.ToString());
     }
 
     private void FixedUpdate()

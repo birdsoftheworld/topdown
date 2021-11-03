@@ -101,6 +101,16 @@ public class pistoleerBehavior : MonoBehaviour
             active = false;
             onDeactivate();
         }
+        if (active == false)
+        {
+            if (findNearestNodeOfType("Projectile", this.transform).position != this.transform.position)
+            {
+                if (Vector2.Distance(findNearestNodeOfType("Projectile", this.transform).position, this.transform.position) < 2)
+                {
+                    active = true;
+                }
+            }
+        }
     }
 
     void FixedUpdate()
@@ -676,7 +686,7 @@ public Transform findNearestNodeOfType(string nodeTag, Transform from)
         GameObject[] cover;
 
         cover = GameObject.FindGameObjectsWithTag(nodeTag);
-        GameObject closest = null;
+        GameObject closest = this.gameObject;
         float distance = Mathf.Infinity;
         Vector3 position = from.position;
         foreach (GameObject go in cover)

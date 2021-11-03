@@ -26,7 +26,7 @@ public class SeekingMissile : MonoBehaviour
     void FixedUpdate()
     {
         rb2D.velocity = Vector3.zero;
-        rb2D.AddForce(transform.up * bulletSpeed * -75f);
+        rb2D.AddForce(transform.up * bulletSpeed * -100);
 
         if (timeFlone == 10/* || timeFlone == 30 || timeFlone == 60 || timeFlone == 100*/)
         {
@@ -57,7 +57,14 @@ public class SeekingMissile : MonoBehaviour
         //    Debug.Log("plonk");
         if (target != null)
         {
-            FaceTarget();
+            if ((timeFlone / 10) >= Mathf.RoundToInt(timeFlone / 10) - .2 && (timeFlone / 10) <= Mathf.RoundToInt(timeFlone / 10) + .2)
+            {
+                FaceTarget();
+            }
+            else if ((timeFlone / 10) >= Mathf.RoundToInt(timeFlone / 10) - .3 && (timeFlone / 10) <= Mathf.RoundToInt(timeFlone / 10) + .3)
+            {
+                rb2D.AddForce(transform.up * bulletSpeed * -200);
+            }
         }
         //}
         

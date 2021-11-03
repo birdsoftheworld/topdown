@@ -21,7 +21,7 @@ public class PlayerRifle : MonoBehaviour
 
     public int waiting = 0;
 
-
+    public AmmoTracker ammoCounter;
 
     public Player player;
 
@@ -31,6 +31,12 @@ public class PlayerRifle : MonoBehaviour
         //bulletOrigin = this.transform;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
+
+    private void Update()
+    {
+        ammoCounter.define1(ammo.ToString());
+        ammoCounter.define2(ammoCap.ToString());
     }
 
     private void FixedUpdate()

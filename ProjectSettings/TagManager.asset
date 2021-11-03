@@ -13,6 +13,7 @@ TagManager:
   - Floor
   - LevelGenerator
   - Enemy
+  - Projectile
   layers:
   - Default
   - TransparentFX

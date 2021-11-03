@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\EnemyBehaviors\TurretCone.cs" />
      <Compile Include="Assets\Scripts\Level.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\EnemyFacingBasic.cs" />
+     <Compile Include="Assets\Scripts\SeekingMissile.cs" />
      <Compile Include="Assets\Scripts\Flashbang.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerRifle.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerFlashbang.cs" />
@@ -69,6 +70,7 @@
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\emptyBehavior.cs" />
      <Compile Include="Assets\Scripts\CamFollow.cs" />
      <Compile Include="Assets\Scripts\Tracer.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\PlayerSeeking.cs" />
      <Compile Include="Assets\Scripts\Hittable.cs" />
      <Compile Include="Assets\Scripts\storeRoomVars.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\SniperTargetter.cs" />
