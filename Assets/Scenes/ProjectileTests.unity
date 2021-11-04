@@ -453,6 +453,12 @@ MonoBehaviour:
   waiting: 0
   waiting2: 0
   waiting3: 0
+  lightAmmoMax: 45
+  lightAmmo: 0
+  heavyAmmoMax: 15
+  heavyAmmo: 0
+  rocketsMax: 3
+  rockets: 0
 --- !u!4 &127758394
 Transform:
   m_ObjectHideFlags: 0
@@ -2545,8 +2551,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.032522, y: 0.00056}
-  m_SizeDelta: {x: 47.873665, y: 18.35447}
+  m_AnchoredPosition: {x: -0.014043, y: 0.00056}
+  m_SizeDelta: {x: 84.8314, y: 18.35447}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1885722471
 MonoBehaviour:
@@ -2581,7 +2587,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '- | -'
+  m_Text: '- | - | -'
 --- !u!222 &1885722472
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2604,6 +2610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   num1: 
   num2: 
+  num3: 
   txt: {fileID: 1885722469}
 --- !u!1 &1934105059
 GameObject:
@@ -2680,6 +2687,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934105059}
   m_CullTransparentMesh: 1
+--- !u!1 &1953881280 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6970680729138206994, guid: be93b2aa57380f0419b607441d86365b, type: 3}
+  m_PrefabInstance: {fileID: 1698359679}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1953881281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953881280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b7905678e878b4c8bb77f20a9bb5f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootPrefab: {fileID: 5039050196637529829, guid: eb4033a5cbf41ef48bff59856b1d8a5c, type: 3}
 --- !u!1 &2031580890
 GameObject:
   m_ObjectHideFlags: 0

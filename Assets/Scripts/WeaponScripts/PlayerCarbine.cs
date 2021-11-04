@@ -39,10 +39,18 @@ public class PlayerCarbine : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    private void Update()
+    private void OnEnable()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        ammo = ammoCap;
+        UpdateTracker();
+    }
+
+    private void UpdateTracker()
     {
         ammoCounter.define1(ammo.ToString());
         ammoCounter.define2(ammoCap.ToString());
+        ammoCounter.define3(player.lightAmmo.ToString());
     }
 
     private void FixedUpdate()
@@ -60,6 +68,7 @@ public class PlayerCarbine : MonoBehaviour
                     if (fireTick == (fireTickMax / 10))
                     {
                         ammo--;
+                        ammoCounter.define1(ammo.ToString());
 
                         Vector2 position = bulletOrigin.position;
                         GameObject clone = Instantiate(bulletPrefab, position, bulletOrigin.rotation);
@@ -86,9 +95,20 @@ public class PlayerCarbine : MonoBehaviour
             {
                 if (ammo < ammoCap)
                 {
-                    ammo = ammoCap;
-                    Debug.Log("Rrrrreloading!");
-                    player.waiting2 = 150;
+                    int reloadAmount = 15 - ammo;
+                    if (player.lightAmmo < reloadAmount)
+                    {
+                        reloadAmount = player.lightAmmo;
+                    }
+                    if (reloadAmount > 0)
+                    {
+                        ammo = ammo + reloadAmount;
+                        player.lightAmmo -= reloadAmount;
+                        Debug.Log("Rrrrreloading!");
+                        player.waiting2 = 150;
+                        ammoCounter.define1(ammo.ToString());
+                        ammoCounter.define3(player.lightAmmo.ToString());
+                    }
                 }
                 else
                 {

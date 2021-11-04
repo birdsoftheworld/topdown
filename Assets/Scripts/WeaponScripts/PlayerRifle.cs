@@ -29,14 +29,21 @@ public class PlayerRifle : MonoBehaviour
     {
         ammo = ammoCap;
         //bulletOrigin = this.transform;
-
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    private void Update()
+    private void OnEnable()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        ammo = ammoCap;
+        UpdateTracker();
+    }
+
+    private void UpdateTracker()
     {
         ammoCounter.define1(ammo.ToString());
         ammoCounter.define2(ammoCap.ToString());
+        ammoCounter.define3(player.heavyAmmo.ToString());
     }
 
     private void FixedUpdate()
@@ -51,25 +58,21 @@ public class PlayerRifle : MonoBehaviour
             {
                 if (ammo > 0)
                 {
-                    //if (fireTick == fireTickMax)
-                    //{
-                        ammo--;
 
-                        Vector2 position = bulletOrigin.position;
-                        GameObject clone = Instantiate(bulletPrefab, position, bulletOrigin.rotation);
-                        clone.gameObject.SetActive(true);
+                    ammo--;
+                    ammoCounter.define1(ammo.ToString());
 
-                        Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
+                    Vector2 position = bulletOrigin.position;
+                    GameObject clone = Instantiate(bulletPrefab, position, bulletOrigin.rotation);
+                    clone.gameObject.SetActive(true);
 
-                        bullet.bulletSpeed = bulletSpeed;
-                        bullet.bulletFaction = bulletFaction;
-                        bullet.bulletDamage = bulletDamage;
-                    //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
+                    Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
 
+                    bullet.bulletSpeed = bulletSpeed;
+                    bullet.bulletFaction = bulletFaction;
+                    bullet.bulletDamage = bulletDamage;
+                
                     player.waiting2 = 25;
-
-                        //fireTick = 0;
-                        //}
                 }
                 else
                 {
@@ -78,9 +81,11 @@ public class PlayerRifle : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.R))
             {
-                if (ammo < ammoCap)
+                if (ammo < ammoCap && player.heavyAmmo > 0)
                 {
                     ammo++;
+                    player.heavyAmmo--;
+                    UpdateTracker();
                     Debug.Log("Reloaded one bullet! You have " + ammo + " bullets loaded.");
                     player.waiting2 = 50;
                 }
@@ -100,6 +105,7 @@ public class PlayerRifle : MonoBehaviour
                 if (ammo > 0)
                 {
                     ammo--;
+                    ammoCounter.define1(ammo.ToString());
 
                     Vector2 position = bulletOrigin.position;
                     GameObject clone = Instantiate(tracerPrefab, position, bulletOrigin.rotation);

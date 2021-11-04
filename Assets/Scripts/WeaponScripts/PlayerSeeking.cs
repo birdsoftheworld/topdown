@@ -32,10 +32,22 @@ public class PlayerSeeking : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    private void Update()
+    public void OnEnable()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        ammo = ammoCap;
+
+        UpdateTracker();
+
+        ammo = ammoCap;
+        //bulletOrigin = this.transform;
+    }
+
+    private void UpdateTracker()
     {
         ammoCounter.define1(ammo.ToString());
         ammoCounter.define2(ammoCap.ToString());
+        ammoCounter.define3(player.rockets.ToString());
     }
 
     private void FixedUpdate()
@@ -53,6 +65,7 @@ public class PlayerSeeking : MonoBehaviour
                     //if (fireTick == fireTickMax)
                     //{
                     ammo--;
+                    ammoCounter.define1(ammo.ToString());
 
                     Vector2 position = bulletOrigin.position;
                     GameObject clone = Instantiate(bulletPrefab, position, bulletOrigin.rotation);
@@ -84,9 +97,12 @@ public class PlayerSeeking : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.R))
             {
-                if (ammo < ammoCap)
+                if (ammo < ammoCap && player.rockets > 0)
                 {
                     ammo++;
+                    player.rockets--;
+                    ammoCounter.define1(ammo.ToString());
+                    ammoCounter.define1(player.rockets.ToString());
                     Debug.Log("Reloaded one bullet! You have " + ammo + " bullets loaded.");
                     player.waiting2 = 50;
                 }

@@ -31,6 +31,15 @@ public class Player : MonoBehaviour
     public int waiting2 = 0;
     public int waiting3 = 0;
 
+    public int lightAmmoMax;
+    public int lightAmmo;
+
+    public int heavyAmmoMax;
+    public int heavyAmmo;
+
+    public int rocketsMax;
+    public int rockets;
+
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -42,11 +51,14 @@ public class Player : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
 
         slowDown = slowDownMax;
+        lightAmmo = lightAmmoMax;
+        heavyAmmo = heavyAmmoMax;
+        rockets = rocketsMax;
 
         waiting = 0;
         waiting2 = 0;
         waiting3 = 0;
-}
+    }
 
     private void Update()
     {

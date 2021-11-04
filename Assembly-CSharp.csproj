@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\CamFollow.cs" />
      <Compile Include="Assets\Scripts\Tracer.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerSeeking.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\AmmoTracker.cs" />
      <Compile Include="Assets\Scripts\Hittable.cs" />
      <Compile Include="Assets\Scripts\storeRoomVars.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\SniperTargetter.cs" />

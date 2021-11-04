@@ -80,6 +80,7 @@ public class sniperBehavior : MonoBehaviour
     {
         if (health.curHealth <= 0)
         {
+            levelGen.GetComponent<LootController>().Drop(this.transform.position, 2, 1, 5);
             Destroy(gameObject);
         }
 
@@ -97,6 +98,13 @@ public class sniperBehavior : MonoBehaviour
             }
             else
             {
+                if (findNearestNodeOfType("Projectile", this.transform).position != this.transform.position)
+                {
+                    if (Vector2.Distance(findNearestNodeOfType("Projectile", this.transform).position, this.transform.position) < 2)
+                    {
+                        active = true;
+                    }
+                }
             }
         }
         if (active == true && distance2 >= distance * 3)
@@ -104,7 +112,7 @@ public class sniperBehavior : MonoBehaviour
             active = false;
             onDeactivate();
         }
-        if (active == false)
+        /*if (active == false)
         {
             if (findNearestNodeOfType("Projectile", this.transform).position != this.transform.position)
             {
@@ -113,7 +121,7 @@ public class sniperBehavior : MonoBehaviour
                     active = true;
                 }
             }
-        }
+        }*/
     }
 
     void FixedUpdate()

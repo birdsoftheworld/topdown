@@ -16,60 +16,82 @@ public class SeekingMissile : MonoBehaviour
 
     private int timeFlone = 0;
 
+    private bool exploding = false;
+    public SpriteRenderer sprite;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        sprite = gameObject.GetComponent<SpriteRenderer>();
     }
 
 
     void FixedUpdate()
     {
         rb2D.velocity = Vector3.zero;
-        rb2D.AddForce(transform.up * bulletSpeed * -100);
 
-        if (timeFlone == 10/* || timeFlone == 30 || timeFlone == 60 || timeFlone == 100*/)
+        if (timeFlone <= 5)
         {
-            GameObject[] cover;
+            exploding = false;
+        }
 
-            cover = GameObject.FindGameObjectsWithTag("Enemy");
-            GameObject closest = null;
-            float distance = Mathf.Infinity;
-            Vector3 position = this.transform.position;
-            foreach (GameObject go in cover)
+        if (exploding == false)
+        {
+            rb2D.AddForce(transform.up * bulletSpeed * -100);
+
+            if (timeFlone == 10/* || timeFlone == 30 || timeFlone == 60 || timeFlone == 100*/)
             {
-                Vector3 diff = go.transform.position - position;
-                float curDistance = diff.sqrMagnitude;
-                if (curDistance < distance)
+                GameObject[] cover;
+
+                cover = GameObject.FindGameObjectsWithTag("Enemy");
+                GameObject closest = null;
+                float distance = Mathf.Infinity;
+                Vector3 position = this.transform.position;
+                foreach (GameObject go in cover)
                 {
-                    closest = go;
-                    distance = curDistance;
+                    Vector3 diff = go.transform.position - position;
+                    float curDistance = diff.sqrMagnitude;
+                    if (curDistance < distance)
+                    {
+                        closest = go;
+                        distance = curDistance;
+                    }
+                }
+
+                target = closest;
+
+                bulletSpeed = bulletSpeed / 2; //bullet slows down as aiming engages
+            }
+
+            //if (timeFlone > 10 && (timeFlone / 10) == Mathf.RoundToInt(timeFlone / 10))
+            //{
+            //    Debug.Log("plonk");
+            if (target != null)
+            {
+                if ((timeFlone / 10) >= Mathf.RoundToInt(timeFlone / 10) - .2 && (timeFlone / 10) <= Mathf.RoundToInt(timeFlone / 10) + .2)
+                {
+                    FaceTarget();
+                }
+                else if ((timeFlone / 10) >= Mathf.RoundToInt(timeFlone / 10) - .3 && (timeFlone / 10) <= Mathf.RoundToInt(timeFlone / 10) + .3)
+                {
+                    rb2D.AddForce(transform.up * bulletSpeed * -200);
                 }
             }
-
-            target = closest;
-
-            bulletSpeed = bulletSpeed / 2; //bullet slows down as aiming engages
+            //}
         }
-
-        //if (timeFlone > 10 && (timeFlone / 10) == Mathf.RoundToInt(timeFlone / 10))
-        //{
-        //    Debug.Log("plonk");
-        if (target != null)
+        else
         {
-            if ((timeFlone / 10) >= Mathf.RoundToInt(timeFlone / 10) - .2 && (timeFlone / 10) <= Mathf.RoundToInt(timeFlone / 10) + .2)
+            if (this.transform.localScale != new Vector3(6.25f, 6.25f, 1f))
             {
-                FaceTarget();
+                this.transform.localScale += new Vector3(2f, 2f, 0f);
             }
-            else if ((timeFlone / 10) >= Mathf.RoundToInt(timeFlone / 10) - .3 && (timeFlone / 10) <= Mathf.RoundToInt(timeFlone / 10) + .3)
+            else
             {
-                rb2D.AddForce(transform.up * bulletSpeed * -200);
+                Destroy(gameObject);
             }
         }
-        //}
-        
         timeFlone++;
-
     }
 
     public void FaceTarget()
@@ -80,19 +102,31 @@ public class SeekingMissile : MonoBehaviour
         Quaternion rotation = new Quaternion();
         rotation.eulerAngles = new Vector3(0, 0, angle + 90);
 
-        //Debug.Log(transform.localEulerAngles.z);
-        if (rotation.eulerAngles.z > transform.localEulerAngles.z)
+        //Debug.Log("1 " + rotation.eulerAngles.z);
+        //Debug.Log("2 " + transform.localEulerAngles.z);
+
+        //if (target.transform.position.y < this.transform.position.y)
+        //{
+            if (rotation.eulerAngles.z > transform.localEulerAngles.z)
+            {
+                this.transform.Rotate(0.0f, 0.0f, turnSpeed * -1f, Space.World);
+            }
+            if (rotation.eulerAngles.z < transform.localEulerAngles.z)
+            {
+                this.transform.Rotate(0.0f, 0.0f, turnSpeed * 1f, Space.World);
+            }
+        /*}
+        else
         {
-            this.transform.Rotate(0.0f, 0.0f, turnSpeed * 1f, Space.World);
-        }
-        if (rotation.eulerAngles.z < transform.localEulerAngles.z)
-        {
-            this.transform.Rotate(0.0f, 0.0f, turnSpeed * -1f, Space.World);
-        }
-
-        //transform.rotation = rotation;
-
-
+            if (rotation.eulerAngles.z > transform.localEulerAngles.z)
+            {
+                this.transform.Rotate(0.0f, 0.0f, turnSpeed * 1f, Space.World);
+            }
+            if (rotation.eulerAngles.z < transform.localEulerAngles.z)
+            {
+                this.transform.Rotate(0.0f, 0.0f, turnSpeed * -1f, Space.World);
+            }
+        }*/
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -102,19 +136,26 @@ public class SeekingMissile : MonoBehaviour
             Hittable hitted = coll.GetComponent<Collider2D>().GetComponent<Hittable>();
             Faction hitFact = hitted.faction;
 
-            if (coll.GetComponent<Collider2D>().isTrigger == true)
+            if (exploding == false)
             {
-
-            }
-            else if (hitted != null)
-            {
-                if (hitted.CanHit(bulletFaction))
+                if (timeFlone > 5)
                 {
-                    Destroy(gameObject);
-                    HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
-                    if (health != null)
+                    sprite.color = Color.white;
+                    this.transform.localScale = new Vector3(0.25f, .25f, 1f);
+                    exploding = true;
+                }
+            }
+            if (exploding == true)
+            {
+                if (hitted != null)
+                {
+                    if (hitted.CanHit(bulletFaction))
                     {
-                        health.DealDamage(bulletDamage);
+                        HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
+                        if (health != null)
+                        {
+                            health.DealDamage(bulletDamage);
+                        }
                     }
                 }
             }

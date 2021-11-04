@@ -77,6 +77,7 @@ public class pistoleerBehavior : MonoBehaviour
     {
         if (health.curHealth <= 0)
         {
+            levelGen.GetComponent<LootController>().Drop(this.transform.position, 1, 6, 2);
             Destroy(gameObject);
         }
 
@@ -94,22 +95,19 @@ public class pistoleerBehavior : MonoBehaviour
             }
             else
             {
+                if (findNearestNodeOfType("Projectile", this.transform).position != this.transform.position)
+                {
+                    if (Vector2.Distance(findNearestNodeOfType("Projectile", this.transform).position, this.transform.position) < 2)
+                    {
+                        active = true;
+                    }
+                }
             }
         }
         if (active == true && distance2 >= distance * 3)
         {
             active = false;
             onDeactivate();
-        }
-        if (active == false)
-        {
-            if (findNearestNodeOfType("Projectile", this.transform).position != this.transform.position)
-            {
-                if (Vector2.Distance(findNearestNodeOfType("Projectile", this.transform).position, this.transform.position) < 2)
-                {
-                    active = true;
-                }
-            }
         }
     }
 
