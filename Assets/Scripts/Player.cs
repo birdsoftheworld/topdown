@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 0.25f;
 
     private Vector2 inputDirection = Vector2.zero;
-    private Rigidbody2D body;
+    public Rigidbody2D body;
 
 
     private Rigidbody2D rb2D;
@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
 
     public int rocketsMax;
     public int rockets;
+
+    public AmmoTracker ammoCounter;
 
     private void Start()
     {
@@ -99,7 +101,7 @@ public class Player : MonoBehaviour
             weapons[1].SetActive(false);
             weapons[2].SetActive(false);
             weapons[3].SetActive(false);
-            //weapons[4].SetActive(false);
+            weapons[4].SetActive(false);
         }
         if (Input.GetKeyDown("2"))
         {
@@ -107,7 +109,7 @@ public class Player : MonoBehaviour
             weapons[1].SetActive(true);
             weapons[2].SetActive(true);
             weapons[3].SetActive(false);
-            //weapons[4].SetActive(false);
+            weapons[4].SetActive(false);
         }
         if (Input.GetKeyDown("3"))
         {
@@ -115,7 +117,16 @@ public class Player : MonoBehaviour
             weapons[1].SetActive(false);
             weapons[2].SetActive(false);
             weapons[3].SetActive(true);
-            //weapons[4].SetActive(false);
+            weapons[4].SetActive(false);
+        }
+
+        if (Input.GetKeyDown("4"))
+        {
+            weapons[0].SetActive(false);
+            weapons[1].SetActive(false);
+            weapons[2].SetActive(false);
+            weapons[3].SetActive(false);
+            weapons[4].SetActive(true);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -123,16 +134,30 @@ public class Player : MonoBehaviour
             if (dashRecharge == dashRechargeMax)
             {
                 //Debug.Log("zooom");
-                body.AddRelativeForce(Vector2.down * moveSpeed * 2000f);
-                slowDown = 1;
+                body.AddRelativeForce(Vector2.down * moveSpeed * 500f);
+                slowDown -= 5;
                 dashRecharge = 0;
             }
         }
     }
 
+    public void UpdateCheck()
+    {
+        ammoCounter.define3(heavyAmmo.ToString());
+        ammoCounter.define4(lightAmmo.ToString());
+        ammoCounter.define5(rockets.ToString());
+    }
+
     private void FixedUpdate()
     {
-        body.velocity = body.velocity/slowDown;
+        if (slowDown < 1)
+        {
+            body.velocity = body.velocity / 1;
+        }
+        else
+        {
+            body.velocity = body.velocity / slowDown;
+        }
         if (slowDown < slowDownMax)
         {
             slowDown++;

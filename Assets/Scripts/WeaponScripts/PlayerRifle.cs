@@ -35,7 +35,7 @@ public class PlayerRifle : MonoBehaviour
     private void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        ammo = ammoCap;
+        //ammo = ammoCap;
         UpdateTracker();
     }
 
@@ -43,7 +43,8 @@ public class PlayerRifle : MonoBehaviour
     {
         ammoCounter.define1(ammo.ToString());
         ammoCounter.define2(ammoCap.ToString());
-        ammoCounter.define3(player.heavyAmmo.ToString());
+        //ammoCounter.define3(player.heavyAmmo.ToString());
+        player.UpdateCheck();
     }
 
     private void FixedUpdate()

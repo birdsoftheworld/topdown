@@ -35,11 +35,11 @@ public class PlayerSeeking : MonoBehaviour
     public void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        ammo = ammoCap;
+        //ammo = ammoCap;
 
         UpdateTracker();
 
-        ammo = ammoCap;
+        //ammo = ammoCap;
         //bulletOrigin = this.transform;
     }
 
@@ -47,7 +47,8 @@ public class PlayerSeeking : MonoBehaviour
     {
         ammoCounter.define1(ammo.ToString());
         ammoCounter.define2(ammoCap.ToString());
-        ammoCounter.define3(player.rockets.ToString());
+        //ammoCounter.define3(player.rockets.ToString());
+        player.UpdateCheck();
     }
 
     private void FixedUpdate()

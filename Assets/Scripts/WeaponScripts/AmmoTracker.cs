@@ -7,6 +7,8 @@ public class AmmoTracker : MonoBehaviour
     public string num1;
     public string num2;
     public string num3;
+    public string num4;
+    public string num5;
 
     public GameObject txt;
 
@@ -16,15 +18,19 @@ public class AmmoTracker : MonoBehaviour
         num1 = "-";
         num2 = "-";
         num3 = "-";
+        num4 = "-";
+        num5 = "-";
     }
 
     // Update is called once per frame
-    void Update()
+    void UpdateChecker()
     {
-        string entry = " |  | ";
+        string entry = " / \n |  | ";
         //num1.ToString
 
-        entry = entry.Insert(6, num3);
+        entry = entry.Insert(10, num5);
+        entry = entry.Insert(7, num4);
+        entry = entry.Insert(4, num3);
         entry = entry.Insert(3, num2);
         entry = entry.Insert(0, num1);
 
@@ -34,13 +40,26 @@ public class AmmoTracker : MonoBehaviour
     public void define1(string num)
     {
         num1 = num;
+        UpdateChecker();
     }
     public void define2(string num)
     {
         num2 = num;
+        UpdateChecker();
     }
     public void define3(string num)
     {
         num3 = num;
+        UpdateChecker();
+    }
+    public void define4(string num)
+    {
+        num4 = num;
+        UpdateChecker();
+    }
+    public void define5(string num)
+    {
+        num5 = num;
+        UpdateChecker();
     }
 }

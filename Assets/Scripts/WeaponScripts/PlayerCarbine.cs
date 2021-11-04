@@ -42,7 +42,7 @@ public class PlayerCarbine : MonoBehaviour
     private void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        ammo = ammoCap;
+        //ammo = ammoCap;
         UpdateTracker();
     }
 
@@ -50,7 +50,8 @@ public class PlayerCarbine : MonoBehaviour
     {
         ammoCounter.define1(ammo.ToString());
         ammoCounter.define2(ammoCap.ToString());
-        ammoCounter.define3(player.lightAmmo.ToString());
+        //ammoCounter.define3(player.lightAmmo.ToString());
+        player.UpdateCheck();
     }
 
     private void FixedUpdate()
@@ -107,7 +108,8 @@ public class PlayerCarbine : MonoBehaviour
                         Debug.Log("Rrrrreloading!");
                         player.waiting2 = 150;
                         ammoCounter.define1(ammo.ToString());
-                        ammoCounter.define3(player.lightAmmo.ToString());
+                        player.UpdateCheck();
+                        //ammoCounter.define3(player.lightAmmo.ToString());
                     }
                 }
                 else
