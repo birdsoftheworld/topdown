@@ -9,10 +9,18 @@ public class UIFollow : MonoBehaviour
 
     public HealthTest health;
 
+    void Awake()
+    {
 
+    }
 
     void Update()
     {
+
+        if (monsterPosition == null)
+        {
+            Destroy(gameObject);
+        }
 
         this.GetComponent<Transform>().position = new Vector3 (monsterPosition.position.x, monsterPosition.position.y - 1, monsterPosition.position.z);
 

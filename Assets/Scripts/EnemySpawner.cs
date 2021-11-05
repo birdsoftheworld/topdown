@@ -38,14 +38,30 @@ public class EnemySpawner : MonoBehaviour
    //     clone.GetComponent<EnemyFacingBasic>().player = player;
 
         GameObject cloneHealth = Instantiate(healthPrefab, position, origin.rotation);
-      //  cloneHealth.transform.SetParent(canvas.transform, false);
+        //  cloneHealth.transform.SetParent(canvas.transform, false);
 
+        if (clone.GetComponent<HealthTest>() == null && clone.transform.GetChild(0).transform.gameObject.GetComponent<HealthTest>() != null)
+        {
+            clone.transform.GetChild(0).transform.gameObject.GetComponent<HealthTest>().healthBar = cloneHealth.GetComponent<HealthBar>();
+            cloneHealth.GetComponent<UIFollow>().monsterPosition = clone.transform.GetChild(0).transform.gameObject.GetComponent<Transform>();
+            cloneHealth.GetComponent<UIFollow>().health = clone.transform.GetChild(0).transform.gameObject.GetComponent<HealthTest>();
 
-        clone.GetComponent<HealthTest>().healthBar = cloneHealth.GetComponent<HealthBar>();
+            cloneHealth.GetComponent<HealthBar>().playerHealth = clone.transform.GetChild(0).transform.gameObject.GetComponent<HealthTest>();
+        }
+        else if (clone.GetComponent<HealthTest>() != null)
+        {
+            clone.GetComponent<HealthTest>().healthBar = cloneHealth.GetComponent<HealthBar>();
+            cloneHealth.GetComponent<UIFollow>().monsterPosition = clone.GetComponent<Transform>();
+            cloneHealth.GetComponent<UIFollow>().health = clone.GetComponent<HealthTest>();
 
-        cloneHealth.GetComponent<UIFollow>().monsterPosition = clone.GetComponent<Transform>();
-        cloneHealth.GetComponent<UIFollow>().health = clone.GetComponent<HealthTest>();
-
-        cloneHealth.GetComponent<HealthBar>().playerHealth = clone.GetComponent<HealthTest>();
+            cloneHealth.GetComponent<HealthBar>().playerHealth = clone.GetComponent<HealthTest>();
+        }
+        /*if (cloneHealth.GetComponent<UIFollow>().monsterPosition == null)
+        {
+            Debug.Log("fail");
+            Debug.Log(clone);
+            Destroy(clone);
+            Destroy(cloneHealth);
+        }*/
     }
 }

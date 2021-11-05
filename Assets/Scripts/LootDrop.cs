@@ -36,9 +36,10 @@ public class LootDrop : MonoBehaviour
                 player.lightAmmo += amountGive;
                 if (player.lightAmmo > player.lightAmmoMax)
                 {
-                    amountGive = player.lightAmmoMax - player.lightAmmo;
+                    amountGive = player.lightAmmo - player.lightAmmoMax;
 
                     player.lightAmmo = player.lightAmmoMax;
+
                 }
                 else
                 {
@@ -50,7 +51,7 @@ public class LootDrop : MonoBehaviour
                 player.heavyAmmo += amountGive;
                 if (player.heavyAmmo > player.heavyAmmoMax)
                 {
-                    amountGive = player.heavyAmmoMax - player.heavyAmmo;
+                    amountGive = player.heavyAmmo - player.heavyAmmoMax;
 
                     player.heavyAmmo = player.heavyAmmoMax;
                 }
@@ -64,7 +65,7 @@ public class LootDrop : MonoBehaviour
                 player.rockets += amountGive;
                 if (player.rockets > player.rocketsMax)
                 {
-                    amountGive = player.rocketsMax - player.rockets;
+                    amountGive = player.rockets - player.rocketsMax;
 
                     player.rockets = player.rocketsMax;
                 }
