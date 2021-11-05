@@ -17,10 +17,10 @@ public class UIFollow : MonoBehaviour
     void Update()
     {
 
-        if (monsterPosition == null)
+        /*if (monsterPosition == null)
         {
             Destroy(gameObject);
-        }
+        }*/
 
         this.GetComponent<Transform>().position = new Vector3 (monsterPosition.position.x, monsterPosition.position.y - 1, monsterPosition.position.z);
 

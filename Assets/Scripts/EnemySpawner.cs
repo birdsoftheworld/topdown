@@ -40,13 +40,15 @@ public class EnemySpawner : MonoBehaviour
         GameObject cloneHealth = Instantiate(healthPrefab, position, origin.rotation);
         //  cloneHealth.transform.SetParent(canvas.transform, false);
 
-        if (clone.GetComponent<HealthTest>() == null && clone.transform.GetChild(0).transform.gameObject.GetComponent<HealthTest>() != null)
+        if (clone.GetComponent<HealthTest>() == null && clone.transform.GetChild(0).GetComponent<HealthTest>() != null)
         {
-            clone.transform.GetChild(0).transform.gameObject.GetComponent<HealthTest>().healthBar = cloneHealth.GetComponent<HealthBar>();
-            cloneHealth.GetComponent<UIFollow>().monsterPosition = clone.transform.GetChild(0).transform.gameObject.GetComponent<Transform>();
-            cloneHealth.GetComponent<UIFollow>().health = clone.transform.GetChild(0).transform.gameObject.GetComponent<HealthTest>();
+            //Debug.Log(clone.transform.GetChild(0).transform.gameObject);
 
-            cloneHealth.GetComponent<HealthBar>().playerHealth = clone.transform.GetChild(0).transform.gameObject.GetComponent<HealthTest>();
+            clone.transform.GetChild(0).GetComponent<HealthTest>().healthBar = cloneHealth.GetComponent<HealthBar>();
+            cloneHealth.GetComponent<UIFollow>().monsterPosition = clone.transform.GetChild(0).GetComponent<Transform>();
+            cloneHealth.GetComponent<UIFollow>().health = clone.transform.GetChild(0).GetComponent<HealthTest>();
+
+            cloneHealth.GetComponent<HealthBar>().playerHealth = clone.transform.GetChild(0).GetComponent<HealthTest>();
         }
         else if (clone.GetComponent<HealthTest>() != null)
         {
@@ -56,6 +58,12 @@ public class EnemySpawner : MonoBehaviour
 
             cloneHealth.GetComponent<HealthBar>().playerHealth = clone.GetComponent<HealthTest>();
         }
+        /*else
+        {
+            Debug.Log(clone);
+        }*/
+
+
         /*if (cloneHealth.GetComponent<UIFollow>().monsterPosition == null)
         {
             Debug.Log("fail");

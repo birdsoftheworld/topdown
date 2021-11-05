@@ -26,7 +26,13 @@ public class HealthTest : MonoBehaviour
 
     public void DealDamage(int damage)
     {
+
         int hurt = damage - armor;
+
+        Debug.Log(armor);
+        Debug.Log(damage);
+        Debug.Log(hurt);
+
         if (hurt < 0)
         {
             hurt = 0;
@@ -35,6 +41,7 @@ public class HealthTest : MonoBehaviour
         curHealth -= hurt;
         if (healthBar != null)
         {
+            Debug.Log(this.gameObject);
             healthBar.SetHealth(curHealth);
         }
     }

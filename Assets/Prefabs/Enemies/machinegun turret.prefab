@@ -127,9 +127,8 @@ GameObject:
   - component: {fileID: 3684041919215621399}
   - component: {fileID: 3684041919215621398}
   - component: {fileID: 3684041919215621393}
-  - component: {fileID: 3684041919215621392}
-  - component: {fileID: 3684041919215621397}
   - component: {fileID: 3684041919215621395}
+  - component: {fileID: 7479023345669790914}
   m_Layer: 0
   m_Name: machinegun turret
   m_TagString: Enemy
@@ -242,35 +241,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
---- !u!114 &3684041919215621392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3684041919215621394}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c746e0982e6210140912f413c5896d2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faction: 1
---- !u!114 &3684041919215621397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3684041919215621394}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d647e0e339bf6f64cba172aeee0db174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curHealth: 9
-  maxHealth: 9
-  armor: 1
-  healthBar: {fileID: 0}
 --- !u!114 &3684041919215621395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7822d59f1da8cd41be62702833538e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 7620677863319912132}
+  health: {fileID: 7794197416327200253}
   distance: 5
   active: 0
   speed: 6
@@ -301,6 +271,22 @@ MonoBehaviour:
   cone: {fileID: 0}
   killCounterMax: 30
   TC: {fileID: 8645042177764522997}
+--- !u!58 &7479023345669790914
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684041919215621394}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.15
 --- !u!1 &3815757059037730869
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,8 +298,6 @@ GameObject:
   - component: {fileID: 1489974649506643371}
   - component: {fileID: 4651701857705559278}
   - component: {fileID: 8386808256943078898}
-  - component: {fileID: 1984351502267286854}
-  - component: {fileID: 7620677863319912132}
   - component: {fileID: 7823296295596541519}
   - component: {fileID: 4349804094451976918}
   - component: {fileID: 7794197416327200253}
@@ -332,8 +316,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3815757059037730869}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.010890961, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.09, y: 0, z: 0}
+  m_LocalScale: {x: 0.9, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3684041919215621396}
   m_RootOrder: 0
@@ -375,35 +359,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
---- !u!114 &1984351502267286854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3815757059037730869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c746e0982e6210140912f413c5896d2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faction: 1
---- !u!114 &7620677863319912132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3815757059037730869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d647e0e339bf6f64cba172aeee0db174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curHealth: 0
-  maxHealth: 0
-  armor: 2
-  healthBar: {fileID: 0}
 --- !u!60 &7823296295596541519
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -665,7 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisHealth: {fileID: 6566419699247711169}
-  bodyHealth: {fileID: 7620677863319912132}
+  bodyHealth: {fileID: 7794197416327200253}
 --- !u!60 &6940491837718062485
 PolygonCollider2D:
   m_ObjectHideFlags: 0

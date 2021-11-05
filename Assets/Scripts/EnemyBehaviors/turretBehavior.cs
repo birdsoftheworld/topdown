@@ -75,6 +75,9 @@ public class turretBehavior : MonoBehaviour
         locationCol = this.gameObject;// GetComponent<Collider2D>();
 
         TC.gameObject.SetActive(false);
+
+        //health = transform.GetChild(0).GetComponent<HealthTest>();
+
     }
 
 
@@ -253,16 +256,19 @@ public class turretBehavior : MonoBehaviour
     {
         if (sensingPlayer == true)
         {
+            this.transform.GetChild(0).gameObject.SetActive(false);
             int layerMask = 1 << 0;
             RaycastHit2D hit;
             hit = Physics2D.Raycast(transform.position, player.transform.position - this.transform.position, Mathf.Infinity, layerMask);
             if (hit.collider.gameObject.tag == "Player")
             {
+                this.transform.GetChild(0).gameObject.SetActive(true);
                 return true;
             }
             else
             {
-
+                //Debug.Log(hit.collider.gameObject.tag);
+                this.transform.GetChild(0).gameObject.SetActive(true);
                 return false;
             }
         }
