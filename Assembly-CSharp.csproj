@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\LootDrop.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\turretBehavior.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\emptyBehavior.cs" />
+     <Compile Include="Assets\Scripts\EnemyBehaviors\BrawlerBehavior.cs" />
      <Compile Include="Assets\Scripts\CamFollow.cs" />
      <Compile Include="Assets\Scripts\Tracer.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerSeeking.cs" />

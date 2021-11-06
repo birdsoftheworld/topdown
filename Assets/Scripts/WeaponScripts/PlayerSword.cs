@@ -28,14 +28,16 @@ public class PlayerSword : MonoBehaviour
         this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
         wait = waitDef;
-}
-// Update is called once per frame
-/*void Update()
-{
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
-}*/
+    }
+    // Update is called once per frame
+    /*void Update()
+    {
 
-private void FixedUpdate()
+    }*/
+
+    private void FixedUpdate()
     {
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Camera.main.nearClipPlane;

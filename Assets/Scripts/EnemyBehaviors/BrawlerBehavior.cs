@@ -45,9 +45,14 @@ public class BrawlerBehavior : MonoBehaviour
 
     private Transform chasingTarget;
 
+    private int swingCount;
+
+    private float angle;
+
     // Start is called before the first frame update
     void Start()
     {
+        swingCount = 0;
 
         player = GameObject.FindGameObjectWithTag("Player");
 
@@ -142,18 +147,34 @@ public class BrawlerBehavior : MonoBehaviour
         {
             nearEnough = true;
         }
-        Debug.Log(nearEnough);
+        //Debug.Log(nearEnough);
 
-        if (isShooting == true)
+
+        if (swingCount > 0)
         {
-            if (Vector2.Distance(this.transform.position, player.transform.position) > 1)
+            swingCount++;
+            this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
+
+            if (swingCount == 10)
             {
-                isShooting = false;
+                swingCount = 0;
+                waiting = 30;
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
         else if (Vector2.Distance(this.transform.position, player.transform.position) < 1)
         {
-            isShooting = true;
+            //isShooting = true;
+
+            FaceTarget(player.transform.position);
+
+            angle = this.transform.localEulerAngles.z;
+
+            this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 30f);
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+
+            swingCount++;
+
         }
         else if (checkSightToPlayer() == true)
         {
