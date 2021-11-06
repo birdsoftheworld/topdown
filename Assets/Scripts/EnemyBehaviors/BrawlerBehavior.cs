@@ -45,14 +45,23 @@ public class BrawlerBehavior : MonoBehaviour
 
     private Transform chasingTarget;
 
-    private int swingCount;
+    private int swingCount1;
+    private int swingCount2;
 
     private float angle;
+
+    private bool isCharging = false;
+    private Vector2 chargeTarge;
+
+    private Vector2 stuckCheck;
+
+    private int chargeCooldown;
 
     // Start is called before the first frame update
     void Start()
     {
-        swingCount = 0;
+        swingCount1 = 0;
+        swingCount2 = 0;
 
         player = GameObject.FindGameObjectWithTag("Player");
 
@@ -80,7 +89,7 @@ public class BrawlerBehavior : MonoBehaviour
     {
         if (health.curHealth <= 0)
         {
-            levelGen.GetComponent<LootController>().Drop(this.transform.position, 2, 1, 5);
+            levelGen.GetComponent<LootController>().Drop(this.transform.position, 0, 2, 2);
             Destroy(gameObject);
         }
 
@@ -149,17 +158,68 @@ public class BrawlerBehavior : MonoBehaviour
         }
         //Debug.Log(nearEnough);
 
-
-        if (swingCount > 0)
+        if (isCharging == true)
         {
-            swingCount++;
-            this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
+            this.transform.position = Vector2.MoveTowards(this.transform.position, chargeTarge, speed * 6 * Time.deltaTime);
 
-            if (swingCount == 10)
+            if (Vector2.Distance(this.transform.position, player.transform.position) < 1)
             {
-                swingCount = 0;
+                isCharging = false;
+                waiting = 10;
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                chargeCooldown = 60;
+            }
+            else if (Vector2.Distance(this.transform.position, chargeTarge) < 1)
+            {
+                isCharging = false;
                 waiting = 30;
                 this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                chargeCooldown = 60;
+            }
+            else if (Vector2.Distance(this.transform.position, stuckCheck) < .1) 
+            {
+                isCharging = false;
+                waiting = 60;
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                chargeCooldown = 60;
+            }
+
+            stuckCheck = this.transform.position;
+        }
+        else if (swingCount1 > 0)
+        {
+            swingCount1++;
+
+            this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -15f - .3f);
+            //Debug.Log(this.gameObject.transform.GetChild(0).transform.localPosition);
+            //this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.4f, swingCount2 / -30 - .3f);
+            //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
+
+            if (swingCount1 == 5)
+            {
+                swingCount1 = 0;
+                swingCount2 = 1;
+                //waiting = 30;
+                this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -15f - .3f);
+            }
+        }
+        else if (swingCount2 > 0)
+        {
+            swingCount2++;
+
+            //this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.4f, swingCount1 / -30 - .3f);
+            this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -15f - .3f);
+            //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
+
+            if (swingCount2 == 5)
+            {
+                swingCount2 = 0;
+                waiting = 30;
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
             }
         }
         else if (Vector2.Distance(this.transform.position, player.transform.position) < 1)
@@ -170,15 +230,34 @@ public class BrawlerBehavior : MonoBehaviour
 
             angle = this.transform.localEulerAngles.z;
 
-            this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 30f);
-            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -15f - .3f);
+            this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -15f - .3f);
 
-            swingCount++;
+            //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 30f);
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+
+            swingCount1++;
 
         }
         else if (checkSightToPlayer() == true)
         {
-            this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * 2 * Time.deltaTime);
+            if (chargeCooldown == 0 && Vector2.Distance(this.transform.position, player.transform.position) < 12)
+            {
+                //if (Vector2.Distance(this.transform.position, player.transform.position) < 5)
+                //{
+                    waiting = 500;
+                    StartCoroutine("ChargeTargetFind");
+                //}
+                //else
+                //{
+                //    this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * 2 * Time.deltaTime);
+                //}
+            }
+            else
+            {
+                this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * 2 * Time.deltaTime);
+            }
         }
         else if (location == player.GetComponent<Player>().location)
         {
@@ -222,12 +301,30 @@ public class BrawlerBehavior : MonoBehaviour
         {
             this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", this.transform).position, speed * 2 * Time.deltaTime);
         }
+
+        if (chargeCooldown > 0)
+        {
+            chargeCooldown--;
+        }
     }
     /*if (Vector3.Distance(this.transform.position, player.transform.position) < 1)
     {
         inPanic = true;
     }*/
     //}
+
+    IEnumerator ChargeTargetFind()
+    {
+        yield return new WaitForSeconds(1 / 2);
+        chargeTarge = player.transform.position;
+        FaceTarget(player.transform.position);
+        isCharging = true;
+        this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.4f, -.3f);
+        this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, -.3f);
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        waiting = 0;
+    }
 
     private Transform playerNearRoomTransform() //ADD TO OTHER ENEMY!!!!!!!?????????????????? MAYBE CAN ONLY DETECT ORTHANGONAL ADJACENCY IDK
     {

@@ -80,7 +80,7 @@ public class sniperBehavior : MonoBehaviour
     {
         if (health.curHealth <= 0)
         {
-            levelGen.GetComponent<LootController>().Drop(this.transform.position, 2, 1, 5);
+            levelGen.GetComponent<LootController>().Drop(this.transform.position, 2, 4, 2);
             Destroy(gameObject);
         }
 
