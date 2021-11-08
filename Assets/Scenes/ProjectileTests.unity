@@ -2405,7 +2405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4364936455462086941, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: mapSize
-      value: 7
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4364936455462086941, guid: be93b2aa57380f0419b607441d86365b, type: 3}
       propertyPath: straightLine

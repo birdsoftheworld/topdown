@@ -89,6 +89,8 @@ public class turretBehavior : MonoBehaviour
 
         if (health.curHealth <= 0)
         {
+            levelGen.GetComponent<LootController>().Drop(this.transform.position, 0, 1, 2);
+            levelGen.GetComponent<LootController>().Drop(this.transform.position, 1, 5, 2);
             Destroy(gameObject);
         }
 
