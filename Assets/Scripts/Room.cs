@@ -217,6 +217,22 @@ public class Room : MonoBehaviour
                         thisRoom[6] = nodeM.transform;
 
                         nodeM.GetComponent<storeRoomVars>().integer = roomNumber;
+
+                        //Debug.Log(roomNumber);
+
+                        /*if (roomNumber == 0)
+                        {
+                            Debug.Log(roomNumber + "------------");
+                            GameObject.FindGameObjectWithTag("Player").transform.parent = nodeM.transform;
+                            Debug.Log(nodeM.transform.position);
+                            Debug.Log(nodeM.transform.localPosition);
+                            GameObject.FindGameObjectWithTag("Player").transform.localPosition = new Vector2(0f, 0f);//nodeM.transform.position;
+                            nodeM.transform.DetachChildren();
+
+                            //Debug.Log(GameObject.FindGameObjectWithTag("Player").transform.position);
+                            //Debug.Log(nodeM.transform.position);
+                            //Debug.Log(GameObject.FindGameObjectWithTag("Player").transform.position);
+                        }*/
                     }
 
                     if (up == true)

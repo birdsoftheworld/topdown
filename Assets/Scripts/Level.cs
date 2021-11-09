@@ -71,12 +71,13 @@ public class Level : MonoBehaviour
 
     //List<GOArray> roomData;
 
-
+    public float distance;
 
     private int roomsMade = 0;
 
     private void Start()
     {
+
         //roomData =  = new List<Transform[]>();
 
         //Transform[][] roomData = new Transform[10][];
@@ -138,6 +139,8 @@ public class Level : MonoBehaviour
         GenerateRooms();
 
         //printData();
+
+        //this.gameObject.GetComponent<ObjectiveController>().enabled = true;
     }
 
     private void printData()
@@ -213,6 +216,32 @@ public class Level : MonoBehaviour
                 room.transform.Translate(room.GetFullSize() * (pos - origin));
             }
         }
+
+        Transform chosenRoom = null;
+
+        distance = 0;
+
+        Transform player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        ObjectiveController objWin = this.gameObject.GetComponent<ObjectiveController>();
+
+        for (int i = 0; i < roomData.Count - 1; i++)
+        {
+            if (Vector2.Distance(roomData[i][6].position, player.position) > distance)
+            {
+                chosenRoom = roomData[i][6];
+                distance = Vector2.Distance(roomData[i][6].position, player.position);
+            }
+            if (Vector2.Distance(roomData[i][6].position, player.position) < 1)
+            {
+                roomData[i][6].transform.parent.transform.parent.gameObject.GetComponent<storeRoomVars>().closestRoom = true;
+                objWin.closeRoom = roomData[i][6].transform;
+
+            }
+        }
+        //Debug.Log(chosenRoom.transform.position);
+        chosenRoom.transform.parent.transform.parent.gameObject.GetComponent<storeRoomVars>().furthestRoom = true;
+        objWin.farRoom = chosenRoom;
     }
 
     private List<GameObject> PossibleRooms(bool[] doors)

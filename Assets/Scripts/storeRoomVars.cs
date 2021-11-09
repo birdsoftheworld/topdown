@@ -11,4 +11,6 @@ public class storeRoomVars : MonoBehaviour
     public bool leftExit;
     public bool rightExit;
 
+    public bool closestRoom;
+    public bool furthestRoom;
 }

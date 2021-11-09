@@ -31,7 +31,7 @@ public class BrawlerBehavior : MonoBehaviour
 
     public bool movingToExit = false;
     public bool movingToCenter = false;
-    public bool isShooting = false;
+    public bool isStriking = false;
 
     public Vector2 adjustTarge = new Vector2(0, 0);
     public Vector2 coverTarge = new Vector2(0, 0);
@@ -45,8 +45,8 @@ public class BrawlerBehavior : MonoBehaviour
 
     private Transform chasingTarget;
 
-    private int swingCount1;
-    private int swingCount2;
+    public int swingCount1;
+    public int swingCount2;
 
     private float angle;
 
@@ -220,15 +220,21 @@ public class BrawlerBehavior : MonoBehaviour
                 waiting = 30;
                 this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
                 this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                isStriking = false;
             }
         }
         else if (Vector2.Distance(this.transform.position, player.transform.position) < 1)
         {
             //isShooting = true;
 
-            FaceTarget(player.transform.position);
+            if (isStriking == false)
+            {
 
-            angle = this.transform.localEulerAngles.z;
+                Debug.Log("strike");
+                isStriking = true;
+                StartCoroutine("BeginStrike");
+            }
+            /*
 
             this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -15f - .3f);
             this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -15f - .3f);
@@ -237,7 +243,7 @@ public class BrawlerBehavior : MonoBehaviour
             this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
             this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
 
-            swingCount1++;
+            swingCount1++;*/
 
         }
         else if (checkSightToPlayer() == true)
@@ -673,10 +679,31 @@ public class BrawlerBehavior : MonoBehaviour
 
     IEnumerator FindCoverCoroutine()
     {
-        yield return new WaitForSeconds(5 / 4);
+        yield return new WaitForSeconds(3 / 2);
         coverTarge = findCover().position;
     }
 
+    IEnumerator BeginStrike()
+    {
+        if (swingCount1 == 0 && swingCount2 == 0)
+        {
+            FaceTarget(player.transform.position);
+            angle = this.transform.localEulerAngles.z;
+
+            yield return new WaitForSeconds(1 / 2);
+
+            this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -15f - .3f);
+            this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -15f - .3f);
+
+            //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 30f);
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(1 / 2);
+
+            swingCount1++;
+        }
+    }
 
     public Transform findNearestNodeOfType(string nodeTag, Transform from)
     {
