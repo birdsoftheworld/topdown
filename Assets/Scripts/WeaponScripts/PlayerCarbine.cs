@@ -105,7 +105,7 @@ public class PlayerCarbine : MonoBehaviour
                     {
                         ammo = ammo + reloadAmount;
                         player.lightAmmo -= reloadAmount;
-                        Debug.Log("Rrrrreloading!");
+                        //Debug.Log("Rrrrreloading!");
                         player.waiting2 = 150;
                         ammoCounter.define1(ammo.ToString());
                         player.UpdateCheck();
@@ -114,7 +114,7 @@ public class PlayerCarbine : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("You're already at maximum ammo!");
+                    //Debug.Log("You're already at maximum ammo!");
                 }
                 if (burstTick < burstTickMax) { burstTick++; }
 

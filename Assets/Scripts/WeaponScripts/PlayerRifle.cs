@@ -87,12 +87,12 @@ public class PlayerRifle : MonoBehaviour
                     ammo++;
                     player.heavyAmmo--;
                     UpdateTracker();
-                    Debug.Log("Reloaded one bullet! You have " + ammo + " bullets loaded.");
+                    //Debug.Log("Reloaded one bullet! You have " + ammo + " bullets loaded.");
                     player.waiting2 = 50;
                 }
                 else
                 {
-                    Debug.Log("You're already at maximum ammo!");
+                    //Debug.Log("You're already at maximum ammo!");
                 }
             }
 

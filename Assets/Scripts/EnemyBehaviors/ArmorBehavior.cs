@@ -22,7 +22,7 @@ public class ArmorBehavior : MonoBehaviour
         if (thisHealth.curHealth < 0)
         {
             //Debug.Log(thisHealth.curHealth);
-            Debug.Log(thisHealth.curHealth);
+            //Debug.Log(thisHealth.curHealth);
             //bodyHealth.curHealth += thisHealth.curHealth;
             bodyHealth.DealDamage((-1 * thisHealth.curHealth) + bodyHealth.armor);
             //Debug.Log("deal to t " + ((-1 * thisHealth.curHealth) + bodyHealth.armor));
