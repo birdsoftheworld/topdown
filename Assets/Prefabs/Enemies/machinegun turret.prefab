@@ -536,6 +536,7 @@ MonoBehaviour:
   maxHealth: 9
   armor: 1
   healthBar: {fileID: 0}
+  iFrameMax: 3
 --- !u!1 &6707694686438566756
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +691,7 @@ MonoBehaviour:
   maxHealth: 0
   armor: 2
   healthBar: {fileID: 0}
+  iFrameMax: 3
 --- !u!114 &5193781060700666399
 MonoBehaviour:
   m_ObjectHideFlags: 0

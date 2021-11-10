@@ -421,6 +421,7 @@ MonoBehaviour:
   maxHealth: 6
   armor: 0
   healthBar: {fileID: 0}
+  iFrameMax: 3
 --- !u!114 &2106955942832493795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,7 +444,7 @@ MonoBehaviour:
   locationCol: {fileID: 0}
   movingToExit: 0
   movingToCenter: 0
-  isShooting: 0
+  isStriking: 0
   adjustTarge: {x: 0, y: 0}
   coverTarge: {x: 0, y: 0}
   centerTarge: {x: 0, y: 0}
@@ -451,3 +452,5 @@ MonoBehaviour:
   bulletDamage: 0
   bulletPrefab: {fileID: 0}
   tracerPrefab: {fileID: 0}
+  swingCount1: 0
+  swingCount2: 0

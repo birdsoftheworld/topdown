@@ -94,6 +94,7 @@ public class Flashbang : MonoBehaviour
                     coll.GetComponent<Player>().waiting = 75;
                     coll.GetComponent<Player>().waiting2 = 75;
                     coll.GetComponent<Player>().waiting3 = 75;
+                    coll.GetComponent<Player>().waiting4 = 75;
                 }
 
 

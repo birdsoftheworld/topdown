@@ -21,25 +21,24 @@ public class PlayerFlashbang : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (player.waiting3 > 0)
+        if (player.waiting3 == 0)
         {
-            player.waiting3--;
-        }
-        else if (Input.GetMouseButton(1))
-        {
-            Vector2 position = bulletOrigin.position;
-            GameObject clone = Instantiate(flashbangPrefab, position, bulletOrigin.rotation);
-            clone.gameObject.SetActive(true);
+            if (Input.GetMouseButton(1))
+            {
+                Vector2 position = bulletOrigin.position;
+                GameObject clone = Instantiate(flashbangPrefab, position, bulletOrigin.rotation);
+                clone.gameObject.SetActive(true);
 
-            Flashbang grenade = clone.gameObject.GetComponent("Flashbang") as Flashbang;
+                Flashbang grenade = clone.gameObject.GetComponent("Flashbang") as Flashbang;
 
-            grenade.bulletSpeed = throwSpeed;
-            grenade.countdownMax = grenadeTimer;
-            grenade.countdown = grenadeTimer;
+                grenade.bulletSpeed = throwSpeed;
+                grenade.countdownMax = grenadeTimer;
+                grenade.countdown = grenadeTimer;
 
-            player.waiting3 = 50;
-            //bullet.bulletDamage = bulletDamage;
-            //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
+                player.waiting3 = 50;
+                //bullet.bulletDamage = bulletDamage;
+                //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
+            }
         }
 
     }

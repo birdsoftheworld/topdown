@@ -49,11 +49,7 @@ public class PlayerRifle : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player.waiting2 > 0)
-        {
-            player.waiting2--;
-        }
-        else
+        if (player.waiting2 == 0)
         {
             if (Input.GetMouseButton(0))
             {

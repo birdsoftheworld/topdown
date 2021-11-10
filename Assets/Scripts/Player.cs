@@ -21,15 +21,13 @@ public class Player : MonoBehaviour
 
     public GameObject[] weapons = new GameObject[5];
 
-    public int dashRechargeMax = 300;
-    public int dashRecharge = 300;
-
     public int slowDownMax = 3;
     public int slowDown = 3;
 
     public int waiting = 0;
     public int waiting2 = 0;
     public int waiting3 = 0;
+    public int waiting4 = 0;
 
     public int lightAmmoMax;
     public int lightAmmo;
@@ -60,6 +58,7 @@ public class Player : MonoBehaviour
         waiting = 0;
         waiting2 = 0;
         waiting3 = 0;
+        waiting4 = 0;
     }
 
     private void Update()
@@ -129,16 +128,7 @@ public class Player : MonoBehaviour
             weapons[4].SetActive(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (dashRecharge == dashRechargeMax)
-            {
-                //Debug.Log("zooom");
-                body.AddRelativeForce(Vector2.down * moveSpeed * 500f);
-                slowDown -= 5;
-                dashRecharge = 0;
-            }
-        }
+
     }
 
     public void UpdateCheck()
@@ -173,11 +163,18 @@ public class Player : MonoBehaviour
             body.AddForce(inputDirection * moveSpeed * 100f);
         }
 
-        if(dashRecharge < dashRechargeMax)
+        if (waiting2 > 0)
         {
-            dashRecharge++;
+            waiting2--;
         }
-
+        if (waiting3 > 0)
+        {
+            waiting3--;
+        }
+        if (waiting4 > 0)
+        {
+            waiting4--;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)

@@ -51,11 +51,7 @@ public class PlayerSword : MonoBehaviour
 
         angle = Mathf.Atan2(destinationN.y, destinationN.x) * Mathf.Rad2Deg;
 
-        if (player.waiting2 > 0)
-        {
-            player.waiting2--;
-        }
-        else
+        if (player.waiting2 == 0)
         {
             if (swingCount > 0)
             {

@@ -153,6 +153,7 @@ MonoBehaviour:
   maxHealth: 6
   armor: 0
   healthBar: {fileID: 0}
+  iFrameMax: 3
 --- !u!114 &6235962892677778585
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,38 +11,47 @@ public class HealthTest : MonoBehaviour
 
     public HealthBar healthBar;
 
+    public int iFrameMax;
+    public int iFrames;
+
     void Start()
     {
         curHealth = maxHealth;
+
+        iFrames = iFrameMax;
     }
 
-    /*void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (iFrames > 0)
         {
-            DealDamage(10);
+            iFrames--;
         }
-    }*/
+    }
 
     public void DealDamage(int damage)
     {
-
-        int hurt = damage - armor;
-
-        //Debug.Log(armor);
-        //Debug.Log(damage);
-        //Debug.Log(hurt);
-
-        if (hurt < 0)
+        if (iFrames == 0)
         {
-            hurt = 0;
-        }
-        //Debug.Log(hurt);
-        curHealth -= hurt;
-        if (healthBar != null)
-        {
-            //Debug.Log(this.gameObject);
-            healthBar.SetHealth(curHealth);
+            int hurt = damage - armor;
+
+            //Debug.Log(armor);
+            //Debug.Log(damage);
+            //Debug.Log(hurt);
+
+            if (hurt < 0)
+            {
+                hurt = 0;
+            }
+            //Debug.Log(hurt);
+            curHealth -= hurt;
+            if (healthBar != null)
+            {
+                //Debug.Log(this.gameObject);
+                healthBar.SetHealth(curHealth);
+            }
+
+            iFrames += iFrameMax;
         }
     }
 }
