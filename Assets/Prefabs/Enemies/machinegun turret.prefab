@@ -50,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1696867332088863758}
   - component: {fileID: 2400913348302132586}
   - component: {fileID: 8645042177764522997}
-  - component: {fileID: 4493771694897633299}
+  - component: {fileID: 170295735210459514}
   m_Layer: 0
   m_Name: TC
   m_TagString: Untagged
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensingPlayer: 0
---- !u!114 &4493771694897633299
+--- !u!114 &170295735210459514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,10 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LightType: 0
+  m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
@@ -193,10 +193,10 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 0.5
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
+  - {x: 26.5, y: -4.5, z: 0}
+  - {x: 26.5, y: -0.5, z: 0}
+  - {x: 26.5, y: 4.5, z: 0}
+  - {x: 0.006266594, y: 0.0024785995, z: 0}
 --- !u!1 &3684041919215621394
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -537,6 +537,7 @@ MonoBehaviour:
   armor: 1
   healthBar: {fileID: 0}
   iFrameMax: 3
+  iFrames: 0
 --- !u!1 &6707694686438566756
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,7 +594,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -692,6 +693,7 @@ MonoBehaviour:
   armor: 2
   healthBar: {fileID: 0}
   iFrameMax: 3
+  iFrames: 0
 --- !u!114 &5193781060700666399
 MonoBehaviour:
   m_ObjectHideFlags: 0

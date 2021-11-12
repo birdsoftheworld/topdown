@@ -6884,9 +6884,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 882b580bfa57354479b3150ff89a4460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 2125265401571518718, guid: cb1ef6c1a0e82c44c9324a6e6529a048, type: 3}
   healthPrefab: {fileID: 5565209166116833459, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
   origin: {fileID: 1175571809091399187}
+  enemyPrefabs: []
 --- !u!1 &5501885211723130795
 GameObject:
   m_ObjectHideFlags: 0
@@ -6937,6 +6937,7 @@ MonoBehaviour:
   downExit: 1
   leftExit: 1
   rightExit: 1
+  node: {fileID: 0}
 --- !u!156049354 &4490932670866771567
 Grid:
   m_ObjectHideFlags: 0
