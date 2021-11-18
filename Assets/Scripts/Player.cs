@@ -19,7 +19,10 @@ public class Player : MonoBehaviour
     public Collider2D locationCol;
     private GameObject levelGen;
 
-    public GameObject[] weapons = new GameObject[5];
+    public GameObject[] weapons;
+
+    public GameObject[] items;
+
 
     public int slowDownMax = 3;
     public int slowDown = 3;
@@ -59,6 +62,21 @@ public class Player : MonoBehaviour
         waiting2 = 0;
         waiting3 = 0;
         waiting4 = 0;
+
+        weapons = new GameObject[3];
+        items = new GameObject[1];
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (this.transform.GetChild(0).transform.GetChild(i) != null)
+            {
+                weapons[i] = this.transform.GetChild(0).transform.GetChild(i).gameObject;
+            }
+        }
+        if (this.transform.GetChild(1).transform.GetChild(0) != null)
+        {
+            items[0] = this.transform.GetChild(1).transform.GetChild(0).gameObject;
+        }
     }
 
     private void Update()
@@ -96,39 +114,40 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown("1"))
         {
-            weapons[0].SetActive(true);
-            weapons[1].SetActive(false);
-            weapons[2].SetActive(false);
-            weapons[3].SetActive(false);
-            weapons[4].SetActive(false);
+            SetWeapon(0);
         }
         if (Input.GetKeyDown("2"))
         {
-            weapons[0].SetActive(false);
-            weapons[1].SetActive(true);
-            weapons[2].SetActive(true);
-            weapons[3].SetActive(false);
-            weapons[4].SetActive(false);
+            SetWeapon(1);
         }
         if (Input.GetKeyDown("3"))
         {
-            weapons[0].SetActive(false);
-            weapons[1].SetActive(false);
-            weapons[2].SetActive(false);
-            weapons[3].SetActive(true);
-            weapons[4].SetActive(false);
+            SetWeapon(2);
         }
+    }
 
-        if (Input.GetKeyDown("4"))
+    private void SetWeapon(int set)
+    {
+        for (int i = 0; i < weapons.Length; i++)
         {
-            weapons[0].SetActive(false);
-            weapons[1].SetActive(false);
-            weapons[2].SetActive(false);
-            weapons[3].SetActive(false);
-            weapons[4].SetActive(true);
+            if (i == set)
+            {
+                weapons[i].SetActive(true);
+            }
+            else
+            {
+                weapons[i].SetActive(false);
+            }
         }
 
-
+        if (weapons[set].GetComponent<StoreWeaponVars>().oneHanded == true)
+        {
+            items[0].SetActive(true);
+        }
+        else
+        {
+            items[0].SetActive(false);
+        }
     }
 
     public void UpdateCheck()
