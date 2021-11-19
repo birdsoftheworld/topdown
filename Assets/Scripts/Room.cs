@@ -40,7 +40,7 @@ public class Room : MonoBehaviour
     {
         Transform[] thisRoom = new Transform[13];
 
-        Transform tilesChild = transform.GetChild(0);
+        Transform tilesChild = transform.GetChild(1);
         Grid grid = GetComponent<Grid>();
         for (int x = 0; x < width; x++)
         {
@@ -62,6 +62,8 @@ public class Room : MonoBehaviour
                     }
                     // offset of 0.5 because the tilemap is offset by that much
                     wall.transform.Translate(new Vector2(x, y) * new Vector2(grid.cellSize.x, grid.cellSize.y) + new Vector2(0.5f, 0.5f));
+
+                    wall.transform.parent = this.gameObject.transform.GetChild(0);
                 }
 
                 //cover unaltered/close to door: new Vector2(74, 153)
@@ -274,8 +276,12 @@ public class Room : MonoBehaviour
         this.GetComponent<storeRoomVars>().leftExit = left;
         this.GetComponent<storeRoomVars>().rightExit = right;
 
-        return thisRoom;
 
+        //this.transform.GetChild(0).gameObject.AddComponent<CompositeCollider2D>();
+        //this.transform.GetChild(0).gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
+
+        return thisRoom;
     }
 
     public Vector2 GetFullSize()
