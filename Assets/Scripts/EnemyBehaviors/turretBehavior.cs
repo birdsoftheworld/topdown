@@ -10,6 +10,7 @@ public class turretBehavior : MonoBehaviour
     public HealthTest health;
 
     public float distance;
+    private float distance2;
 
     public bool active = false;
 
@@ -77,6 +78,7 @@ public class turretBehavior : MonoBehaviour
         TC.gameObject.SetActive(false);
 
         //health = transform.GetChild(0).GetComponent<HealthTest>();
+        distance2 = Mathf.Infinity;//Vector3.Distance(this.transform.position, player.transform.position);
 
     }
 
@@ -84,7 +86,17 @@ public class turretBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (swivels.Count == 0)
+        {
+            defineSwivels();
+            distance2 = Mathf.Infinity;
+            waiting = 10;
+            TC.gameObject.SetActive(false);
+        }
+        else
+        {
+            distance2 = Vector3.Distance(this.transform.position, player.transform.position);
+        }
         sensingPlayer = TC.sensingPlayer;
 
         if (health.curHealth <= 0)
@@ -95,7 +107,6 @@ public class turretBehavior : MonoBehaviour
         }
 
         ////////  distance to activate
-        float distance2 = Vector3.Distance(this.transform.position, player.transform.position);
 
         /*if (distance2 <= distance)
         {
@@ -107,34 +118,48 @@ public class turretBehavior : MonoBehaviour
             {
             }
         }*/
-        if (active == true && sensingPlayer == false && checkSightToPlayer() == false)
+        if (distance2 <= distance) {
+
+            TC.gameObject.SetActive(true);
+
+
+            if (active == true && sensingPlayer == false && checkSightToPlayer() == false)
+            {
+                active = false;
+
+                //Debug.Log(transform.localEulerAngles.z);
+                //Debug.Log(Mathf.Round(transform.localEulerAngles.z));
+                //Debug.Log(transform.localEulerAngles.z -Mathf.Round(transform.localEulerAngles.z));
+                float fixRotation = transform.localEulerAngles.z - Mathf.Round(transform.localEulerAngles.z);
+
+                this.transform.Rotate(0.0f, 0.0f, -fixRotation, Space.World);
+
+                scanning = 60;
+            }
+        }
+        else 
         {
-            active = false;
-
-            //Debug.Log(transform.localEulerAngles.z);
-            //Debug.Log(Mathf.Round(transform.localEulerAngles.z));
-            //Debug.Log(transform.localEulerAngles.z -Mathf.Round(transform.localEulerAngles.z));
-            float fixRotation = transform.localEulerAngles.z - Mathf.Round(transform.localEulerAngles.z);
-
-            this.transform.Rotate(0.0f, 0.0f, -fixRotation, Space.World);
-
-            scanning = 60;
+            TC.gameObject.SetActive(false);
         }
     }
 
     void FixedUpdate()
     {
+        if (swivels.Count == 0)
+        {
+            defineSwivels();
+            distance2 = Mathf.Infinity;
+            waiting = 10;
+            TC.gameObject.SetActive(false);
+        }
+
         if (waiting > 0)
         {
             waiting--;
         }
-        else
+        else if (distance2 <= distance)
         {
-            if (swivels.Count == 0)
-            {
-                defineSwivels();
-                TC.gameObject.SetActive(true);
-            }
+
             if (active == true)
             {
                 setActiveBehavior();

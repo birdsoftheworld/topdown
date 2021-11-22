@@ -5,4 +5,5 @@ using UnityEngine;
 public class StoreWeaponVars : MonoBehaviour
 {
     public bool oneHanded;
+    public int ammoType;
 }

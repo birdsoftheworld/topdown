@@ -230,7 +230,7 @@ public class BrawlerBehavior : MonoBehaviour
             if (isStriking == false)
             {
 
-                Debug.Log("strike");
+                //Debug.Log("strike");
                 isStriking = true;
                 StartCoroutine("BeginStrike");
             }

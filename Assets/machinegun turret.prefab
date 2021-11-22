@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 7794197416327200253}
-  distance: 5
+  distance: 40
   active: 0
   speed: 6
   nearbyOtherRooms: []
