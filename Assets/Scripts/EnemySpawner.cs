@@ -16,34 +16,38 @@ public class EnemySpawner : MonoBehaviour
 
     public List<GameObject> enemyPrefabs;
 
+    public List<GameObject> objectPrefabs;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-
         Vector3 position = origin.position;
 
-        Spawn(position, origin);
+        if (enemyPrefabs.Count != 0)
+        {
+            SpawnEnemy(position, origin);
+        }
+
+        for (int i = Random.Range(0, 10); i < 5; i += 1)
+        {
+            float a = Random.Range(-10f, 10f);
+            a = a / (Mathf.Abs(a) * 0.5f);
+
+            float b = Random.Range(-10f, 10f);
+            b = b / (Mathf.Abs(b) * 0.5f);
+
+            SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void Spawn(Vector3 position, Transform rotation)
+    void SpawnEnemy(Vector3 position, Transform rotation)
     {
         GameObject clone = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], position, origin.rotation);
-   //     clone.GetComponent<EnemyFacingBasic>().player = player;
 
         GameObject cloneHealth = Instantiate(healthPrefab, position, origin.rotation);
-        //  cloneHealth.transform.SetParent(canvas.transform, false);
 
         if (clone.GetComponent<HealthTest>() == null && clone.transform.GetChild(0).GetComponent<HealthTest>() != null)
         {
-            //Debug.Log(clone.transform.GetChild(0).transform.gameObject);
-
             clone.transform.GetChild(0).GetComponent<HealthTest>().healthBar = cloneHealth.GetComponent<HealthBar>();
             cloneHealth.GetComponent<UIFollow>().monsterPosition = clone.transform.GetChild(0).GetComponent<Transform>();
             cloneHealth.GetComponent<UIFollow>().health = clone.transform.GetChild(0).GetComponent<HealthTest>();
@@ -58,18 +62,10 @@ public class EnemySpawner : MonoBehaviour
 
             cloneHealth.GetComponent<HealthBar>().playerHealth = clone.GetComponent<HealthTest>();
         }
-        /*else
-        {
-            Debug.Log(clone);
-        }*/
+    }
 
-
-        /*if (cloneHealth.GetComponent<UIFollow>().monsterPosition == null)
-        {
-            Debug.Log("fail");
-            Debug.Log(clone);
-            Destroy(clone);
-            Destroy(cloneHealth);
-        }*/
+    void SpawnObject(Vector3 position, Transform rotation)
+    {
+        GameObject clone = Instantiate(objectPrefabs[Random.Range(0, objectPrefabs.Count)], position, origin.rotation);
     }
 }

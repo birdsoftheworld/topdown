@@ -1677,9 +1677,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1594865159}
-  - {fileID: 9212968076482862981}
-  - {fileID: 176052446}
   - {fileID: 1473926812}
+  - {fileID: 176052446}
+  - {fileID: 9212968076482862981}
   - {fileID: 1545703927}
   m_Father: {fileID: 127758394}
   m_RootOrder: 0
@@ -2120,7 +2120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f688ac1508ebe488532b4e73295f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEscape: 0
+  isEscape: 1
   winExit: {fileID: 2624025460353839326, guid: 36815ccb61f3d6f4d95ad2e91d90b4de, type: 3}
   farRoom: {fileID: 0}
   closeRoom: {fileID: 0}
@@ -2193,8 +2193,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 600720945453272804}
   - {fileID: 102922850}
+  - {fileID: 600720945453272804}
   m_Father: {fileID: 127758394}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2368,7 +2368,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 357739448476452082, guid: ca59f5985bac425408c5436e260d169b, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 357739448476452082, guid: ca59f5985bac425408c5436e260d169b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2442,7 +2442,7 @@ PrefabInstance:
       objectReference: {fileID: 127758394}
     - target: {fileID: 600720945869909605, guid: 39661c07fbf271b45931b5c5e5c16139, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 600720945869909605, guid: 39661c07fbf271b45931b5c5e5c16139, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2580,7 +2580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4036401401742638863, guid: 9be404baefe21674598949fe0fb70843, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4036401401742638863, guid: 9be404baefe21674598949fe0fb70843, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2759,7 +2759,7 @@ Transform:
   m_LocalScale: {x: 2.9641, y: 7.1324825, z: 1}
   m_Children: []
   m_Father: {fileID: 1210750781}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &9212968076482862982
 MonoBehaviour:
