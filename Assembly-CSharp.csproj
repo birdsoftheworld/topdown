@@ -49,6 +49,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\EnemyBehaviors\sniperBehavior.cs" />
      <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\ShrapnelGrenade.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\nodeNavigation.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\attackBehavior.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
@@ -57,8 +58,8 @@
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\EnemyFacingBasic.cs" />
      <Compile Include="Assets\Scripts\Projectiles\Blade.cs" />
      <Compile Include="Assets\Scripts\Projectiles\SeekingMissile.cs" />
-     <Compile Include="Assets\Scripts\Projectiles\Flashbang.cs" />
      <Compile Include="Assets\Scripts\UI\StartMenu.cs" />
+     <Compile Include="Assets\Scripts\Projectiles\Flashbang.cs" />
      <Compile Include="Assets\Scripts\LightBlockersSet.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerRifle.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerDash.cs" />
@@ -74,6 +75,7 @@
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerSword.cs" />
      <Compile Include="Assets\Scripts\HealthBar.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\bruteBehavior.cs" />
+     <Compile Include="Assets\Scripts\ExplosiveBarrel.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\ChaserScript.cs" />
      <Compile Include="Assets\Scripts\Projectiles\FusionProjectile.cs" />
      <Compile Include="Assets\Scripts\UI\UIFollow.cs" />
@@ -86,9 +88,10 @@
      <Compile Include="Assets\Scripts\Projectiles\RichochetBomb.cs" />
      <Compile Include="Assets\Scripts\ObjectiveController.cs" />
      <Compile Include="Assets\Scripts\CamFollow.cs" />
-     <Compile Include="Assets\Scripts\Projectiles\Tracer.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\StoreWeaponVars.cs" />
+     <Compile Include="Assets\Scripts\Projectiles\Tracer.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerSeeking.cs" />
+     <Compile Include="Assets\Scripts\RichochetBomb.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\AmmoTracker.cs" />
      <Compile Include="Assets\Scripts\Hittable.cs" />
      <Compile Include="Assets\Scripts\storeRoomVars.cs" />
@@ -102,6 +105,7 @@
      <Compile Include="Assets\Scripts\HealthTest.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\idleBehavior.cs" />
+     <Compile Include="Assets\Scripts\Projectiles\Explosion.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

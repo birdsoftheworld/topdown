@@ -82,6 +82,7 @@ public class PlayerCycleLance : MonoBehaviour
                         fireTick = 0;
 
                         player.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * bulletSpeed * -5f * (10 - burstTick));
+                        player.slowDown -= 1;
 
                         burstTick--;
                     }

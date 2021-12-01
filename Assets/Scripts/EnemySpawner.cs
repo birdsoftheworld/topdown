@@ -31,10 +31,10 @@ public class EnemySpawner : MonoBehaviour
         for (int i = Random.Range(0, 10); i < 5; i += 1)
         {
             float a = Random.Range(-10f, 10f);
-            a = a / (Mathf.Abs(a) * 0.5f);
+            a = a / (Mathf.Abs(a) - 0.5f);
 
             float b = Random.Range(-10f, 10f);
-            b = b / (Mathf.Abs(b) * 0.5f);
+            b = b / (Mathf.Abs(b) - 0.5f);
 
             SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
         }

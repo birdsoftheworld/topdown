@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - Projectile
   - UI
+  - Explosive
   layers:
   - Default
   - TransparentFX

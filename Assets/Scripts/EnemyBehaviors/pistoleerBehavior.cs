@@ -135,8 +135,23 @@ public class pistoleerBehavior : MonoBehaviour
         {
             if (ammo > 0)
             {
-                if (checkSightToPlayer() == true)
+                if (getExplosivesInRangeOfPlayer(5) != this.transform)
                 {
+                    FaceTarget(getExplosivesInRangeOfPlayer(5).position);
+                    shoot();
+                    if (checkSightToPlayer() == true)
+                    {
+                        waiting = firingSpeed;
+                    }
+                    else
+                    {
+                        isShooting = false;
+                    }
+                }
+
+                else if (checkSightToPlayer() == true)
+                {
+                    FaceTarget(player.transform.position);
                     shoot();
                     if (checkSightToPlayer() == true)
                     {
@@ -323,6 +338,40 @@ public class pistoleerBehavior : MonoBehaviour
         }*/
     }
 
+    public Transform getExplosivesInRangeOfPlayer(int range)
+    {
+        GameObject[] explosives;
+
+        explosives = GameObject.FindGameObjectsWithTag("Explosive");
+        GameObject closest = this.gameObject;
+        float distance = Mathf.Infinity;
+        Vector3 position = player.transform.position;
+        foreach (GameObject go in explosives)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                if (curDistance <= range)
+                {
+                    int layerMask = 1 << 0;
+                    RaycastHit2D hit;
+                    hit = Physics2D.Raycast(transform.position, go.transform.position - this.transform.position, Mathf.Infinity, layerMask);
+                    if (hit.collider.gameObject.tag == "Explosive")
+                    {
+                        closest = go;
+                        distance = curDistance;
+                    }
+ 
+                }
+            }
+            
+        }
+        //Debug.Log(closest.transform.position);
+        return closest.transform;
+
+    }
+
     private bool checkSightToPlayer()
     {
         int layerMask = 1 << 0;
@@ -360,7 +409,7 @@ public class pistoleerBehavior : MonoBehaviour
     private void shoot()
     {
         ammo--;
-        FaceTarget(player.transform.position);
+        //FaceTarget(player.transform.position);
 
         GameObject clone = Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
         clone.gameObject.SetActive(true);
