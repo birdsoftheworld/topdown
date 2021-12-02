@@ -72,7 +72,7 @@ public class ExplosiveBarrel : MonoBehaviour
 
 
 
-    void OnTriggerEnter2D(Collider2D coll)
+    /*void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.tag == "Projectile")
         {
@@ -84,5 +84,5 @@ public class ExplosiveBarrel : MonoBehaviour
             rotation.eulerAngles = new Vector3(0, 0, angle + 90);
             transform.rotation = rotation;
         }
-    }
+    }*/
 }

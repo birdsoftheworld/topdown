@@ -298,7 +298,7 @@ public class pistoleerBehavior : MonoBehaviour
                     int layerMask = 1 << 0;
                     RaycastHit2D hit;
                     hit = Physics2D.Raycast(findNearestNodeOfType("NodeEnter", this.transform).position, player.transform.position - findNearestNodeOfType("NodeEnter", this.transform).position, Mathf.Infinity, layerMask);
-                    if (hit.collider.gameObject.tag == "Player")
+                    if (hit.collider.gameObject.tag == "Player" || getExplosivesInRangeOfPlayer(5) != this.transform)
                     {
                         this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeEnter", this.transform).position, speed * 3 * Time.deltaTime);
 
@@ -311,7 +311,7 @@ public class pistoleerBehavior : MonoBehaviour
                         }
                     }
                     else
-                    {
+                            {
                         inCover = false;
                         //this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", player.transform).position, speed * 2 * Time.deltaTime);
                         coverTarge = findCover().position;

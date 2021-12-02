@@ -48,8 +48,6 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\EnemyBehaviors\sniperBehavior.cs" />
-     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
-     <Compile Include="Assets\Scripts\ShrapnelGrenade.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\nodeNavigation.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\attackBehavior.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
@@ -88,10 +86,10 @@
      <Compile Include="Assets\Scripts\Projectiles\RichochetBomb.cs" />
      <Compile Include="Assets\Scripts\ObjectiveController.cs" />
      <Compile Include="Assets\Scripts\CamFollow.cs" />
+     <Compile Include="Assets\Scripts\ExplosiveMine.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\StoreWeaponVars.cs" />
      <Compile Include="Assets\Scripts\Projectiles\Tracer.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerSeeking.cs" />
-     <Compile Include="Assets\Scripts\RichochetBomb.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\AmmoTracker.cs" />
      <Compile Include="Assets\Scripts\Hittable.cs" />
      <Compile Include="Assets\Scripts\storeRoomVars.cs" />
