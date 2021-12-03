@@ -22,7 +22,9 @@ public class UIFollow : MonoBehaviour
             Destroy(gameObject);
         }*/
 
-        this.GetComponent<Transform>().position = new Vector3 (monsterPosition.position.x, monsterPosition.position.y - 1, monsterPosition.position.z);
+        this.GetComponent<Transform>().position = new Vector3 (monsterPosition.position.x - 1, monsterPosition.position.y, monsterPosition.position.z);
+
+        this.GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 90);
 
         if (health.curHealth <= 0)
         {

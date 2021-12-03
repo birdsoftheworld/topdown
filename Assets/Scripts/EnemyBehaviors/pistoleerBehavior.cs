@@ -131,6 +131,8 @@ public class pistoleerBehavior : MonoBehaviour
 
     private void setActiveBehavior()
     {
+        FaceTarget(player.transform.position);
+
         if (isShooting == true)
         {
             if (ammo > 0)
@@ -192,7 +194,7 @@ public class pistoleerBehavior : MonoBehaviour
             {
                 this.transform.position = Vector2.MoveTowards(this.transform.position, closestE.position, speed * 2 * Time.deltaTime);
 
-                FaceTarget(closestE.position);
+                //FaceTarget(closestE.position);
 
                 float a1 = closestE.position.x;
                 float b1 = closestE.position.y;
@@ -207,7 +209,7 @@ public class pistoleerBehavior : MonoBehaviour
             {
                 this.transform.position = Vector2.MoveTowards(this.transform.position, adjustTarge, speed * 2 * Time.deltaTime);
 
-                FaceTarget(adjustTarge);
+                 //FaceTarget(adjustTarge);
 
                 if (Vector2.Distance(adjustTarge, this.transform.position) < 1)
                 {
@@ -247,7 +249,7 @@ public class pistoleerBehavior : MonoBehaviour
                 {
                     this.transform.position = Vector2.MoveTowards(this.transform.position, chasingTarget.position, speed * 3 * Time.deltaTime);
 
-                    FaceTarget(chasingTarget.position);
+                    //FaceTarget(chasingTarget.position);
                 }
                 else
                 {
@@ -282,7 +284,7 @@ public class pistoleerBehavior : MonoBehaviour
                     //Debug.Log(closest.transform.position);
                     coverTarge = closest.transform.position;
 
-                    FaceTarget(coverTarge);
+                    //FaceTarget(coverTarge);
 
                 }
                 /*if (playerTwoRoomsAway() == false)
@@ -294,7 +296,7 @@ public class pistoleerBehavior : MonoBehaviour
             else if (inCover == false)
             {
                 this.transform.position = Vector2.MoveTowards(this.transform.position, coverTarge, speed * 2 * Time.deltaTime);
-                FaceTarget(coverTarge);
+                //FaceTarget(coverTarge);
 
                 if (Vector2.Distance(coverTarge, this.transform.position) < .5)
                 {
@@ -311,7 +313,7 @@ public class pistoleerBehavior : MonoBehaviour
                     if (hit.collider.gameObject.tag == "Player" || getExplosivesInRangeOfPlayer(5) != this.transform)
                     {
                         this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeEnter", this.transform).position, speed * 3 * Time.deltaTime);
-                        FaceTarget(findNearestNodeOfType("NodeEnter", this.transform).position);
+                        //FaceTarget(findNearestNodeOfType("NodeEnter", this.transform).position);
 
                         if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < .25)
                         {

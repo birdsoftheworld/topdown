@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
             SpawnEnemy(position, origin);
         }
 
-        for (int i = Random.Range(0, 10); i < 5; i += 1)
+        if (Random.Range(0, 3) == 2)
         {
             float a = Random.Range(-10f, 10f);
             a = a / (Mathf.Abs(a) - 0.5f);
@@ -37,6 +37,62 @@ public class EnemySpawner : MonoBehaviour
             b = b / (Mathf.Abs(b) - 0.5f);
 
             SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
+
+            if (Random.Range(0, 4) == 3)
+            {
+                int c = Random.Range(0, 2);
+                if (c == 1)
+                {
+                    a = a * -1;
+                }
+                else
+                {
+                    b = b * -1;
+                }
+
+                SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
+
+                if (Random.Range(0, 5) == 4)
+                {
+                    int d = Random.Range(0, 2);
+                    if (d == c)
+                    {
+                        if (d == 1)
+                        {
+                            d = 0;
+                        }
+                        else
+                        {
+                            d = 1;
+                        }
+                    }
+
+                    else if (d == 1)
+                    {
+                        a = a * -1;
+                    }
+                    else
+                    {
+                        b = b * -1;
+                    }
+
+                    SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
+
+                    if (Random.Range(0, 6) == 5)
+                    {
+                        if (c == 1)
+                        {
+                            a = a * -1;
+                        }
+                        else
+                        {
+                            b = b * -1;
+                        }
+
+                        SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
+                    }
+                }
+            }
         }
     }
 

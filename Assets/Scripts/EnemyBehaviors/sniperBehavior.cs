@@ -144,7 +144,8 @@ public class sniperBehavior : MonoBehaviour
 
     private void setActiveBehavior()
     {
-        //Debug.Log(playerNear());
+        FaceTarget(player.transform.position);
+
         if (isShooting == true)
         {
             if (Vector2.Distance(this.transform.position, player.transform.position) > 10)
