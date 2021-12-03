@@ -43,6 +43,8 @@ public class Player : MonoBehaviour
 
     public AmmoTracker ammoCounter;
 
+    public Sprite injuredSprite;
+
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -85,6 +87,11 @@ public class Player : MonoBehaviour
         {
             Debug.Break();
         }
+        if (this.GetComponent<HealthTest>().curHealth <= this.GetComponent<HealthTest>().maxHealth / 2)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = injuredSprite;
+        }
+
 
         float horizontalMove = Input.GetAxisRaw("Horizontal");
         float verticalMove = Input.GetAxisRaw("Vertical");

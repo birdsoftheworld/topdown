@@ -128,6 +128,10 @@ public class BrawlerBehavior : MonoBehaviour
         if (waiting > 0)
         {
             waiting--;
+            if (chargeTarge != null)
+            {
+                FaceTarget(chargeTarge);
+            }
         }
         else
         {
@@ -178,7 +182,7 @@ public class BrawlerBehavior : MonoBehaviour
                 this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 chargeCooldown = 60;
             }
-            else if (Vector2.Distance(this.transform.position, stuckCheck) < .1) 
+            else if (Vector2.Distance(this.transform.position, stuckCheck) < .1)
             {
                 isCharging = false;
                 waiting = 60;
@@ -189,123 +193,128 @@ public class BrawlerBehavior : MonoBehaviour
 
             stuckCheck = this.transform.position;
         }
-        else if (swingCount1 > 0)
+        else
         {
-            swingCount1++;
+            FaceTarget(player.transform.position);
 
-            this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -15f - .3f);
-            //Debug.Log(this.gameObject.transform.GetChild(0).transform.localPosition);
-            //this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.4f, swingCount2 / -30 - .3f);
-            //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
-
-            if (swingCount1 == 5)
+            if (swingCount1 > 0)
             {
-                swingCount1 = 0;
-                swingCount2 = 1;
-                //waiting = 30;
+                swingCount1++;
+
+                this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-0.315f, swingCount1 / -15f - 0.0515f);
+                //Debug.Log(this.gameObject.transform.GetChild(0).transform.localPosition);
+                //this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.4f, swingCount2 / -30 - .3f);
+                //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
+
+                if (swingCount1 == 5)
+                {
+                    swingCount1 = 0;
+                    swingCount2 = 1;
+                    //waiting = 30;
+                    this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-0.315f, swingCount1 / -15f - 0.0515f);
+                }
+            }
+            else if (swingCount2 > 0)
+            {
+                swingCount2++;
+
+                //this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.4f, swingCount1 / -30 - .3f);
+                this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(0.315f, swingCount1 / -15f - 0.0515f);
+                //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
+
+                if (swingCount2 == 5)
+                {
+                    swingCount2 = 0;
+                    waiting = 30;
+                    this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                    this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                    isStriking = false;
+                }
+            }
+            else if (Vector2.Distance(this.transform.position, player.transform.position) < 1)
+            {
+                //isShooting = true;
+
+                if (isStriking == false)
+                {
+
+                    //Debug.Log("strike");
+                    isStriking = true;
+                    StartCoroutine("BeginStrike");
+                }
+                /*
+
                 this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -15f - .3f);
+                this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -15f - .3f);
+
+                //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 30f);
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+
+                swingCount1++;*/
+
             }
-        }
-        else if (swingCount2 > 0)
-        {
-            swingCount2++;
-
-            //this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.4f, swingCount1 / -30 - .3f);
-            this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -15f - .3f);
-            //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
-
-            if (swingCount2 == 5)
+            else if (checkSightToPlayer() == true)
             {
-                swingCount2 = 0;
-                waiting = 30;
-                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
-                isStriking = false;
-            }
-        }
-        else if (Vector2.Distance(this.transform.position, player.transform.position) < 1)
-        {
-            //isShooting = true;
-
-            if (isStriking == false)
-            {
-
-                //Debug.Log("strike");
-                isStriking = true;
-                StartCoroutine("BeginStrike");
-            }
-            /*
-
-            this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -15f - .3f);
-            this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -15f - .3f);
-
-            //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 30f);
-            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
-
-            swingCount1++;*/
-
-        }
-        else if (checkSightToPlayer() == true)
-        {
-            if (chargeCooldown == 0 && Vector2.Distance(this.transform.position, player.transform.position) < 12)
-            {
-                //if (Vector2.Distance(this.transform.position, player.transform.position) < 5)
-                //{
+                if (chargeCooldown == 0 && Vector2.Distance(this.transform.position, player.transform.position) < 12)
+                {
+                    //if (Vector2.Distance(this.transform.position, player.transform.position) < 5)
+                    //{
                     waiting = 500;
                     StartCoroutine("ChargeTargetFind");
-                //}
-                //else
-                //{
-                //    this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * 2 * Time.deltaTime);
-                //}
-            }
-            else
-            {
-                this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * 2 * Time.deltaTime);
-            }
-        }
-        else if (location == player.GetComponent<Player>().location)
-        {
-            this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * 2 * Time.deltaTime);
-        }
-        else if (movingToExit == true)
-        {
-            this.transform.position = Vector2.MoveTowards(this.transform.position, chasingTarget.position, speed * 2 * Time.deltaTime);
-
-            if (Vector2.Distance(this.transform.position, chasingTarget.position) < 1)
-            {
-                movingToExit = false;
-            }
-        }
-        else if (playerNear() == true || nearEnough == true)
-        {
-            if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < 1)
-            {
-                movingToCenter = false;
-                movingToExit = true;
-
-                if (playerNear() == true)
-                {
-                    chasingTarget = findNearestNodeOfType("NodeEnter", playerNearRoomTransform());
+                    //}
+                    //else
+                    //{
+                    //    this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * 2 * Time.deltaTime);
+                    //}
                 }
                 else
                 {
-                    chasingTarget = findNearestNodeOfType("NodeCenter", player.transform);
+                    this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * 2 * Time.deltaTime);
                 }
             }
-            else if (movingToCenter == true)
+            else if (location == player.GetComponent<Player>().location)
             {
-                this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeEnter", this.transform).position, speed * 2 * Time.deltaTime);
+                this.transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * 2 * Time.deltaTime);
+            }
+            else if (movingToExit == true)
+            {
+                this.transform.position = Vector2.MoveTowards(this.transform.position, chasingTarget.position, speed * 2 * Time.deltaTime);
+
+                if (Vector2.Distance(this.transform.position, chasingTarget.position) < 1)
+                {
+                    movingToExit = false;
+                }
+            }
+            else if (playerNear() == true || nearEnough == true)
+            {
+                if (Vector2.Distance(findNearestNodeOfType("NodeEnter", this.transform).position, this.transform.position) < 1)
+                {
+                    movingToCenter = false;
+                    movingToExit = true;
+
+                    if (playerNear() == true)
+                    {
+                        chasingTarget = findNearestNodeOfType("NodeEnter", playerNearRoomTransform());
+                    }
+                    else
+                    {
+                        chasingTarget = findNearestNodeOfType("NodeCenter", player.transform);
+                    }
+                }
+                else if (movingToCenter == true)
+                {
+                    this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeEnter", this.transform).position, speed * 2 * Time.deltaTime);
+                }
+                else
+                {
+                    movingToCenter = true;
+                }
             }
             else
             {
-                movingToCenter = true;
+                this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", this.transform).position, speed * 2 * Time.deltaTime);
             }
-        }
-        else
-        {
-            this.transform.position = Vector2.MoveTowards(this.transform.position, findNearestNodeOfType("NodeCenter", this.transform).position, speed * 2 * Time.deltaTime);
         }
 
         if (chargeCooldown > 0)
@@ -325,8 +334,8 @@ public class BrawlerBehavior : MonoBehaviour
         chargeTarge = player.transform.position;
         FaceTarget(player.transform.position);
         isCharging = true;
-        this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.4f, -.3f);
-        this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, -.3f);
+        this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-0.315f, - 0.0515f);
+        this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(0.315f, - 0.0515f);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         waiting = 0;
@@ -688,6 +697,8 @@ public class BrawlerBehavior : MonoBehaviour
         if (swingCount1 == 0 && swingCount2 == 0)
         {
             FaceTarget(player.transform.position);
+            chargeTarge = player.transform.position;
+
             angle = this.transform.localEulerAngles.z;
 
             yield return new WaitForSeconds(1 / 2);
