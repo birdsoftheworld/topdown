@@ -170,24 +170,30 @@ public class BrawlerBehavior : MonoBehaviour
             {
                 isCharging = false;
                 waiting = 10;
-                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                this.gameObject.transform.GetChild(0).gameObject.GetComponent<Blade>().enabled = false;
+                this.gameObject.transform.GetChild(0).gameObject.GetComponent<Hittable>().enabled = false;
+                this.gameObject.transform.GetChild(1).gameObject.GetComponent<Blade>().enabled = false;
+                this.gameObject.transform.GetChild(1).gameObject.GetComponent<Hittable>().enabled = false;
                 chargeCooldown = 60;
             }
             else if (Vector2.Distance(this.transform.position, chargeTarge) < 1)
             {
                 isCharging = false;
                 waiting = 30;
-                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                this.gameObject.transform.GetChild(0).gameObject.GetComponent<Blade>().enabled = false;
+                this.gameObject.transform.GetChild(0).gameObject.GetComponent<Hittable>().enabled = false;
+                this.gameObject.transform.GetChild(1).gameObject.GetComponent<Blade>().enabled = false;
+                this.gameObject.transform.GetChild(1).gameObject.GetComponent<Hittable>().enabled = false;
                 chargeCooldown = 60;
             }
             else if (Vector2.Distance(this.transform.position, stuckCheck) < .1)
             {
                 isCharging = false;
                 waiting = 60;
-                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                this.gameObject.transform.GetChild(0).gameObject.GetComponent<Blade>().enabled = false;
+                this.gameObject.transform.GetChild(0).gameObject.GetComponent<Hittable>().enabled = false;
+                this.gameObject.transform.GetChild(1).gameObject.GetComponent<Blade>().enabled = false;
+                this.gameObject.transform.GetChild(1).gameObject.GetComponent<Hittable>().enabled = false;
                 chargeCooldown = 60;
             }
 
@@ -201,7 +207,7 @@ public class BrawlerBehavior : MonoBehaviour
             {
                 swingCount1++;
 
-                this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-0.315f, swingCount1 / -15f - 0.0515f);
+                this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-0.315f, swingCount1 / -10f - 0.0515f);
                 //Debug.Log(this.gameObject.transform.GetChild(0).transform.localPosition);
                 //this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.4f, swingCount2 / -30 - .3f);
                 //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
@@ -211,7 +217,7 @@ public class BrawlerBehavior : MonoBehaviour
                     swingCount1 = 0;
                     swingCount2 = 1;
                     //waiting = 30;
-                    this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-0.315f, swingCount1 / -15f - 0.0515f);
+                    this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-0.315f, swingCount1 / -10f - 0.0515f);
                 }
             }
             else if (swingCount2 > 0)
@@ -219,15 +225,18 @@ public class BrawlerBehavior : MonoBehaviour
                 swingCount2++;
 
                 //this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.4f, swingCount1 / -30 - .3f);
-                this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(0.315f, swingCount1 / -15f - 0.0515f);
+                this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(0.315f, swingCount1 / -10f - 0.0515f);
                 //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 20f);
 
                 if (swingCount2 == 5)
                 {
                     swingCount2 = 0;
                     waiting = 30;
-                    this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                    this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                    this.gameObject.transform.GetChild(0).gameObject.GetComponent<Blade>().enabled = false;
+                    this.gameObject.transform.GetChild(0).gameObject.GetComponent<Hittable>().enabled = false;
+                    this.gameObject.transform.GetChild(1).gameObject.GetComponent<Blade>().enabled = false;
+                    this.gameObject.transform.GetChild(1).gameObject.GetComponent<Hittable>().enabled = false;
+
                     isStriking = false;
                 }
             }
@@ -248,8 +257,8 @@ public class BrawlerBehavior : MonoBehaviour
                 this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -15f - .3f);
 
                 //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 30f);
-                this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-                this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                this.gameObject.transform.GetChild(0).gameObject.GetComponent<Blade>().enabled = true;
+                this.gameObject.transform.GetChild(1).gameObject.GetComponent<Blade>().enabled = true;
 
                 swingCount1++;*/
 
@@ -336,8 +345,10 @@ public class BrawlerBehavior : MonoBehaviour
         isCharging = true;
         this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-0.315f, - 0.0515f);
         this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(0.315f, - 0.0515f);
-        this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        this.gameObject.transform.GetChild(0).gameObject.GetComponent<Blade>().enabled = true;
+        this.gameObject.transform.GetChild(0).gameObject.GetComponent<Hittable>().enabled = true;
+        this.gameObject.transform.GetChild(1).gameObject.GetComponent<Blade>().enabled = true;
+        this.gameObject.transform.GetChild(1).gameObject.GetComponent<Hittable>().enabled = true;
         waiting = 0;
     }
 
@@ -703,12 +714,14 @@ public class BrawlerBehavior : MonoBehaviour
 
             yield return new WaitForSeconds(1 / 2);
 
-            this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -15f - .3f);
-            this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -15f - .3f);
+            this.gameObject.transform.GetChild(0).transform.localPosition = new Vector2(-.45f, swingCount1 / -10f - .3f);
+            this.gameObject.transform.GetChild(1).transform.localPosition = new Vector2(.45f, swingCount2 / -10f - .3f);
 
             //this.transform.rotation = Quaternion.Euler(0, 0, angle - 90 + swingCount * 30f);
-            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(0).gameObject.GetComponent<Blade>().enabled = true;
+            this.gameObject.transform.GetChild(0).gameObject.GetComponent<Hittable>().enabled = true;
+            this.gameObject.transform.GetChild(1).gameObject.GetComponent<Blade>().enabled = true;
+            this.gameObject.transform.GetChild(1).gameObject.GetComponent<Hittable>().enabled = true;
 
             yield return new WaitForSeconds(1 / 2);
 

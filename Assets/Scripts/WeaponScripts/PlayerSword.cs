@@ -57,7 +57,7 @@ public class PlayerSword : MonoBehaviour
             {
                 swingCount++;
 
-                if (swingCount == 8)
+                if (swingCount == 11)
                 {
                     swingCount = 0;
                     player.waiting2 = wait;
@@ -84,7 +84,7 @@ public class PlayerSword : MonoBehaviour
                 swingCount++;
             }
 
-            this.transform.rotation = Quaternion.Euler(0, 0, angle - 30 + swingCount * 30f);
+            this.transform.rotation = Quaternion.Euler(0, 0, angle + 90 + (swingCount -1) * 20f);
         }
     }
 }

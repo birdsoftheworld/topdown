@@ -17,6 +17,26 @@ public class Projectile : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
 
 
+        if (bulletFaction == (Faction)0)
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = Camera.main.nearClipPlane;
+            Vector2 destination = Camera.main.ScreenToWorldPoint(mousePos);
+
+            Vector2 currentPos = this.transform.position;
+
+            destination = destination - currentPos;
+
+            Vector3 destinationN = destination.normalized;
+
+            float angle = Mathf.Atan2(destinationN.y, destinationN.x) * Mathf.Rad2Deg;
+
+            Quaternion rotation = new Quaternion();
+            rotation.eulerAngles = new Vector3(0, 0, angle + 90);
+
+            transform.rotation = rotation;
+        }
+
         /*destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 destinationN = destination.normalized;
@@ -31,7 +51,7 @@ public class Projectile : MonoBehaviour
         transform.rotation = rotation;*/
 
 
-   //     rb2D.AddForce(transform.up * bulletSpeed * -1f);
+        //     rb2D.AddForce(transform.up * bulletSpeed * -1f);
 
 
     }
