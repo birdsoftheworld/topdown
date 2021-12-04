@@ -67,8 +67,23 @@ public class PlayerCarbine : MonoBehaviour
                         ammo--;
                         ammoCounter.define1(ammo.ToString());
 
+                        Vector3 mousePos = Input.mousePosition;
+                        mousePos.z = Camera.main.nearClipPlane;
+                        Vector2 destination = Camera.main.ScreenToWorldPoint(mousePos);
+
+                        Vector2 currentPos = this.transform.GetChild(0).transform.position;
+
+                        destination = destination - currentPos;
+
+                        Vector3 destinationN = destination.normalized;
+
+                        float angle = Mathf.Atan2(destinationN.y, destinationN.x) * Mathf.Rad2Deg;
+
+                        Quaternion rotation = new Quaternion();
+                        rotation.eulerAngles = new Vector3(0, 0, angle + 90);
+
                         Vector2 position = bulletOrigin.position;
-                        GameObject clone = Instantiate(bulletPrefab, position, bulletOrigin.rotation);
+                        GameObject clone = Instantiate(bulletPrefab, position, rotation);
                         clone.gameObject.SetActive(true);
 
                         Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;

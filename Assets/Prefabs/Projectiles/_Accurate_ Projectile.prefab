@@ -99,8 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletDamage: 0
-  bulletFaction: 0
+  bulletFaction: 1
   bulletSpeed: 200
+  isTargeting: 0
+  target: {x: 0, y: 0}
 --- !u!50 &7313259170505084684
 Rigidbody2D:
   serializedVersion: 4

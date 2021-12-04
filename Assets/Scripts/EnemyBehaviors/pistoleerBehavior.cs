@@ -47,6 +47,8 @@ public class pistoleerBehavior : MonoBehaviour
 
     private Transform chasingTarget;
 
+    private int barrelFiring = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -140,7 +142,7 @@ public class pistoleerBehavior : MonoBehaviour
                 if (getExplosivesInRangeOfPlayer(5) != this.transform)
                 {
                     FaceTarget(getExplosivesInRangeOfPlayer(5).position);
-                    shoot();
+                    shoot(getExplosivesInRangeOfPlayer(5).position);
                     if (checkSightToPlayer() == true)
                     {
                         waiting = firingSpeed;
@@ -154,7 +156,7 @@ public class pistoleerBehavior : MonoBehaviour
                 else if (checkSightToPlayer() == true)
                 {
                     FaceTarget(player.transform.position);
-                    shoot();
+                    shoot(player.transform.position);
                     if (checkSightToPlayer() == true)
                     {
                         waiting = firingSpeed;
@@ -419,12 +421,19 @@ public class pistoleerBehavior : MonoBehaviour
     {
     }
 
-    private void shoot()
+    private void shoot(Vector2 target)
     {
         ammo--;
         //FaceTarget(player.transform.position);
 
-        GameObject clone = Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
+        Vector2 currentPos = this.transform.GetChild(barrelFiring).transform.position;
+        Vector2 destination = target - currentPos;
+        float angle = Mathf.Atan2(destination.y, destination.x) * Mathf.Rad2Deg;
+        Quaternion rotation = new Quaternion();
+        rotation.eulerAngles = new Vector3(0, 0, angle + 90);
+        transform.rotation = rotation;
+
+        GameObject clone = Instantiate(bulletPrefab, this.transform.GetChild(barrelFiring).transform.position, rotation);
         clone.gameObject.SetActive(true);
 
         Projectile bullet = clone.gameObject.GetComponent("Projectile") as Projectile;
@@ -432,6 +441,15 @@ public class pistoleerBehavior : MonoBehaviour
         bullet.bulletSpeed = bulletSpeed;
         bullet.bulletFaction = (Faction)1;
         bullet.bulletDamage = bulletDamage;
+
+        if (barrelFiring == 0)
+        {
+            barrelFiring = 1;
+        }
+        else
+        {
+            barrelFiring = 0;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
