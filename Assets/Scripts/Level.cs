@@ -16,6 +16,9 @@ public class Level : MonoBehaviour
     public GameObject floorTile;
     public GameObject wallTile;
 
+    public Sprite[] floorSprites;
+    public Sprite[] wallSprites;
+
     private bool[][] occupiedRooms;
 
     //public List<Transform[]> roomData;

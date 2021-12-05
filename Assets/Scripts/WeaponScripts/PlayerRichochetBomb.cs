@@ -26,8 +26,26 @@ public class PlayerRichochetBomb : MonoBehaviour
         {
             if (Input.GetMouseButton(1))
             {
-                Vector2 position = bulletOrigin.position;
-                GameObject clone = Instantiate(bombPrefab, position, bulletOrigin.rotation);
+
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = Camera.main.nearClipPlane;
+                Vector2 destination = Camera.main.ScreenToWorldPoint(mousePos);
+
+                Vector2 currentPos = this.transform.GetChild(0).transform.position;
+
+                destination = destination - currentPos;
+
+                Vector3 destinationN = destination.normalized;
+
+                float angle = Mathf.Atan2(destinationN.y, destinationN.x) * Mathf.Rad2Deg;
+
+                Quaternion rotation = new Quaternion();
+                rotation.eulerAngles = new Vector3(0, 0, angle + 90);
+
+
+
+                GameObject clone = Instantiate(bombPrefab, this.transform.GetChild(0).transform.position, rotation);
+
                 clone.gameObject.SetActive(true);
 
                 RichochetBomb grenade = clone.gameObject.GetComponent("RichochetBomb") as RichochetBomb;

@@ -14,7 +14,6 @@ public class PlayerRifle : MonoBehaviour
     public GameObject tracerPrefab;
 
     public float bulletSpeed = 15;
-    public float turnSpeed = 2;
     public int bulletDamage = 3;
     public int ammoCap = 1;
     public int ammo;
@@ -93,28 +92,28 @@ public class PlayerRifle : MonoBehaviour
             }
 
 
-            if (player.waiting3 > 0)
-            {
-                player.waiting3--;
-            }
+
             else if (Input.GetMouseButton(1))
             {
                 if (ammo > 0)
                 {
-                    ammo--;
-                    ammoCounter.define1(ammo.ToString());
+                    if (player.waiting3 == 0)
+                    {
+                        ammo--;
+                        ammoCounter.define1(ammo.ToString());
 
-                    Vector2 position = bulletOrigin.position;
-                    GameObject clone = Instantiate(tracerPrefab, position, bulletOrigin.rotation);
-                    clone.gameObject.SetActive(true);
+                        Vector2 position = bulletOrigin.position;
+                        GameObject clone = Instantiate(tracerPrefab, position, bulletOrigin.rotation);
+                        clone.gameObject.SetActive(true);
 
-                    Tracer flare = clone.gameObject.GetComponent("Tracer") as Tracer;
+                        Tracer flare = clone.gameObject.GetComponent("Tracer") as Tracer;
 
-                    flare.bulletSpeed = bulletSpeed;
-                    flare.bulletFaction = bulletFaction;
-                    //bullet.bulletDamage = bulletDamage;
-                    //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
-                    player.waiting3 = 25;
+                        flare.bulletSpeed = bulletSpeed;
+                        flare.bulletFaction = bulletFaction;
+                        //bullet.bulletDamage = bulletDamage;
+                        //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
+                        player.waiting3 = 25;
+                    }
 
                 }
             }

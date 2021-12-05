@@ -80,6 +80,7 @@
      <Compile Include="Assets\Scripts\EnemyBehaviors\turretBehavior.cs" />
      <Compile Include="Assets\Scripts\ShadowCaster2DFromCollider.cs" />
      <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\PlayerSlow.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\emptyBehavior.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\BrawlerBehavior.cs" />
      <Compile Include="Assets\Scripts\Projectiles\RichochetBomb.cs" />
@@ -87,6 +88,7 @@
      <Compile Include="Assets\Scripts\CamFollow.cs" />
      <Compile Include="Assets\Scripts\ExplosiveMine.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\StoreWeaponVars.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\PlayerShield.cs" />
      <Compile Include="Assets\Scripts\Projectiles\Tracer.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerSeeking.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\AmmoTracker.cs" />

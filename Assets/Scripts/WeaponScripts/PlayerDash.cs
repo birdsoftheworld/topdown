@@ -11,9 +11,16 @@ public class PlayerDash : MonoBehaviour
 
     public int dodgeTimer;
 
-    void Start()
+    public Sprite[] sprites;
+
+    public int timer;
+
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        player.slowDownMax -= 1;
+        player.slowDown -= 1;
     }
 
     // Update is called once per frame
@@ -29,6 +36,23 @@ public class PlayerDash : MonoBehaviour
                 player.waiting4 = recharge;
                 player.transform.gameObject.GetComponent<HealthTest>().iFrames += dodgeTimer;
             }
+        }
+
+        if (player.slowDown < 0)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[3];
+        }
+        else if (player.slowDown == 0)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[2];
+        }
+        else if (player.slowDown < player.slowDownMax)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[1];
+        }
+        else
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[0];
         }
     }
 }

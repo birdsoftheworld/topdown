@@ -107,7 +107,7 @@ public class PlayerCarbine : MonoBehaviour
             {
                 if (ammo < ammoCap)
                 {
-                    int reloadAmount = 15 - ammo;
+                    int reloadAmount = ammoCap - ammo;
                     if (player.lightAmmo < reloadAmount)
                     {
                         reloadAmount = player.lightAmmo;

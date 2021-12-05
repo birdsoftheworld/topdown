@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8711957828980559937}
   - component: {fileID: 4317657550150895588}
   - component: {fileID: 5202854497316966705}
+  - component: {fileID: 7104641929095108770}
   m_Layer: 0
   m_Name: Wall Tile
   m_TagString: Untagged
@@ -123,3 +124,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 2
+--- !u!114 &7104641929095108770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7272537369499222057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d76197d2eab8c4ebd36e6c51c2eb9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
