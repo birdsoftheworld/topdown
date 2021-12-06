@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class StartMenu : MonoBehaviour
 {
+    public GameObject player;
+
+    public GameObject levelGen;
+
     // Start is called before the first frame update
     void Awake()
     {
-        GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
-
+        /*GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
 
         for (int i = 0; i < allObjects.Length - 1; i++)
         {
@@ -17,12 +20,15 @@ public class StartMenu : MonoBehaviour
                 allObjects[i].SetActive(false);
             }
 
-        }
+        }*/
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Begin()
     {
-        
+        player.gameObject.SetActive(true);
+
+        levelGen.SetActive(true);
+
+        this.gameObject.SetActive(false);
     }
 }
