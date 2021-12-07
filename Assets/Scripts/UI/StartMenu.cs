@@ -30,5 +30,7 @@ public class StartMenu : MonoBehaviour
         levelGen.SetActive(true);
 
         this.gameObject.SetActive(false);
+
+        Time.timeScale = 1;
     }
 }

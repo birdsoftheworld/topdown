@@ -16,9 +16,13 @@ public class ObjectiveController : MonoBehaviour
 
     public bool playerOnExit;
 
+    public GameObject endMenu;
+
     // Start is called before the first frame update
     void Awake()
     {
+        //endMenu = GameObject.FindGameObjectWithTag("EndMenu");
+
         levelController = this.gameObject.GetComponent<Level>();
 
 
@@ -44,7 +48,8 @@ public class ObjectiveController : MonoBehaviour
         {
             if (playerOnExit == true)
             {
-                Debug.Break();
+                endMenu.SetActive(true);
+
                 //Time.timeScale = 0;
             }
         }

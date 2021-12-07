@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 5565209166116833471}
   m_Layer: 5
   m_Name: Health Bar ENEMYTEST
-  m_TagString: Untagged
+  m_TagString: HealthBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -20,18 +20,22 @@ public class WeaponMenu : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
+        bool doUpdate = true;
+
         for (int i = weaponButtons.Count - 1; i > -1; i--)
         {
             if (weaponButtons[i].isOn == true)
             {
-                if (selectedButtons.Count < weaponButtons.Count)
+                if (selectedButtons.Count < weaponImageBoxes.Count + 1)
                 {
 
                     if (selectedButtons.Count == 0)
                     {
                         selectedButtons.Add(weaponButtons[i]);
 
-                        UpdateImages();
+                        //UpdateImages();
+                        doUpdate = false;
+
                     }
 
                     bool b = true;
@@ -46,8 +50,9 @@ public class WeaponMenu : MonoBehaviour
                     if (b == true)
                     {
                         selectedButtons.Add(weaponButtons[i]);
+                        doUpdate = false;
 
-                        UpdateImages();
+
                     }
                 }
                 else
@@ -58,7 +63,9 @@ public class WeaponMenu : MonoBehaviour
                         {
                             selectedButtons[a].isOn = false;
                             selectedButtons.RemoveAt(a);
-                            UpdateImages();
+                            doUpdate = false;
+
+                            //UpdateImages();
                         }
                         return;
                     }
@@ -70,12 +77,20 @@ public class WeaponMenu : MonoBehaviour
                 {
                     if (selectedButtons[a] == weaponButtons[i])
                     {
+                        weaponImageBoxes[a].sprite = blank;
                         selectedButtons.RemoveAt(a);
-                        UpdateImages();
+                        //UpdateImages();
+                        doUpdate = false;
+
                         return;
                     }
                 }
             }
+        }
+
+        if (doUpdate == true)
+        {
+            UpdateImages();
         }
     }
 
@@ -115,6 +130,14 @@ public class WeaponMenu : MonoBehaviour
                 {
                     return;
                 }
+            }
+        }
+
+        if (selectedButtons.Count == 0)
+        {
+            for (int a = 0; a < weaponImageBoxes.Count; a++)
+            {
+                weaponImageBoxes[a].sprite = blank;
             }
         }
     }

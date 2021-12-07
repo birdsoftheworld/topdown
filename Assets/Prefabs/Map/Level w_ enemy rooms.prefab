@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8002175796273782888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4108618335737946331}
+  - component: {fileID: 3684784358715641959}
+  - component: {fileID: 1130866733869829316}
+  - component: {fileID: 1130866733869829319}
+  - component: {fileID: 1130866733869829312}
+  m_Layer: 0
+  m_Name: Level w_ enemy rooms
+  m_TagString: LevelGenerator
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4108618335737946331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002175796273782888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3684784358715641959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002175796273782888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80c4dc8d5b36b04bace7cda8697e73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapSize: 10
+  mapRooms:
+  - {fileID: 5947367770029790571, guid: a1f0448d0bbc04e43a0aee2217714f32, type: 3}
+  - {fileID: 704657603451388253, guid: 65b6262860a08ac4b890558cadc0b70c, type: 3}
+  straightLine: 0
+  floorTile: {fileID: 1326176979980553873, guid: cefee9823a262874ba16804c27ab7d88, type: 3}
+  wallTile: {fileID: 7272537369499222057, guid: 3e962b023ea63fc48b1aaaf7616dcf41, type: 3}
+  floorSprites:
+  - {fileID: 21300000, guid: f6f65541f33ae8b469fa67a5355baa44, type: 3}
+  - {fileID: 21300000, guid: 2e311bf6f7ba9934d8812d832faedd61, type: 3}
+  - {fileID: 21300000, guid: 2102b12765bff12418cf908bd87c63e3, type: 3}
+  - {fileID: 21300000, guid: d47d0240e9cef1d4a83ee8bb4bd9df5d, type: 3}
+  - {fileID: 21300000, guid: 8bc22622a83526e43b417a6e5a2596b2, type: 3}
+  - {fileID: 21300000, guid: 510d462c29a396c4f8e1859eac61bb7b, type: 3}
+  wallSprites:
+  - {fileID: 21300000, guid: a1288d8748843f342a5a3cd11865544c, type: 3}
+  distance: 5
+--- !u!114 &1130866733869829316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002175796273782888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b7905678e878b4c8bb77f20a9bb5f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootPrefab: {fileID: 5039050196637529829, guid: eb4033a5cbf41ef48bff59856b1d8a5c, type: 3}
+--- !u!114 &1130866733869829319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002175796273782888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2f688ac1508ebe488532b4e73295f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEscape: 1
+  winExit: {fileID: 2624025460353839326, guid: 36815ccb61f3d6f4d95ad2e91d90b4de, type: 3}
+  farRoom: {fileID: 0}
+  closeRoom: {fileID: 0}
+  playerOnExit: 0
+--- !u!114 &1130866733869829312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8002175796273782888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 4
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}

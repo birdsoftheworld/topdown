@@ -16,6 +16,8 @@ TagManager:
   - Projectile
   - UI
   - Explosive
+  - EndMenu
+  - HealthBar
   layers:
   - Default
   - TransparentFX

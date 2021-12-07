@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
 
     public Sprite injuredSprite;
 
+    public GameObject endMenu;
+
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -86,7 +88,10 @@ public class Player : MonoBehaviour
     {
         if (this.GetComponent<HealthTest>().curHealth <= 0)
         {
-            Debug.Break();
+            //Debug.Break();
+            endMenu = levelGen.GetComponent<ObjectiveController>().endMenu;
+
+            endMenu.SetActive(true);
         }
         if (this.GetComponent<HealthTest>().curHealth <= this.GetComponent<HealthTest>().maxHealth / 2)
         {
