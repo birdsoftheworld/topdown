@@ -20,12 +20,6 @@ public class WeaponMenu : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        int delta = weaponButtons.Count - 1;
-        if (delta == -1)
-        {
-            delta = 0;
-        }
-
         for (int i = weaponButtons.Count - 1; i > -1; i--)
         {
             if (weaponButtons[i].isOn == true)
@@ -60,9 +54,12 @@ public class WeaponMenu : MonoBehaviour
                 {
                     for (int a = selectedButtons.Count - 1; a > -1; a--)
                     {
-                        selectedButtons[a].isOn = false;
-                        selectedButtons.RemoveAt(a);
-                        UpdateImages();
+                        if (selectedButtons[a] != null)
+                        {
+                            selectedButtons[a].isOn = false;
+                            selectedButtons.RemoveAt(a);
+                            UpdateImages();
+                        }
                         return;
                     }
                 }
@@ -75,6 +72,7 @@ public class WeaponMenu : MonoBehaviour
                     {
                         selectedButtons.RemoveAt(a);
                         UpdateImages();
+                        return;
                     }
                 }
             }
@@ -95,19 +93,27 @@ public class WeaponMenu : MonoBehaviour
     {
         for (int a = 0; a < selectedButtons.Count; a++)
         {
-            if (weaponImageBoxes[a] != null)
+            if (weaponImageBoxes[a] != null && selectedButtons[a] != null)
             {
                 weaponImageBoxes[a].sprite = selectedButtons[a].GetComponent<StoreSelectButtonVars>().gameWeapon.GetComponent<SpriteRenderer>().sprite;
+            }
+            else
+            {
+                return;
             }
         }
 
         if (selectedButtons.Count > weaponImageBoxes.Count)
         {
-            for (int a = 2; a > selectedButtons.Count - 1; a--)
+            for (int a = selectedButtons.Count - 1; a > -1; a--)
             {
                 if (weaponImageBoxes[a] != null)
                 {
                     weaponImageBoxes[a].sprite = blank;
+                }
+                else
+                {
+                    return;
                 }
             }
         }

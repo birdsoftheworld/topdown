@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\ReturnTouching.cs" />
      <Compile Include="Assets\Scripts\neonBar.cs" />
      <Compile Include="Assets\Prefabs\Map\Room\ShadowCasters.cs" />
+     <Compile Include="Assets\Scripts\StoreSelectButtonVars.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerShootCommand.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\ArmorBehavior.cs" />
      <Compile Include="Assets\Scripts\Room.cs" />
@@ -86,7 +87,7 @@
      <Compile Include="Assets\Scripts\EnemyBehaviors\BrawlerBehavior.cs" />
      <Compile Include="Assets\Scripts\Projectiles\RichochetBomb.cs" />
      <Compile Include="Assets\Scripts\ObjectiveController.cs" />
-     <Compile Include="Assets\Scripts\CamFollow.cs" />
+     <Compile Include="Assets\Scripts\UI\CamFollow.cs" />
      <Compile Include="Assets\Scripts\ExplosiveMine.cs" />
      <Compile Include="Assets\Scripts\UI\WeaponMenu.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\StoreWeaponVars.cs" />
