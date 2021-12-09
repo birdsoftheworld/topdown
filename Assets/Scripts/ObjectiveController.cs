@@ -25,6 +25,11 @@ public class ObjectiveController : MonoBehaviour
 
         levelController = this.gameObject.GetComponent<Level>();
 
+        if (GameObject.FindGameObjectWithTag("EndMenu") != null)
+        {
+            endMenu = GameObject.FindGameObjectWithTag("EndMenu");
+        }
+
 
         if (isEscape == true)
         {
@@ -49,9 +54,15 @@ public class ObjectiveController : MonoBehaviour
             if (playerOnExit == true)
             {
                 endMenu.SetActive(true);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().enabled = false;
 
                 //Time.timeScale = 0;
             }
+        }
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<HealthTest>().curHealth <= 0)
+        {
+            endMenu.SetActive(true);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().enabled = false;
         }
     }
 

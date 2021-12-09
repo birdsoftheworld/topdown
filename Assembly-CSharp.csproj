@@ -86,6 +86,7 @@
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\emptyBehavior.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\BrawlerBehavior.cs" />
      <Compile Include="Assets\Scripts\Projectiles\RichochetBomb.cs" />
+     <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\ObjectiveController.cs" />
      <Compile Include="Assets\Scripts\UI\CamFollow.cs" />
      <Compile Include="Assets\Scripts\ExplosiveMine.cs" />
@@ -94,6 +95,7 @@
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerShield.cs" />
      <Compile Include="Assets\Scripts\Projectiles\Tracer.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerSeeking.cs" />
+     <Compile Include="Assets\Scripts\UI\EndMenu.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\AmmoTracker.cs" />
      <Compile Include="Assets\Scripts\Hittable.cs" />
      <Compile Include="Assets\Scripts\storeRoomVars.cs" />

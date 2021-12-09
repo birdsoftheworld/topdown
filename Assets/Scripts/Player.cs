@@ -86,13 +86,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (this.GetComponent<HealthTest>().curHealth <= 0)
+        /*if (this.GetComponent<HealthTest>().curHealth <= 0)
         {
             //Debug.Break();
             endMenu = levelGen.GetComponent<ObjectiveController>().endMenu;
 
             endMenu.SetActive(true);
-        }
+        }*/
         if (this.GetComponent<HealthTest>().curHealth <= this.GetComponent<HealthTest>().maxHealth / 2)
         {
             this.GetComponent<SpriteRenderer>().sprite = injuredSprite;

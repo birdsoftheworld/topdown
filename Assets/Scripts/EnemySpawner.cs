@@ -18,56 +18,48 @@ public class EnemySpawner : MonoBehaviour
 
     public List<GameObject> objectPrefabs;
 
+    private bool a = false;
+    private bool b = false;
 
-    void Start()
+    public bool spawningEnemy;
+
+    void Update()
     {
         Vector3 position = origin.position;
 
-        if (enemyPrefabs.Count != 0)
+        if (spawningEnemy == true)
         {
-            SpawnEnemy(position, origin);
+            if (!a)
+            {
+                if (enemyPrefabs.Count != 0)
+                {
+                    SpawnEnemy(position, origin);
+                    a = true;
+                }
+            }
+        }
+        else
+        {
+            a = true;
         }
 
-        if (Random.Range(0, 3) == 2)
+        if (!b)
         {
-            float a = Random.Range(-10f, 10f);
-            a = a / (Mathf.Abs(a) - 0.5f);
 
-            float b = Random.Range(-10f, 10f);
-            b = b / (Mathf.Abs(b) - 0.5f);
-
-            SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
-
-            if (Random.Range(0, 4) == 3)
+            if (Random.Range(0, 3) == 2)
             {
-                int c = Random.Range(0, 2);
-                if (c == 1)
-                {
-                    a = a * -1;
-                }
-                else
-                {
-                    b = b * -1;
-                }
+                float a = Random.Range(-10f, 10f);
+                a = a / (Mathf.Abs(a) - 0.5f);
+
+                float b = Random.Range(-10f, 10f);
+                b = b / (Mathf.Abs(b) - 0.5f);
 
                 SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
 
-                if (Random.Range(0, 5) == 4)
+                if (Random.Range(0, 4) == 3)
                 {
-                    int d = Random.Range(0, 2);
-                    if (d == c)
-                    {
-                        if (d == 1)
-                        {
-                            d = 0;
-                        }
-                        else
-                        {
-                            d = 1;
-                        }
-                    }
-
-                    else if (d == 1)
+                    int c = Random.Range(0, 2);
+                    if (c == 1)
                     {
                         a = a * -1;
                     }
@@ -78,9 +70,22 @@ public class EnemySpawner : MonoBehaviour
 
                     SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
 
-                    if (Random.Range(0, 6) == 5)
+                    if (Random.Range(0, 5) == 4)
                     {
-                        if (c == 1)
+                        int d = Random.Range(0, 2);
+                        if (d == c)
+                        {
+                            if (d == 1)
+                            {
+                                d = 0;
+                            }
+                            else
+                            {
+                                d = 1;
+                            }
+                        }
+
+                        else if (d == 1)
                         {
                             a = a * -1;
                         }
@@ -90,9 +95,30 @@ public class EnemySpawner : MonoBehaviour
                         }
 
                         SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
+
+                        if (Random.Range(0, 6) == 5)
+                        {
+                            if (c == 1)
+                            {
+                                a = a * -1;
+                            }
+                            else
+                            {
+                                b = b * -1;
+                            }
+
+                            SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
+                        }
                     }
                 }
             }
+
+            b = true;
+        }
+
+        if (a == true && b == true)
+        {
+            this.enabled = false;
         }
     }
 
