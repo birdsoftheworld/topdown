@@ -14,11 +14,11 @@ GameObject:
   - component: {fileID: 2624025460353839321}
   m_Layer: 0
   m_Name: Exit
-  m_TagString: Untagged
+  m_TagString: Objective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2624025460353839324
 Transform:
   m_ObjectHideFlags: 0

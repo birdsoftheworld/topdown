@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
 
     public AmmoTracker ammoCounter;
 
+    public Sprite healthySprite;
     public Sprite injuredSprite;
 
     public GameObject endMenu;
@@ -93,9 +94,17 @@ public class Player : MonoBehaviour
 
             endMenu.SetActive(true);
         }*/
-        if (this.GetComponent<HealthTest>().curHealth <= this.GetComponent<HealthTest>().maxHealth / 2)
+
+        if (this.GetComponent<HealthTest>().iFrames > 0)
         {
-            this.GetComponent<SpriteRenderer>().sprite = injuredSprite;
+            if (this.GetComponent<HealthTest>().curHealth <= this.GetComponent<HealthTest>().maxHealth / 2)
+            {
+                this.GetComponent<SpriteRenderer>().sprite = injuredSprite;
+            }
+            else
+            {
+                this.GetComponent<SpriteRenderer>().sprite = healthySprite;
+            }
         }
 
 
@@ -218,5 +227,53 @@ public class Player : MonoBehaviour
             locationCol = col;
 
         }
+    }
+
+    public void Reset()
+    {
+        slowDown = slowDownMax;
+
+        waiting = 0;
+        waiting2 = 0;
+        waiting3 = 0;
+        waiting4 = 0;
+
+        lightAmmo = lightAmmoMax;
+        heavyAmmo = heavyAmmoMax;
+
+        this.transform.position = new Vector2(5.5f, 5.5f);
+
+        rb2D.velocity = Vector2.zero;
+        rb2D.angularVelocity = 0f;
+
+        this.enabled = true;
+
+        this.GetComponent<HealthTest>().curHealth = this.GetComponent<HealthTest>().maxHealth;
+
+        this.GetComponent<HealthTest>().healthBar.SetHealth(this.GetComponent<HealthTest>().curHealth);
+
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i].GetComponent<PlayerCarbine>() != null)
+            {
+                weapons[i].GetComponent<PlayerCarbine>().ammo = weapons[i].GetComponent<PlayerCarbine>().ammoCap;
+            }
+            if (weapons[i].GetComponent<PlayerRifle>() != null)
+            {
+                weapons[i].GetComponent<PlayerRifle>().ammo = weapons[i].GetComponent<PlayerRifle>().ammoCap;
+            }
+            if (weapons[i].GetComponent<PlayerPistol>() != null)
+            {
+                weapons[i].GetComponent<PlayerPistol>().ammo = weapons[i].GetComponent<PlayerPistol>().ammoCap;
+            }
+            if (weapons[i].GetComponent<PlayerCycleLance>() != null)
+            {
+                weapons[i].GetComponent<PlayerCycleLance>().ammo = weapons[i].GetComponent<PlayerCycleLance>().ammoCap;
+            }
+
+            weapons[i].SetActive(false);
+        }
+
+        this.GetComponent<SpriteRenderer>().sprite = healthySprite;
     }
 }

@@ -7,11 +7,16 @@ public class EndMenu : MonoBehaviour
 
 	private GameObject player;
 
-	public GameObject levelGenerator;
+	public GameObject levelGeneratorDisplayed;
+	private GameObject levelGeneratorReal;
+
+	public GameObject startMenu;
 
 	// Start is called before the first frame update
 	void Awake()
     {
+		levelGeneratorReal = levelGeneratorDisplayed;
+
 		Time.timeScale = 0;
 
 		player = GameObject.FindGameObjectWithTag("Player");
@@ -25,32 +30,44 @@ public class EndMenu : MonoBehaviour
 		Time.timeScale = 0;
 	}
 
+	public void FullRestart()
+    {
+		Reset();
+
+		startMenu.SetActive(true);
+
+		//ALSO RESET THE PLAYER'S INVETORY ORDER
+
+		this.gameObject.SetActive(false);
+
+	}
+
 	public void QuickRestart()
 	{
+		Reset();
+
+		if (GameObject.FindGameObjectsWithTag("LevelGenerator") != null)
+		{
+			GameObject[] levelGen = GameObject.FindGameObjectsWithTag("LevelGenerator");
+			for (int i = 0; i < levelGen.Length; i++)
+			{
+				levelGen[i].SetActive(true);
+			}
+		}
+
+		Time.timeScale = 1;
+
+		this.gameObject.SetActive(false);
+
+	}
+
+	public void Reset()
+    {
 		player = GameObject.FindGameObjectWithTag("Player");
 
 		Player p = player.GetComponent<Player>();
 
-		p.slowDown = p.slowDownMax;
-
-		p.waiting = 0;
-		p.waiting2 = 0;
-		p.waiting3 = 0;
-		p.waiting4 = 0;
-
-		p.lightAmmo = p.lightAmmoMax;
-		p.heavyAmmo = p.heavyAmmoMax;
-
-		player.transform.position = new Vector2(5.5f, 5.5f);
-
-		player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-		player.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-
-		p.enabled = true;
-
-		player.GetComponent<HealthTest>().curHealth = player.GetComponent<HealthTest>().maxHealth;
-
-		player.GetComponent<HealthTest>().healthBar.SetHealth(player.GetComponent<HealthTest>().curHealth);
+		p.Reset();
 
 		if (GameObject.FindGameObjectsWithTag("HealthBar") != null)
 		{
@@ -62,6 +79,26 @@ public class EndMenu : MonoBehaviour
 				{
 					Destroy(healthBars[i]);
 				}
+			}
+		}
+
+		if (GameObject.FindGameObjectsWithTag("LootDrop") != null)
+		{
+
+			GameObject[] lootDrops = GameObject.FindGameObjectsWithTag("LootDrop");
+			for (int i = 0; i < lootDrops.Length; i++)
+			{
+				Destroy(lootDrops[i]);
+			}
+		}
+
+		if (GameObject.FindGameObjectsWithTag("Objective") != null)
+		{
+
+			GameObject[] objectives = GameObject.FindGameObjectsWithTag("Objective");
+			for (int i = 0; i < objectives.Length; i++)
+			{
+				Destroy(objectives[i]);
 			}
 		}
 
@@ -105,14 +142,15 @@ public class EndMenu : MonoBehaviour
 			}
 		}
 
-		GameObject levelNew = Instantiate(levelGenerator, new Vector3(0, 0, 0), this.transform.rotation);
+		GameObject levelNew = Instantiate(levelGeneratorReal, new Vector3(0, 0, 0), this.transform.rotation);
 
 		levelNew.GetComponent<ObjectiveController>().endMenu = this.gameObject;
 
-		Time.timeScale = 1;
+		levelNew.SetActive(false);
+
+		//Time.timeScale = 1;
 
 
-		this.gameObject.SetActive(false);
 	}
 
 

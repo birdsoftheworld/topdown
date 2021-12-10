@@ -42,7 +42,7 @@ public class LootDrop : MonoBehaviour
                 else
                 {
                     coll.GetComponent<HealthTest>().healthBar.SetHealth(coll.GetComponent<HealthTest>().curHealth);
-
+                    coll.GetComponent<HealthTest>().iFrames += 1;
                     Destroy(gameObject);
                 }
 

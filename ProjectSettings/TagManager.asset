@@ -18,6 +18,9 @@ TagManager:
   - Explosive
   - EndMenu
   - HealthBar
+  - EnemySpawner
+  - LootDrop
+  - Objective
   layers:
   - Default
   - TransparentFX

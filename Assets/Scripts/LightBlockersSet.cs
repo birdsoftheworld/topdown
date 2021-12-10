@@ -4,66 +4,63 @@ using UnityEngine;
 
 public class LightBlockersSet : MonoBehaviour
 {
-    private int a = 0;
 
-    void LateUpdate()
+    void Awake()
     {
-        if (a == 1)
+        StartCoroutine("Act");
+    }
+
+    IEnumerator Act()
+    {
+        yield return new WaitForSeconds(1 / 4);
+
+        storeRoomVars roomVars = this.transform.parent.gameObject.GetComponent<storeRoomVars>();
+
+        if (roomVars.downExit == true)
         {
-            storeRoomVars roomVars = this.transform.parent.gameObject.GetComponent<storeRoomVars>();
-
-
-
-            if (roomVars.downExit == true)
-            {
-                Destroy(this.transform.GetChild(7).gameObject);
-            }
-            if (roomVars.upExit == true)
-            {
-                Destroy(this.transform.GetChild(6).gameObject);
-            }
-            if (roomVars.rightExit == true)
-            {
-                Destroy(this.transform.GetChild(5).gameObject);
-            }
-            if (roomVars.leftExit == true)
-            {
-                Destroy(this.transform.GetChild(4).gameObject);
-            }
-            if (roomVars.downExit == false && roomVars.rightExit == false)
-            {
-                Destroy(this.transform.GetChild(3).gameObject);
-            }
-            if (roomVars.upExit == false && roomVars.rightExit == false)
-            {
-                Destroy(this.transform.GetChild(2).gameObject);
-            }
-            if (roomVars.downExit == false && roomVars.leftExit == false)
-            {
-                Destroy(this.transform.GetChild(1).gameObject);
-            }
-            if (roomVars.upExit == false && roomVars.leftExit == false)
-            {
-                Destroy(this.transform.GetChild(0).gameObject);
-            }
-
-            StartCoroutine("Deactivate");
-
-            StartCoroutine("Activate");
-
-            a++;
+            Destroy(this.transform.GetChild(7).gameObject);
         }
-        else if (a == 0)
+        if (roomVars.upExit == true)
         {
-            a++;
+            Destroy(this.transform.GetChild(6).gameObject);
         }
+        if (roomVars.rightExit == true)
+        {
+            Destroy(this.transform.GetChild(5).gameObject);
+        }
+        if (roomVars.leftExit == true)
+        {
+            Destroy(this.transform.GetChild(4).gameObject);
+        }
+        if (roomVars.downExit == false && roomVars.rightExit == false)
+        {
+            Destroy(this.transform.GetChild(3).gameObject);
+        }
+        if (roomVars.upExit == false && roomVars.rightExit == false)
+        {
+            Destroy(this.transform.GetChild(2).gameObject);
+        }
+        if (roomVars.downExit == false && roomVars.leftExit == false)
+        {
+            Destroy(this.transform.GetChild(1).gameObject);
+        }
+        if (roomVars.upExit == false && roomVars.leftExit == false)
+        {
+            Destroy(this.transform.GetChild(0).gameObject);
+        }
+
+        StartCoroutine("Deactivate");
+
+        StartCoroutine("Activate");
+
 
         //this.gameObject.SetActive(false);
     }
 
+
     IEnumerator Deactivate()
     {
-        yield return new WaitForSeconds(1 / 3);
+        yield return new WaitForSeconds(1 / 4);
 
         for (int i = 0; i < this.transform.childCount; i++)
         {
@@ -73,11 +70,12 @@ public class LightBlockersSet : MonoBehaviour
 
     IEnumerator Activate()
     {
-        yield return new WaitForSeconds(1 / 3);
+        yield return new WaitForSeconds(1 / 2);
 
         for (int i = 0; i < this.transform.childCount; i++)
         {
             this.transform.GetChild(i).gameObject.SetActive(true);
         }
+        this.enabled = false;
     }
 }

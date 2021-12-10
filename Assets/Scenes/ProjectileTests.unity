@@ -1074,6 +1074,7 @@ MonoBehaviour:
   rocketsMax: 3
   rockets: 0
   ammoCounter: {fileID: 1885722473}
+  healthySprite: {fileID: 21300000, guid: ddd15110b16664140af67ddd6db35d90, type: 3}
   injuredSprite: {fileID: 21300000, guid: 04cba8880525aaf488f927da83a189e2, type: 3}
   endMenu: {fileID: 0}
 --- !u!4 &127758394
@@ -1453,6 +1454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 212576198}
+  - component: {fileID: 212576199}
   m_Layer: 0
   m_Name: Blank (2)
   m_TagString: Untagged
@@ -1474,6 +1476,20 @@ Transform:
   m_Father: {fileID: 1210750781}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &212576199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212576197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c915a5ed7b9c3ab4db775357220dd0cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneHanded: 0
+  ammoType: 0
 --- !u!1 &219596673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,7 +2022,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6308785ad142c1b459cfa37e31b6aa85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelGenerator: {fileID: 6970680728548503661}
+  levelGeneratorDisplayed: {fileID: 2537718255427399222, guid: a5ca82faf7f99e8409a08627ca737c3a, type: 3}
+  startMenu: {fileID: 0}
 --- !u!1 &305849039
 GameObject:
   m_ObjectHideFlags: 0
@@ -6585,6 +6602,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1487794510}
+  - component: {fileID: 1487794511}
   m_Layer: 0
   m_Name: Blank (1)
   m_TagString: Untagged
@@ -6606,6 +6624,20 @@ Transform:
   m_Father: {fileID: 1210750781}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1487794511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487794509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c915a5ed7b9c3ab4db775357220dd0cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneHanded: 0
+  ammoType: 0
 --- !u!1 &1495150279 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6518990820134085829, guid: 289a5fb22210c0a4b80c95aeba8a5603, type: 3}
@@ -8364,6 +8396,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1982644476}
+  - component: {fileID: 1982644477}
   m_Layer: 0
   m_Name: Blank
   m_TagString: Untagged
@@ -8385,6 +8418,20 @@ Transform:
   m_Father: {fileID: 1210750781}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1982644477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982644475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c915a5ed7b9c3ab4db775357220dd0cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneHanded: 0
+  ammoType: 0
 --- !u!1 &2007845807
 GameObject:
   m_ObjectHideFlags: 0
