@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndMenu : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class EndMenu : MonoBehaviour
 
 	// Start is called before the first frame update
 	void Awake()
-    {
+	{
 		levelGeneratorReal = levelGeneratorDisplayed;
 
 		Time.timeScale = 0;
@@ -31,14 +32,16 @@ public class EndMenu : MonoBehaviour
 	}
 
 	public void FullRestart()
-    {
-		Reset();
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+		/*Reset();
 
 		startMenu.SetActive(true);
 
 		//ALSO RESET THE PLAYER'S INVETORY ORDER
 
-		this.gameObject.SetActive(false);
+		this.gameObject.SetActive(false);*/
 
 	}
 
@@ -58,11 +61,10 @@ public class EndMenu : MonoBehaviour
 		Time.timeScale = 1;
 
 		this.gameObject.SetActive(false);
-
 	}
 
 	public void Reset()
-    {
+	{
 		player = GameObject.FindGameObjectWithTag("Player");
 
 		Player p = player.GetComponent<Player>();
@@ -141,17 +143,28 @@ public class EndMenu : MonoBehaviour
 				Destroy(levelGen[i]);
 			}
 		}
+		//StartCoroutine("NewLevel");
 
+		GameObject levelNew = Instantiate(levelGeneratorReal, new Vector3(0, 0, 0), this.transform.rotation);
+
+		levelNew.GetComponent<ObjectiveController>().endMenu = this.gameObject;
+
+		levelNew.SetActive(true);
+
+
+
+		//Time.timeScale = 1;
+
+
+	}
+	/*IEnumerator NewLevel()
+	{
+		yield return new WaitForSeconds(1 / 5);
 		GameObject levelNew = Instantiate(levelGeneratorReal, new Vector3(0, 0, 0), this.transform.rotation);
 
 		levelNew.GetComponent<ObjectiveController>().endMenu = this.gameObject;
 
 		levelNew.SetActive(false);
 
-		//Time.timeScale = 1;
-
-
-	}
-
-
+	}*/
 }

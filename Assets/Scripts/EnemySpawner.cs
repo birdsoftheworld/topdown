@@ -23,69 +23,52 @@ public class EnemySpawner : MonoBehaviour
 
     public bool spawningEnemy;
 
+    private int waiting = 0;
+
+    void Awake()
+    {
+        waiting = 0;
+    }
+
     void Update()
     {
         Vector3 position = origin.position;
 
-        if (spawningEnemy == true)
+        if (waiting == 5)
         {
-            if (!a)
+            if (spawningEnemy == true)
             {
-                if (enemyPrefabs.Count != 0)
+                if (!a)
                 {
-                    SpawnEnemy(position, origin);
-                    a = true;
+                    if (enemyPrefabs.Count != 0)
+                    {
+                        SpawnEnemy(position, origin);
+                        a = true;
+                    }
                 }
             }
-        }
-        else
-        {
-            a = true;
-        }
-
-        if (!b)
-        {
-
-            if (Random.Range(0, 3) == 2)
+            else
             {
-                float a = Random.Range(-10f, 10f);
-                a = a / (Mathf.Abs(a) - 0.5f);
+                a = true;
+            }
 
-                float b = Random.Range(-10f, 10f);
-                b = b / (Mathf.Abs(b) - 0.5f);
+            if (!b)
+            {
 
-                SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
-
-                if (Random.Range(0, 4) == 3)
+                if (Random.Range(0, 3) == 2)
                 {
-                    int c = Random.Range(0, 2);
-                    if (c == 1)
-                    {
-                        a = a * -1;
-                    }
-                    else
-                    {
-                        b = b * -1;
-                    }
+                    float a = Random.Range(-10f, 10f);
+                    a = a / (Mathf.Abs(a) - 0.5f);
+
+                    float b = Random.Range(-10f, 10f);
+                    b = b / (Mathf.Abs(b) - 0.5f);
 
                     SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
 
-                    if (Random.Range(0, 5) == 4)
+                    if (Random.Range(0, 4) == 3)
                     {
-                        int d = Random.Range(0, 2);
-                        if (d == c)
-                        {
-                            if (d == 1)
-                            {
-                                d = 0;
-                            }
-                            else
-                            {
-                                d = 1;
-                            }
-                        }
-
-                        else if (d == 1)
+                        int c = Random.Range(0, 2);
+                        if (c == 1)
                         {
                             a = a * -1;
                         }
@@ -96,9 +79,22 @@ public class EnemySpawner : MonoBehaviour
 
                         SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
 
-                        if (Random.Range(0, 6) == 5)
+                        if (Random.Range(0, 5) == 4)
                         {
-                            if (c == 1)
+                            int d = Random.Range(0, 2);
+                            if (d == c)
+                            {
+                                if (d == 1)
+                                {
+                                    d = 0;
+                                }
+                                else
+                                {
+                                    d = 1;
+                                }
+                            }
+
+                            else if (d == 1)
                             {
                                 a = a * -1;
                             }
@@ -108,17 +104,35 @@ public class EnemySpawner : MonoBehaviour
                             }
 
                             SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
+
+                            if (Random.Range(0, 6) == 5)
+                            {
+                                if (c == 1)
+                                {
+                                    a = a * -1;
+                                }
+                                else
+                                {
+                                    b = b * -1;
+                                }
+
+                                SpawnObject(new Vector3(position.x + (a * 2), position.y + (b * 2), position.z), origin);
+                            }
                         }
                     }
                 }
+
+                b = true;
             }
 
-            b = true;
+            if (a == true && b == true)
+            {
+                this.enabled = false;
+            }
         }
-
-        if (a == true && b == true)
+        else
         {
-            this.enabled = false;
+            waiting++;
         }
     }
 

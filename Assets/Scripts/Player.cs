@@ -274,6 +274,8 @@ public class Player : MonoBehaviour
             weapons[i].SetActive(false);
         }
 
+        this.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
+
         this.GetComponent<SpriteRenderer>().sprite = healthySprite;
     }
 }
