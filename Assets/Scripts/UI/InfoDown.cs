@@ -9,19 +9,51 @@ public class InfoDown : MonoBehaviour
 
     public RectTransform thisRectTransform;
 
+    public RectTransform toggleRectTransform;
+
+    public Sprite inactive;
+    public Sprite active;
+
     // Start is called before the first frame update
     void Start()
     {
         thisRectTransform = this.gameObject.GetComponent<RectTransform>();
+
+        toggleRectTransform = t.gameObject.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (t.hovering == true || t.isOn == true)
         {
-        } //check if thisRectTransform is less than twice that of the toggle. If it is, expand out by 2 and move down 1.
+            if (thisRectTransform.localPosition.y > 0)
+            {
+                thisRectTransform.localPosition -= new Vector3(0, 2, 0);
+            }
+            if (thisRectTransform.localPosition.y < 0)
+            {
+                thisRectTransform.localPosition = new Vector3(0, 0, 0);
+            }
+        }
+        else
+        {
+            if (thisRectTransform.localPosition.y < (toggleRectTransform.localPosition.y * 2))
+            {
+                thisRectTransform.localPosition += new Vector3(0, 1, 0);
+            }
+        }
+    }
 
-        //while attached ToggleWithInfo hovering == true or isOn == true, expand down until in final position. Else, slide up if out of hidden position
+    public void Change()
+    {
+        if (this.gameObject.GetComponent<Image>().sprite == inactive)
+        {
+            this.gameObject.GetComponent<Image>().sprite = active;
+        }
+        else
+        {
+            this.gameObject.GetComponent<Image>().sprite = inactive;
+        }
     }
 }

@@ -43,7 +43,7 @@ public class EnemyController : MonoBehaviour
                             b++;
                             if (Random.Range(0, 2) == 1)
                             {
-                                Debug.Log(spawners[b].transform.position);
+                                //Debug.Log(spawners[b].transform.position);
                                 spawners[b].GetComponent<EnemySpawner>().spawningEnemy = true;
                                 enemiesToSpawn--;
                             }
@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
                         {
                             if (Random.Range(0, 2) == 1)
                             {
-                                Debug.Log(spawners[b].transform.position);
+                                //Debug.Log(spawners[b].transform.position);
                                 spawners[b].GetComponent<EnemySpawner>().spawningEnemy = true;
                                 enemiesToSpawn--;
                             }

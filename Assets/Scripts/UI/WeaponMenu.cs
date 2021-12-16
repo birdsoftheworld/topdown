@@ -140,5 +140,18 @@ public class WeaponMenu : MonoBehaviour
                 weaponImageBoxes[a].sprite = blank;
             }
         }
+
+        if (weaponImageBoxes.Count > selectedButtons.Count)
+        {
+            for (int a = 0; a < weaponImageBoxes.Count - selectedButtons.Count; a++)
+            {
+                weaponImageBoxes[weaponImageBoxes.Count - a - 1].sprite = blank;
+
+                //if (selectedButtons[weaponImageBoxes.Count - a] != null)
+                //{
+                    //a = Mathf.Infinity;
+                //}
+            }
+        }
     }
 }
