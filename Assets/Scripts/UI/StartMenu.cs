@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StartMenu : MonoBehaviour
 {
     public GameObject player;
 
     public GameObject levelGen;
+
+    public GameObject startCamera;
+
+    public GameObject mainCamera;
 
     // Start is called before the first frame update
     void Awake()
@@ -21,6 +26,14 @@ public class StartMenu : MonoBehaviour
             }
 
         }*/
+
+        //mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
+        mainCamera.tag = "Untagged";
+        startCamera.tag = "MainCamera";
+
+        GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasScaler>().scaleFactor = .25f;
+        GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().worldCamera = startCamera.GetComponent<Camera>();
     }
 
     public void Begin()
@@ -29,8 +42,22 @@ public class StartMenu : MonoBehaviour
 
         levelGen.SetActive(true);
 
-        this.gameObject.SetActive(false);
+        //startCamera.SetActive(false);
+        //GameObject.FindGameObjectWithTag("MainCamera").SetActive(true);
 
         Time.timeScale = 1;
+
+        //if (mainCamera == null)
+        //{
+        //    mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        //}
+
+        mainCamera.tag = "MainCamera";
+        startCamera.tag = "Untagged";
+        GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasScaler>().scaleFactor = 1f;
+        GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().worldCamera = mainCamera.GetComponent<Camera>();
+        startCamera.SetActive(false);
+
+        this.gameObject.SetActive(false);
     }
 }

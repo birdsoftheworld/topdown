@@ -29,7 +29,7 @@ public class InfoDown : MonoBehaviour
         {
             if (thisRectTransform.localPosition.y > 0)
             {
-                thisRectTransform.localPosition -= new Vector3(0, 2, 0);
+                thisRectTransform.localPosition -= new Vector3(0, 4, 0);
             }
             if (thisRectTransform.localPosition.y < 0)
             {
@@ -38,9 +38,9 @@ public class InfoDown : MonoBehaviour
         }
         else
         {
-            if (thisRectTransform.localPosition.y < (toggleRectTransform.localPosition.y * 2))
+            if (thisRectTransform.localPosition.y < (toggleRectTransform.localPosition.y * 4))
             {
-                thisRectTransform.localPosition += new Vector3(0, 1, 0);
+                thisRectTransform.localPosition += new Vector3(0, 3, 0);
             }
         }
     }

@@ -100,6 +100,7 @@
      <Compile Include="Assets\Scripts\UI\EndMenu.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\AmmoTracker.cs" />
      <Compile Include="Assets\Scripts\Hittable.cs" />
+     <Compile Include="Assets\Scripts\WeaponScripts\PlayerSniper.cs" />
      <Compile Include="Assets\Scripts\storeRoomVars.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\SniperTargetter.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\pistoleerBehavior.cs" />
