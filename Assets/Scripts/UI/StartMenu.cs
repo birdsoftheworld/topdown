@@ -29,11 +29,11 @@ public class StartMenu : MonoBehaviour
 
         //mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
-        mainCamera.tag = "Untagged";
+        /*mainCamera.tag = "Untagged";
         startCamera.tag = "MainCamera";
 
         GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasScaler>().scaleFactor = .25f;
-        GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().worldCamera = startCamera.GetComponent<Camera>();
+        GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().worldCamera = startCamera.GetComponent<Camera>();*/
     }
 
     public void Begin()
@@ -52,12 +52,12 @@ public class StartMenu : MonoBehaviour
         //    mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         //}
 
-        mainCamera.tag = "MainCamera";
+        /*mainCamera.tag = "MainCamera";
         startCamera.tag = "Untagged";
         GameObject.FindGameObjectWithTag("Canvas").GetComponent<CanvasScaler>().scaleFactor = 1f;
         GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().worldCamera = mainCamera.GetComponent<Camera>();
         startCamera.SetActive(false);
 
-        this.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);*/
     }
 }

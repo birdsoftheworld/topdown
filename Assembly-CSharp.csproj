@@ -57,11 +57,13 @@
      <Compile Include="Assets\Scripts\Projectiles\Blade.cs" />
      <Compile Include="Assets\Scripts\Projectiles\SeekingMissile.cs" />
      <Compile Include="Assets\Scripts\UI\StartMenu.cs" />
+     <Compile Include="Assets\Scripts\Draggable.cs" />
      <Compile Include="Assets\Scripts\UI\InfoDown.cs" />
      <Compile Include="Assets\Scripts\Projectiles\Flashbang.cs" />
      <Compile Include="Assets\Scripts\LightBlockersSet.cs" />
      <Compile Include="Assets\Scripts\UI\ToggleWithInfo.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerRifle.cs" />
+     <Compile Include="Assets\Scripts\DropZone.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerDash.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerFlashbang.cs" />
      <Compile Include="Assets\Scripts\ReturnTouching.cs" />

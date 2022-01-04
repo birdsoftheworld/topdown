@@ -21,6 +21,7 @@ TagManager:
   - EnemySpawner
   - LootDrop
   - Objective
+  - DragSlot
   layers:
   - Default
   - TransparentFX
