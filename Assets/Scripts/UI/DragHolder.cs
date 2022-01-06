@@ -8,6 +8,10 @@ public class DragHolder : MonoBehaviour
 
     public GameObject[] slots;
 
+    public int selectableItems;
+
+    public GameObject descriptionBox;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +35,21 @@ public class DragHolder : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Realize()
     {
-        
+        for (int i = selectableItems; i > -1; i--)
+        {
+            for (int a = this.transform.childCount - 1; a > -1; a--)
+            //for (int a = 0; a < this.transform.childCount; a++)
+            {
+                if (this.transform.GetChild(a).gameObject.GetComponent<CanBeDragged>() != null)
+                {
+                    if (this.transform.GetChild(a).gameObject.GetComponent<CanBeDragged>().location == i)
+                    {
+                        this.transform.GetChild(a).gameObject.GetComponent<CanBeDragged>().target.SetAsFirstSibling();
+                    }
+                }
+            }
+        }
     }
 }

@@ -75,6 +75,7 @@
      <Compile Include="Assets\Scripts\Room.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerRichochetBomb.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerCycleLance.cs" />
+     <Compile Include="Assets\Scripts\UI\CanBeDragged.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerSword.cs" />
      <Compile Include="Assets\Scripts\HealthBar.cs" />
      <Compile Include="Assets\Scripts\EnemyBehaviors\Depricated\bruteBehavior.cs" />
@@ -112,6 +113,7 @@
      <Compile Include="Assets\Scripts\Projectiles\Projectile.cs" />
      <Compile Include="Assets\Scripts\StartTexture.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\UI\DragHolder.cs" />
      <Compile Include="Assets\Scripts\HealthTest.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\WeaponScripts\PlayerKnife.cs" />

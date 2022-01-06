@@ -10,6 +10,12 @@ public class CanBeDragged : MonoBehaviour
     public int priorLocation = 0;
     public int location = 0;
 
+    public int number;
+
+    public Transform target;
+
+    private bool hovering = false;
+
     void Awake()
     {
         holder = this.transform.parent.gameObject.GetComponent<DragHolder>();
@@ -17,11 +23,46 @@ public class CanBeDragged : MonoBehaviour
 
     void OnMouseDown()
     {
-        held = true;
+        if (Input.GetMouseButtonDown(0))
+        {
+            held = true;
+
+            holder.slots[location].GetComponent<BoxCollider2D>().size = new Vector2(1f, 1f);
+        }
+
+    }
+
+    void OnMouseOver()
+    {
+        hovering = true;
+    }
+
+    void OnMouseExit()
+    {
+        hovering = false;
     }
 
     void Update()
     {
+        if (hovering == true)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                for (int i = 0; i < holder.descriptionBox.transform.childCount; i++)
+                {
+                    if (i == number)
+                    {
+                        holder.descriptionBox.transform.GetChild(i).gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        holder.descriptionBox.transform.GetChild(i).gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+
+
         if (Input.GetMouseButton(0))
         {
             if (held == true)
@@ -62,6 +103,7 @@ public class CanBeDragged : MonoBehaviour
         if (held == false)
         {
             this.transform.position = Vector2.MoveTowards(this.transform.position, holder.slots[location].transform.position, 1f);
+            holder.slots[location].GetComponent<BoxCollider2D>().size = new Vector2(.1f, .1f);
         }
     }
 
