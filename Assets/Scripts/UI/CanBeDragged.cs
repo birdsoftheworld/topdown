@@ -82,21 +82,50 @@ public class CanBeDragged : MonoBehaviour
         {
             held = false;
             this.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 5;
-
-
-            for (int a = 0; a < holder.draggables.Length; a++)
+            
+            if (this.location == this.priorLocation)
             {
-                if (holder.draggables[a].GetComponent<CanBeDragged>().location == location)
+                int i = 0;
+                int lowest = 5;
+
+                for (int a = 0; a < holder.draggables.Length; a++)
                 {
-                    if (holder.draggables[a].transform.position != this.transform.position) //this could break on an exact drop
+                    if (holder.draggables[a].GetComponent<CanBeDragged>().location < holder.selectableItems - 1)
                     {
-                        holder.draggables[a].GetComponent<CanBeDragged>().location = priorLocation;
+                        if (holder.draggables[a].GetComponent<CanBeDragged>().location < lowest)
+                        {
+                            lowest = holder.draggables[a].GetComponent<CanBeDragged>().location;
+                        }
+                        i++;
+                    }
 
-                        holder.draggables[a].GetComponent<CanBeDragged>().priorLocation = holder.draggables[a].GetComponent<CanBeDragged>().location;
 
+                }
+                if (i > 0 && i < holder.selectableItems + 1)
+                {
+                    location = lowest;
+                }
+            }
+
+            if (this.location != this.priorLocation)
+            {
+
+                for (int a = 0; a < holder.draggables.Length; a++)
+                {
+                    if (holder.draggables[a].GetComponent<CanBeDragged>().location == location)
+                    {
+                        if (holder.draggables[a].transform.position != this.transform.position) //this could break on an exact drop
+                        {
+                            holder.draggables[a].GetComponent<CanBeDragged>().location = priorLocation;
+
+                            holder.draggables[a].GetComponent<CanBeDragged>().priorLocation = holder.draggables[a].GetComponent<CanBeDragged>().location;
+
+                        }
                     }
                 }
             }
+
+
             priorLocation = location;
         }
 
