@@ -44,6 +44,7 @@ public class CanBeDragged : MonoBehaviour
 
     void Update()
     {
+
         if (hovering == true)
         {
             if (Input.GetMouseButtonDown(1))
@@ -73,9 +74,17 @@ public class CanBeDragged : MonoBehaviour
                 mousePos.z = Camera.main.nearClipPlane;
                 Vector2 destination = Camera.main.ScreenToWorldPoint(mousePos);
 
-                Vector2 currentPos = this.transform.position;
+                //this.transform.position = Vector2.MoveTowards(this.transform.position, destination, 1f);
 
-                this.transform.position = Vector2.MoveTowards(currentPos, destination, 1f);
+                //this.transform.position = new Vector2(destination.x, destination.y);
+                this.transform.position = new Vector3(destination.x, destination.y, this.transform.position.z);
+                //this.transform.position = destination;
+
+                Debug.Log(destination);
+
+                //this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(destination.x, destination.y, 0f), 1f);
+                //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 0f);
+
             }
         }
         else if (held == true)
@@ -85,7 +94,26 @@ public class CanBeDragged : MonoBehaviour
             
             if (this.location == this.priorLocation)
             {
-                int i = 0;
+                for (int a = 0; a < holder.selectableItems; a++)
+                {
+                    bool free = true;
+
+                    for (int i = 0; i < holder.draggables.Length; i++)
+                    {
+                        if (holder.draggables[i].GetComponent<CanBeDragged>().location == a)
+                        {
+                            free = false;
+                        }
+                    }
+
+                    if (free == true)
+                    {
+                        location = a;
+                        a = holder.selectableItems;
+                    }
+                }
+
+                /*int i = 0;
                 int lowest = 5;
 
                 for (int a = 0; a < holder.draggables.Length; a++)
@@ -104,7 +132,7 @@ public class CanBeDragged : MonoBehaviour
                 if (i > 0 && i < holder.selectableItems + 1)
                 {
                     location = lowest;
-                }
+                }*/
             }
 
             if (this.location != this.priorLocation)
@@ -131,7 +159,7 @@ public class CanBeDragged : MonoBehaviour
 
         if (held == false)
         {
-            this.transform.position = Vector2.MoveTowards(this.transform.position, holder.slots[location].transform.position, 1f);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(holder.slots[location].transform.position.x, holder.slots[location].transform.position.y, holder.slots[location].transform.position.z), 1f);
             holder.slots[location].GetComponent<BoxCollider2D>().size = new Vector2(.1f, .1f);
         }
     }

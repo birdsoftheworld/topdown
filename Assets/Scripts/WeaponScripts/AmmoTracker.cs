@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class AmmoTracker : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class AmmoTracker : MonoBehaviour
         entry = entry.Insert(3, num2);
         entry = entry.Insert(0, num1);
 
-        txt.GetComponent<UnityEngine.UI.Text>().text = entry;
+        txt.GetComponent<TextMeshPro>().text = entry;
     }
 
     public void define1(string num)

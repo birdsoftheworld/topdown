@@ -9,6 +9,8 @@ public class UIFollow : MonoBehaviour
 
     public HealthTest health;
 
+    public float dist;
+
     void Awake()
     {
 
@@ -22,7 +24,7 @@ public class UIFollow : MonoBehaviour
             Destroy(gameObject);
         }*/
 
-        this.GetComponent<Transform>().position = new Vector3 (monsterPosition.position.x - 1, monsterPosition.position.y, monsterPosition.position.z);
+        this.GetComponent<Transform>().position = new Vector3 (monsterPosition.position.x - dist, monsterPosition.position.y, monsterPosition.position.z);
 
         this.GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 90);
 
