@@ -86,6 +86,8 @@ public class turretBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //WHILE ANGLE IS ~45, ~135, ~225, ~315, USE A SHORT TC, SO THAT IT DOESN'T OVERPENETRATE WALLS. DOESN'T SOLVE ALL PROBLEMS, BUT SHOULD HELP WITH SOME.
+
         if (swivels.Count == 0)
         {
             defineSwivels();

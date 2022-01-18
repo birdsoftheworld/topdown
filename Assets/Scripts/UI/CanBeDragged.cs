@@ -27,7 +27,7 @@ public class CanBeDragged : MonoBehaviour
         {
             held = true;
 
-            holder.slots[location].GetComponent<BoxCollider2D>().size = new Vector2(1f, 1f);
+            holder.slots[location].GetComponent<BoxCollider2D>().size = new Vector2(.3f, .3f);
         }
 
     }
@@ -80,7 +80,7 @@ public class CanBeDragged : MonoBehaviour
                 this.transform.position = new Vector3(destination.x, destination.y, this.transform.position.z);
                 //this.transform.position = destination;
 
-                Debug.Log(destination);
+                //Debug.Log(destination);
 
                 //this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(destination.x, destination.y, 0f), 1f);
                 //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 0f);
