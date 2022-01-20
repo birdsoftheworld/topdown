@@ -53,6 +53,9 @@ public class turretBehavior : MonoBehaviour
 
     public TurretCone TC;
 
+    public TurretCone shortTC;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,7 +78,7 @@ public class turretBehavior : MonoBehaviour
 
         locationCol = this.gameObject;// GetComponent<Collider2D>();
 
-        TC.gameObject.SetActive(false);
+        setLights(false);
 
         //health = transform.GetChild(0).GetComponent<HealthTest>();
         distance2 = Mathf.Infinity;//Vector3.Distance(this.transform.position, player.transform.position);
@@ -86,14 +89,12 @@ public class turretBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //WHILE ANGLE IS ~45, ~135, ~225, ~315, USE A SHORT TC, SO THAT IT DOESN'T OVERPENETRATE WALLS. DOESN'T SOLVE ALL PROBLEMS, BUT SHOULD HELP WITH SOME.
-
         if (swivels.Count == 0)
         {
             defineSwivels();
             distance2 = Mathf.Infinity;
             waiting = 10;
-            TC.gameObject.SetActive(false);
+            setLights(false);
         }
         else
         {
@@ -122,7 +123,7 @@ public class turretBehavior : MonoBehaviour
         }*/
         if (distance2 <= distance) {
 
-            TC.gameObject.SetActive(true);
+            setLights(true);
 
 
             if (active == true && sensingPlayer == false && checkSightToPlayer() == false)
@@ -141,7 +142,7 @@ public class turretBehavior : MonoBehaviour
         }
         else 
         {
-            TC.gameObject.SetActive(false);
+            setLights(false);
         }
     }
 
@@ -152,7 +153,7 @@ public class turretBehavior : MonoBehaviour
             defineSwivels();
             distance2 = Mathf.Infinity;
             waiting = 10;
-            TC.gameObject.SetActive(false);
+            setLights(false);
         }
 
         if (waiting > 0)
@@ -214,8 +215,45 @@ public class turretBehavior : MonoBehaviour
                 else
                 {
                     this.transform.Rotate(0.0f, 0.0f, swingnumber, Space.World);
+
+
+                    //WHILE ANGLE IS ~45, ~135, ~225, ~315, USE A SHORT TC, SO THAT IT DOESN'T OVERPENETRATE WALLS. DOESN'T SOLVE ALL PROBLEMS, BUT SHOULD HELP WITH SOME.
+
+                    setLights(true);
                 }
             }
+        }
+    }
+
+    private void setLights(bool onOrOff)
+    {
+        if (onOrOff == true)
+        {
+            bool shorten = false;
+
+            for (int i = -315; i <= 360; i = i + 90)
+            {
+                if (transform.localEulerAngles.z > i - 20 && transform.localEulerAngles.z < i + 20)
+                {
+                    shorten = true;
+                }
+            }
+
+            if (shorten == true)
+            {
+                TC.gameObject.SetActive(false);
+                shortTC.gameObject.SetActive(true);
+            }
+            else
+            {
+                TC.gameObject.SetActive(true);
+                shortTC.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            TC.gameObject.SetActive(false);
+            shortTC.gameObject.SetActive(false);
         }
     }
 
