@@ -233,7 +233,7 @@ public class turretBehavior : MonoBehaviour
 
             for (int i = -315; i <= 360; i = i + 90)
             {
-                if (transform.localEulerAngles.z > i - 20 && transform.localEulerAngles.z < i + 20)
+                if (transform.localEulerAngles.z > i - 18.5 && transform.localEulerAngles.z < i + 18.5)
                 {
                     shorten = true;
                 }
