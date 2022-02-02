@@ -7,6 +7,8 @@ public class CamFollow : MonoBehaviour
     public Transform player;
     public Vector3 offset;
 
+    public int jitter;
+
     void Update()
     {
 
@@ -48,7 +50,36 @@ public class CamFollow : MonoBehaviour
 
         if (this.gameObject.GetComponent<Camera>() != null)
         {
-            this.transform.position = new Vector3(player.position.x + offset.x, player.position.y + offset.y, offset.z);
+
+            if (jitter > 0)
+            {
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = Camera.main.nearClipPlane;
+                Vector2 destination = Camera.main.ScreenToWorldPoint(mousePos);
+
+
+                Vector2 toVector = destination - new Vector2(player.position.x, player.position.y);
+                float angleToTarget = Vector2.Angle(transform.right, toVector);
+
+                if (destination.y - player.position.y < 0)
+                {
+                    angleToTarget = 360 - angleToTarget;
+                }
+                
+                angleToTarget = ((angleToTarget * Mathf.PI) / 180)/* + Random.Range(-1f * jitter, 1f * jitter)*/;
+
+                this.transform.position = new Vector3(player.position.x + offset.x + Mathf.Cos(angleToTarget) * jitter / 8, player.position.y + offset.y + Mathf.Sin(angleToTarget) * jitter / 8, offset.z);
+
+                jitter--;
+            }
+            else
+            {
+                this.transform.position = new Vector3(player.position.x + offset.x, player.position.y + offset.y, offset.z);
+            }
+
+            //Debug.Log(destination.y - player.position.y);
+
+            //jitter = new Vector2(jitter.x / 2, jitter.y / 2);
 
             if (!this.runOnlyOnce)
             {

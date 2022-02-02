@@ -30,6 +30,10 @@ public class PlayerCarbine : MonoBehaviour
 
     public AmmoTracker ammoCounter;
 
+    public int jitter;
+
+    public CamFollow cam;
+
     private void Start()
     {
         ammo = ammoCap;
@@ -37,11 +41,13 @@ public class PlayerCarbine : MonoBehaviour
         //bulletOrigin = this.transform;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
     }
 
     private void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
         //ammo = ammoCap;
         UpdateTracker();
     }
@@ -93,6 +99,9 @@ public class PlayerCarbine : MonoBehaviour
                         bullet.bulletDamage = bulletDamage;
 
                         fireTick = 0;
+                        this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+
+                        cam.jitter += jitter;
 
                         burstTick--;
                     }

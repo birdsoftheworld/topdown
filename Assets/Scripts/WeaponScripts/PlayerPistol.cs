@@ -23,17 +23,22 @@ public class PlayerPistol : MonoBehaviour
 
     public int whichButton = 0;
 
+    public int jitter;
+
+    public CamFollow cam;
 
     private void Start()
     {
         ammo = ammoCap;
         //bulletOrigin = this.transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
     }
 
     private void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
         //ammo = ammoCap;
         UpdateTracker();
     }
@@ -99,6 +104,9 @@ public class PlayerPistol : MonoBehaviour
                     bullet.bulletSpeed = bulletSpeed;
                     bullet.bulletFaction = bulletFaction;
                     bullet.bulletDamage = bulletDamage;
+
+                    cam.jitter += jitter;
+                    this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
 
                     if (whichButton == 0)
                     {
