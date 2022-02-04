@@ -9,17 +9,13 @@ public class LootDrop : MonoBehaviour
     public int dropType;
     public int amountGive;
 
-    void Awake()
+    public List<Sprite> sprites = new List<Sprite>();
+
+    public void setSprite()
     {
-        rb2D = GetComponent<Rigidbody2D>();
-        this.transform.Rotate(0, 0, Random.Range(0, 361));
-        rb2D.AddForce(transform.up * 5f);
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[dropType];
     }
 
-    void FixedUpdate()
-    {
-        rb2D.velocity = rb2D.velocity / 2;
-    }
 
     void OnTriggerEnter2D(Collider2D coll)
     {

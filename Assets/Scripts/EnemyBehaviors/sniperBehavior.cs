@@ -49,6 +49,8 @@ public class sniperBehavior : MonoBehaviour
 
     private Transform chasingTarget;
 
+    public GameObject wreckPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,6 +83,11 @@ public class sniperBehavior : MonoBehaviour
         if (health.curHealth <= 0)
         {
             levelGen.GetComponent<LootController>().Drop(this.transform.position, 2, 4, 2);
+
+            GameObject wreck = Instantiate(wreckPrefab, this.transform.position, this.transform.rotation);
+            wreck.GetComponent<WreckBehavior>().setSprite(3);
+            wreck.gameObject.SetActive(true);
+
             Destroy(gameObject);
         }
 

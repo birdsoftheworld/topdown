@@ -49,6 +49,8 @@ public class pistoleerBehavior : MonoBehaviour
 
     private int barrelFiring = 0;
 
+    public GameObject wreckPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,6 +82,11 @@ public class pistoleerBehavior : MonoBehaviour
         if (health.curHealth <= 0)
         {
             levelGen.GetComponent<LootController>().Drop(this.transform.position, 1, 6, 2);
+
+            GameObject wreck = Instantiate(wreckPrefab, this.transform.position, this.transform.rotation);
+            wreck.GetComponent<WreckBehavior>().setSprite(1);
+            wreck.gameObject.SetActive(true);
+
             Destroy(gameObject);
         }
 

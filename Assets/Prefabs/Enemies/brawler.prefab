@@ -478,3 +478,4 @@ MonoBehaviour:
   tracerPrefab: {fileID: 0}
   swingCount1: 0
   swingCount2: 0
+  wreckPrefab: {fileID: 2901864768258147889, guid: 27a453ca9e2573143af396f86b5e9443, type: 3}

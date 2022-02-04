@@ -57,6 +57,8 @@ public class BrawlerBehavior : MonoBehaviour
 
     private int chargeCooldown;
 
+    public GameObject wreckPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +92,11 @@ public class BrawlerBehavior : MonoBehaviour
         if (health.curHealth <= 0)
         {
             levelGen.GetComponent<LootController>().Drop(this.transform.position, 0, 2, 2);
+
+            GameObject wreck = Instantiate(wreckPrefab, this.transform.position, this.transform.rotation);
+            wreck.GetComponent<WreckBehavior>().setSprite(2);
+            wreck.gameObject.SetActive(true);
+
             Destroy(gameObject);
         }
 

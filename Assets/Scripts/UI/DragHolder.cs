@@ -48,6 +48,10 @@ public class DragHolder : MonoBehaviour
                     {
                         this.transform.GetChild(a).gameObject.GetComponent<CanBeDragged>().target.SetAsFirstSibling();
                     }
+                    else if (this.transform.GetChild(a).gameObject.GetComponent<CanBeDragged>().location > selectableItems - 1)
+                    {
+                        this.transform.GetChild(a).gameObject.GetComponent<CanBeDragged>().target.SetAsLastSibling();
+                    }
                 }
             }
         }
