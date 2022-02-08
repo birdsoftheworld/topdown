@@ -106,7 +106,11 @@ public class PlayerPistol : MonoBehaviour
                     bullet.bulletDamage = bulletDamage;
 
                     cam.jitter += jitter;
-                    this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+
+                    this.transform.GetChild(0).rotation = rotation;
+
+
+                    this.transform.GetChild(0).GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
 
                     if (whichButton == 0)
                     {

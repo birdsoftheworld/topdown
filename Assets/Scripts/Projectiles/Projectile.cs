@@ -12,17 +12,25 @@ public class Projectile : MonoBehaviour
     public float bulletSpeed;
     private Rigidbody2D rb2D;
 
+    public float click;
+
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
 
-
+        click = 40 - bulletSpeed;
     }
 
     void FixedUpdate()
     {
         rb2D.velocity = Vector3.zero;
         rb2D.AddForce(transform.up * bulletSpeed * -100f);
+
+        click--;
+        if (click == 0)
+        {
+            this.gameObject.GetComponent<Hittable>().safe = false;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D coll)

@@ -100,11 +100,13 @@ public class PlayerCarbine : MonoBehaviour
 
                         fireTick = 0;
 
-                        Quaternion rotation2 = new Quaternion();
-                        rotation2.eulerAngles = new Vector3(angle + 90, 0, 0);
+                        //Quaternion rotation2 = new Quaternion();
+                        //rotation2.eulerAngles = new Vector3(angle + 90, 0, 0);
 
-                        this.transform.GetChild(1).rotation = rotation2;
-                        this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+                        this.transform.GetChild(0).rotation = rotation;
+                        
+                        
+                        this.transform.GetChild(0).GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
 
                         cam.jitter += jitter;
 

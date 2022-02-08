@@ -34,7 +34,10 @@ public class sniperBehavior : MonoBehaviour
     public bool isShooting = false;
     public bool inPanic = false;
     public bool movingToFurther = false;
+
+
     public bool takingShot = false;
+    public Transform shotTarget;
 
     public Vector2 adjustTarge = new Vector2(0, 0);
     public Vector2 coverTarge = new Vector2(0, 0);
@@ -405,7 +408,7 @@ public class sniperBehavior : MonoBehaviour
             ammo--;
 
 
-            FaceTarget(player.transform.position);
+            FaceTarget(shotTarget.position);
 
             GameObject clone = Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
             clone.gameObject.SetActive(true);

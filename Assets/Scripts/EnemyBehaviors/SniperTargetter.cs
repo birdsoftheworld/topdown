@@ -43,6 +43,7 @@ public class SniperTargetter : MonoBehaviour
                     Destroy(gameObject);
                     if (sniper != null)
                     {
+                        sniper.GetComponent<sniperBehavior>().shotTarget = hitted.transform;
                         sniper.GetComponent<sniperBehavior>().takingShot = true;
                     }
                 }
