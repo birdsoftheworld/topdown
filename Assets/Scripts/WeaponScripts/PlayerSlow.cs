@@ -19,7 +19,9 @@ public class PlayerSlow : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-        pauseTimer = 202;
+        pauseTimer = 4040;
+
+        Debug.Log(Time.fixedDeltaTime);
     }
 
     // Update is called once per frame
@@ -32,12 +34,13 @@ public class PlayerSlow : MonoBehaviour
                 this.transform.GetChild(0).gameObject.SetActive(true);
 
                 player.waiting4 = recharge;
+                Time.fixedDeltaTime = .02f * pauseAmount;
                 Time.timeScale = pauseAmount;
                 pauseTimer = pauseTimerMax;
                 this.gameObject.GetComponent<SpriteRenderer>().sprite = active;
-                player.moveSpeed = player.moveSpeed / pauseAmount;
+                player.moveSpeed = player.moveSpeed / (pauseAmount * .5f);
             }
-            else if (pauseTimer != 202 && pauseTimer > 0)
+            else if (pauseTimer != 4040 && pauseTimer > 0)
             {
                 pauseTimer = 0;
                 player.waiting4 = (player.waiting4 / 4) + (recharge / 2);
@@ -53,10 +56,11 @@ public class PlayerSlow : MonoBehaviour
 
             this.gameObject.GetComponent<SpriteRenderer>().sprite = inactive;
             Time.timeScale = 1;
-            player.moveSpeed = player.moveSpeed * pauseAmount;
-            pauseTimer = 202;
+            Time.fixedDeltaTime = .02f;
+            player.moveSpeed = player.moveSpeed * (pauseAmount * .5f);
+            pauseTimer = 4040;
         }
-        else if (pauseTimer != 202)
+        else if (pauseTimer != 4040)
         {
             pauseTimer--;
         }

@@ -25,6 +25,22 @@ public class Blade : MonoBehaviour
                     }
                 }
             }
+
+            if (coll.GetComponent<Collider2D>().GetComponent<Projectile>() != null)
+            {
+                Debug.Log("ptwang!");
+
+                coll.GetComponent<Collider2D>().GetComponent<Hittable>().safe = false;
+
+                Quaternion rotation = new Quaternion();
+
+                rotation.eulerAngles = coll.GetComponent<Collider2D>().GetComponent<Transform>().rotation.eulerAngles;
+
+                rotation.eulerAngles += new Vector3(0, 0, 180);
+
+                coll.GetComponent<Collider2D>().GetComponent<Transform>().rotation = rotation;
+            }
+
         }
     }
 }

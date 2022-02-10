@@ -27,9 +27,10 @@ public class Projectile : MonoBehaviour
         rb2D.AddForce(transform.up * bulletSpeed * -100f);
 
         click--;
-        if (click == 0)
+        if (click < 0)
         {
             this.gameObject.GetComponent<Hittable>().safe = false;
+            click = Mathf.Infinity;
         }
     }
 
@@ -46,7 +47,7 @@ public class Projectile : MonoBehaviour
             }
             else if (hitted != null)
             {
-                if (hitted.CanHit(bulletFaction))
+                if (hitted.CanHit(bulletFaction) == true || this.gameObject.GetComponent<Hittable>().safe == false)
                 {
                     Destroy(gameObject);
                     HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
