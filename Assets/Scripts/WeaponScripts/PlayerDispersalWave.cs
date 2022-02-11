@@ -59,11 +59,14 @@ public class PlayerDispersalWave : MonoBehaviour
         }
         else if (active == 0)
         {
+            this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (player.waiting4 == 0)
                 {
                     active = 2;
+                    this.gameObject.GetComponent<CircleCollider2D>().enabled = true;
                 }
             }
         }
@@ -145,6 +148,29 @@ public class PlayerDispersalWave : MonoBehaviour
             rotation.eulerAngles += new Vector3(0, 0, 180);
 
             coll.GetComponent<Collider2D>().GetComponent<Transform>().rotation = rotation;*/
+
+
+            /*if (Input.GetKey(0)) { 
+
+
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = Camera.main.nearClipPlane;
+            Vector2 destination = Camera.main.ScreenToWorldPoint(mousePos);
+
+            Vector2 currentPos = this.transform.position;
+
+            destination = destination - currentPos;
+
+            Vector3 destinationN = destination.normalized;
+
+            float angle = Mathf.Atan2(destinationN.y, destinationN.x) * Mathf.Rad2Deg;
+
+            Quaternion rotation = new Quaternion();
+            rotation.eulerAngles = new Vector3(0, 0, angle - 90);
+
+
+            coll.transform.rotation = rotation;
+            }*/
         }
     }
 
@@ -167,6 +193,10 @@ public class PlayerDispersalWave : MonoBehaviour
             {
                 bullet.bulletSpeed = bullet.bulletSpeed * 2;
             }
+
+
+
+
 
             //coll.GetComponent<Collider2D>().GetComponent<Hittable>().safe = false;
         }
