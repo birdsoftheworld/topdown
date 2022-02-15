@@ -14,6 +14,8 @@ public class SniperTargetter : MonoBehaviour
 
     public GameObject sniper;
 
+    public float click = 10;
+
     private void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -23,6 +25,13 @@ public class SniperTargetter : MonoBehaviour
     {
         rb2D.velocity = Vector3.zero;
         rb2D.AddForce(transform.up * bulletSpeed * -50f);
+
+        click--;
+        if (click < 0)
+        {
+            this.gameObject.GetComponent<Hittable>().safe = false;
+            click = Mathf.Infinity;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -36,23 +45,19 @@ public class SniperTargetter : MonoBehaviour
             {
 
             }
-            else if (hitted != null)
+            if (hitted.CanHit(bulletFaction) == true || this.gameObject.GetComponent<Hittable>().safe == false)
             {
-                if (hitted.faction == (Faction)0)
+                Destroy(gameObject);
+
+                if (hitted.gameObject.tag != "Wall")
                 {
-                    Destroy(gameObject);
-                    if (sniper != null)
-                    {
-                        sniper.GetComponent<sniperBehavior>().shotTarget = hitted.transform;
-                        sniper.GetComponent<sniperBehavior>().takingShot = true;
-                    }
-                }
-                else if (hitted.faction == (Faction)2)
-                {
-                    Destroy(gameObject);
+                    sniper.GetComponent<sniperBehavior>().shotTarget = hitted.transform;
+                    sniper.GetComponent<sniperBehavior>().takingShot = true;
                 }
             }
         }
+        
+
     }
 
 

@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 2
+  safe: 1
 --- !u!70 &8704247419203558222
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

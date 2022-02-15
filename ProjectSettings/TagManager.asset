@@ -22,6 +22,7 @@ TagManager:
   - LootDrop
   - Objective
   - DragSlot
+  - Wall
   layers:
   - Default
   - TransparentFX

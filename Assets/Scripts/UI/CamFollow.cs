@@ -83,7 +83,7 @@ public class CamFollow : MonoBehaviour
 
             if (!this.runOnlyOnce)
             {
-                this.CheckScreenType();
+                //this.CheckScreenType();
             }
         }
         else
@@ -116,7 +116,7 @@ public class CamFollow : MonoBehaviour
 
     void Start()
     {
-        if (this.gameObject.GetComponent<Camera>() != null)
+        /*if (this.gameObject.GetComponent<Camera>() != null)
         {
             this.CheckScreenType();
         }
@@ -124,7 +124,7 @@ public class CamFollow : MonoBehaviour
         {
             this.transform.localPosition = new Vector3(offset.x, offset.y, offset.z);
 
-        }
+        }*/
     }
 
     void CheckScreenType()

@@ -139,6 +139,11 @@ public class sniperBehavior : MonoBehaviour
         if (waiting > 0)
         {
             waiting--;
+
+            if (shotTarget == null)
+            {
+                takingShot = false;
+            }
         }
         else
         {
@@ -171,6 +176,7 @@ public class sniperBehavior : MonoBehaviour
                             waiting = 60;
                             takingShot = false;
                             isShooting = false;
+                            shotTarget = null;
                         }
                         else {
                             targeting();
@@ -363,6 +369,20 @@ public class sniperBehavior : MonoBehaviour
         if (hit.collider.gameObject.tag == "Player")
         {
             return true;
+        }
+        else if (shotTarget != null)
+        {
+            RaycastHit2D hit2;
+            hit2 = Physics2D.Raycast(transform.position, shotTarget.position - this.transform.position, Mathf.Infinity, layerMask);
+
+            if (hit.collider.transform.position == shotTarget.position)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {

@@ -83,6 +83,8 @@ public class Player : MonoBehaviour
             items[0] = this.transform.GetChild(1).transform.GetChild(0).gameObject;
         }
         this.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(true);
+
+        UpdateCheck();
     }
 
     private void Update()

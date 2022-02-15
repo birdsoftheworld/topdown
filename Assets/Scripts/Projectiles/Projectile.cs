@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
 
-        click = 40 - bulletSpeed;
+        click = 5; //40 - bulletSpeed;
     }
 
     void FixedUpdate()
