@@ -20,6 +20,11 @@ public class HealthBar : MonoBehaviour
         this.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
     }
 
+    public void setFirst()
+    {
+        this.transform.SetAsFirstSibling();
+    }
+
     public void SetHealth(int hp)
     {
         healthBar.value = hp;

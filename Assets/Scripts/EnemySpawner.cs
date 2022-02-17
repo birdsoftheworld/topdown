@@ -158,6 +158,9 @@ public class EnemySpawner : MonoBehaviour
 
             cloneHealth.GetComponent<HealthBar>().playerHealth = clone.GetComponent<HealthTest>();
         }
+
+        cloneHealth.SetActive(true);
+        cloneHealth.GetComponent<HealthBar>().setFirst();
     }
 
     void SpawnObject(Vector3 position, Transform rotation)
