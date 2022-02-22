@@ -97,17 +97,18 @@ public class Player : MonoBehaviour
             endMenu.SetActive(true);
         }*/
 
-        if (this.GetComponent<HealthTest>().iFrames > 0)
-        {
-            if (this.GetComponent<HealthTest>().curHealth <= this.GetComponent<HealthTest>().maxHealth / 2)
+        //if (this.GetComponent<HealthTest>().iFrames > 0)
+        //{
+            if (this.GetComponent<HealthTest>().justHalved == true)
             {
                 this.GetComponent<SpriteRenderer>().sprite = injuredSprite;
+                this.GetComponent<HealthTest>().justHalved = false;
             }
-            else
+        /*    else
             {
                 this.GetComponent<SpriteRenderer>().sprite = healthySprite;
             }
-        }
+        }*/
 
 
         float horizontalMove = Input.GetAxisRaw("Horizontal");

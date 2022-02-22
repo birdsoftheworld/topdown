@@ -140,9 +140,9 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject clone = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], position, origin.rotation);
 
-        GameObject cloneHealth = Instantiate(healthPrefab, position, origin.rotation);
+        //GameObject cloneHealth = Instantiate(healthPrefab, position, origin.rotation);
 
-        if (clone.GetComponent<HealthTest>() == null && clone.transform.GetChild(0).GetComponent<HealthTest>() != null)
+        /*if (clone.GetComponent<HealthTest>() == null && clone.transform.GetChild(0).GetComponent<HealthTest>() != null)
         {
             clone.transform.GetChild(0).GetComponent<HealthTest>().healthBar = cloneHealth.GetComponent<HealthBar>();
             cloneHealth.GetComponent<UIFollow>().monsterPosition = clone.transform.GetChild(0).GetComponent<Transform>();
@@ -157,10 +157,10 @@ public class EnemySpawner : MonoBehaviour
             cloneHealth.GetComponent<UIFollow>().health = clone.GetComponent<HealthTest>();
 
             cloneHealth.GetComponent<HealthBar>().playerHealth = clone.GetComponent<HealthTest>();
-        }
+        }*/
 
-        cloneHealth.SetActive(true);
-        cloneHealth.GetComponent<HealthBar>().setFirst();
+        //cloneHealth.SetActive(true);
+        //cloneHealth.GetComponent<HealthBar>().setFirst();
     }
 
     void SpawnObject(Vector3 position, Transform rotation)

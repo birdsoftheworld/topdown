@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
+  safe: 1
 --- !u!58 &1785206461035118286
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -255,6 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
+  safe: 1
 --- !u!58 &1785206461531632412
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -428,6 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
+  safe: 1
 --- !u!114 &2106955942832493803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +449,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   iFrameMax: 3
   iFrames: 0
+  justHalved: 0
 --- !u!114 &2106955942832493795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,3 +483,5 @@ MonoBehaviour:
   swingCount1: 0
   swingCount2: 0
   wreckPrefab: {fileID: 2901864768258147889, guid: 27a453ca9e2573143af396f86b5e9443, type: 3}
+  healthySprite: {fileID: 21300000, guid: b64d378d7ca1f1c47972dfa6c64853f5, type: 3}
+  injuredSprite: {fileID: 21300000, guid: 6b8f687515920994796949ef466ccf7f, type: 3}

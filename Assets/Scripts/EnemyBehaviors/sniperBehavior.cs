@@ -54,6 +54,9 @@ public class sniperBehavior : MonoBehaviour
 
     public GameObject wreckPrefab;
 
+    public Sprite healthySprite;
+    public Sprite injuredSprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,6 +96,12 @@ public class sniperBehavior : MonoBehaviour
 
             Destroy(gameObject);
         }
+        else if (this.GetComponent<HealthTest>().justHalved == true)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = injuredSprite;
+            this.GetComponent<HealthTest>().justHalved = false;
+        }
+
 
         //Debug.Log("player two away?" + playerTwoRoomsAway());
 

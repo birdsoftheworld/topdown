@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
+  safe: 1
 --- !u!114 &6235962892677778565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +158,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   iFrameMax: 3
   iFrames: 0
+  justHalved: 0
 --- !u!114 &6235962892677778585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +185,7 @@ MonoBehaviour:
   inPanic: 0
   movingToFurther: 0
   takingShot: 0
+  shotTarget: {fileID: 0}
   adjustTarge: {x: 0, y: 0}
   coverTarge: {x: 0, y: 0}
   centerTarge: {x: 0, y: 0}
@@ -193,3 +196,5 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7313259170505084681, guid: de86c533caa0f574e924019a5f4c8858, type: 3}
   tracerPrefab: {fileID: 8567409535944632221, guid: 5aedd57deaa344146b6b1e13e35f74c3, type: 3}
   wreckPrefab: {fileID: 2901864768258147889, guid: 27a453ca9e2573143af396f86b5e9443, type: 3}
+  healthySprite: {fileID: 21300000, guid: 6bf9a8fe804f0c7418ee1bdb3a8e7026, type: 3}
+  injuredSprite: {fileID: 21300000, guid: edab950aa396e604cadaaa8063a0e8c8, type: 3}

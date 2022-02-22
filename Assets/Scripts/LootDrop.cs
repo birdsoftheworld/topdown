@@ -25,6 +25,8 @@ public class LootDrop : MonoBehaviour
 
             if (dropType == 0)
             {
+                coll.GetComponent<HealthTest>().iFrames++;
+
                 coll.GetComponent<HealthTest>().curHealth += amountGive;
                 if (coll.GetComponent<HealthTest>().curHealth > coll.GetComponent<HealthTest>().maxHealth)
                 {

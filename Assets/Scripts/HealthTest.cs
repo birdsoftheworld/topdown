@@ -14,8 +14,12 @@ public class HealthTest : MonoBehaviour
     public int iFrameMax;
     public int iFrames;
 
+    public bool justHalved;
+
     void Start()
     {
+        justHalved = false;
+
         curHealth = maxHealth;
 
         iFrames = iFrameMax;
@@ -44,7 +48,14 @@ public class HealthTest : MonoBehaviour
                 hurt = 0;
             }
             //Debug.Log(hurt);
+
+            if (curHealth - hurt <= maxHealth / 2)
+            {
+                justHalved = true;
+            }
+
             curHealth -= hurt;
+
             if (healthBar != null)
             {
                 //Debug.Log(this.gameObject);
