@@ -13,7 +13,15 @@ public class hpResourceImages : MonoBehaviour
     {
         if (playerHealth.iFrames > 0)
         {
-            this.transform.GetChild(0).GetComponent<Image>().sprite = images[playerHealth.curHealth];
+            if (playerHealth.curHealth < 0)
+            {
+                this.transform.GetChild(0).GetComponent<Image>().sprite = images[0];
+
+            }
+            else
+            {
+                this.transform.GetChild(0).GetComponent<Image>().sprite = images[playerHealth.curHealth];
+            }
         }
     }
 }

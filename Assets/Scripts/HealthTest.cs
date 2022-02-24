@@ -16,9 +16,13 @@ public class HealthTest : MonoBehaviour
 
     public bool justHalved;
 
+    public bool justThirded;
+
     void Start()
     {
         justHalved = false;
+
+        justThirded = false;
 
         curHealth = maxHealth;
 
@@ -52,6 +56,11 @@ public class HealthTest : MonoBehaviour
             if (curHealth - hurt <= maxHealth / 2)
             {
                 justHalved = true;
+            }
+
+            if (curHealth - hurt <= maxHealth / 3)
+            {
+                justThirded = true;
             }
 
             curHealth -= hurt;

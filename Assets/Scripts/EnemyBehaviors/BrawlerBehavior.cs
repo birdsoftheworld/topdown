@@ -107,6 +107,11 @@ public class BrawlerBehavior : MonoBehaviour
             this.GetComponent<SpriteRenderer>().sprite = injuredSprite;
             this.GetComponent<HealthTest>().justHalved = false;
         }
+        else if (this.GetComponent<HealthTest>().justThirded == true)
+        {
+            this.transform.GetChild(2).gameObject.GetComponent<ParticleSystem>().Play();
+            this.GetComponent<HealthTest>().justThirded = false;
+        }
 
         //Debug.Log("player two away?" + playerTwoRoomsAway());
 
