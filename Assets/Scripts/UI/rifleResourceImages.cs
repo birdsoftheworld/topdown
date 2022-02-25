@@ -6,14 +6,19 @@ using UnityEngine.UI;
 public class rifleResourceImages : MonoBehaviour
 {
     public PlayerRifle source;
+    public Player player;
 
-    // Update is called once per frame
+    /*void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }*/
+
     void Update()
     {
-        //this.GetComponent<RectTransform>().rect = new Rect(20, 20, 20, 20);
-
-        RectTransform rt = this.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(300 - (60 * source.ammo), 60);
-
+        if (player.ammoChanged == true)
+        {
+            RectTransform rt = this.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(300 - (60 * source.ammo), 60);
+        }
     }
 }

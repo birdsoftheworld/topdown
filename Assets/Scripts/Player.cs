@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
     public int rocketsMax;
     public int rockets;
 
+    public bool ammoChanged;
+
     public AmmoTracker ammoCounter;
 
     public Sprite healthySprite;
@@ -70,6 +72,8 @@ public class Player : MonoBehaviour
 
         weapons = new GameObject[3];
         items = new GameObject[1];
+
+        ammoChanged = false;
 
         for (int i = 0; i < 3; i++)
         {
@@ -180,6 +184,8 @@ public class Player : MonoBehaviour
         ammoCounter.define3(heavyAmmo.ToString());
         ammoCounter.define4(lightAmmo.ToString());
         ammoCounter.define5(rockets.ToString());
+
+        ammoChanged = true;
     }
 
     private void FixedUpdate()
@@ -253,6 +259,11 @@ public class Player : MonoBehaviour
 
         this.GetComponent<HealthTest>().curHealth = this.GetComponent<HealthTest>().maxHealth;
 
+        this.GetComponent<HealthTest>().iFrames = this.GetComponent<HealthTest>().iFrameMax * 5;
+
+        this.GetComponent<HealthTest>().justHalved = false;
+        this.GetComponent<HealthTest>().justThirded = false;
+
         this.GetComponent<HealthTest>().healthBar.SetHealth(this.GetComponent<HealthTest>().curHealth);
 
         for (int i = 0; i < weapons.Length; i++)
@@ -280,5 +291,7 @@ public class Player : MonoBehaviour
         this.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
 
         this.GetComponent<SpriteRenderer>().sprite = healthySprite;
+
+        UpdateCheck();
     }
 }
