@@ -77,6 +77,8 @@ public class PlayerRifle : MonoBehaviour
                     cam.jitter += jitter;
 
                     this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
+                    //this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+                    //this.transform.GetChild(2).gameObject.GetComponent<ParticleSystem>().Play();
 
                     player.waiting2 = 25;
                 }

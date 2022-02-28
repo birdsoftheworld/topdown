@@ -30,7 +30,7 @@ public class PlayerDispersalWave : MonoBehaviour
         setWaiter = 15;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         /*Vector3 mousePos = Input.mousePosition;
         mousePos.z = Camera.main.nearClipPlane;

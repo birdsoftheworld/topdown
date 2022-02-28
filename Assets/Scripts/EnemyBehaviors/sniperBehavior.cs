@@ -452,6 +452,13 @@ public class sniperBehavior : MonoBehaviour
             bullet.bulletSpeed = bulletSpeed;
             bullet.bulletFaction = (Faction)1;
             bullet.bulletDamage = bulletDamage;
+
+        this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+
+        //this.transform.GetChild(2).gameObject.GetComponent<ParticleSystem>().Play();
+        //this.transform.GetChild(3).gameObject.GetComponent<ParticleSystem>().Play();
+        //this.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>().Play();
+
     }
 
     private void pistolShoot()
@@ -466,6 +473,9 @@ public class sniperBehavior : MonoBehaviour
         bullet.bulletSpeed = 10;
         bullet.bulletFaction = (Faction)1;
         bullet.bulletDamage = 2;
+
+        this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+
     }
 
     void OnTriggerEnter2D(Collider2D col)

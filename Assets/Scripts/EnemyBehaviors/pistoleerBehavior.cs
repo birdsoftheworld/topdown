@@ -463,6 +463,8 @@ public class pistoleerBehavior : MonoBehaviour
         bullet.bulletFaction = (Faction)1;
         bullet.bulletDamage = bulletDamage;
 
+        this.transform.GetChild(barrelFiring).GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
+
         if (barrelFiring == 0)
         {
             barrelFiring = 1;
