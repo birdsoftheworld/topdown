@@ -13,6 +13,8 @@ public class smgResourceImages : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }*/
 
+
+
     void Update()
     {
         if (player.ammoChanged == true)
@@ -22,28 +24,30 @@ public class smgResourceImages : MonoBehaviour
 
             if (source.ammo > 14)
             {
+                this.transform.parent.GetChild(1).gameObject.SetActive(false);
                 this.transform.parent.GetChild(2).gameObject.SetActive(false);
                 this.transform.parent.GetChild(3).gameObject.SetActive(false);
-                this.transform.parent.GetChild(4).gameObject.SetActive(false);
             }
             else if (source.ammo > 9)
             {
-                this.transform.parent.GetChild(2).gameObject.SetActive(true);
+                this.transform.parent.GetChild(1).gameObject.SetActive(true);
+                this.transform.parent.GetChild(2).gameObject.SetActive(false);
                 this.transform.parent.GetChild(3).gameObject.SetActive(false);
-                this.transform.parent.GetChild(4).gameObject.SetActive(false);
             }
             else if (source.ammo > 4)
             {
+                this.transform.parent.GetChild(1).gameObject.SetActive(true);
                 this.transform.parent.GetChild(2).gameObject.SetActive(true);
-                this.transform.parent.GetChild(3).gameObject.SetActive(true);
-                this.transform.parent.GetChild(4).gameObject.SetActive(false);
+                this.transform.parent.GetChild(3).gameObject.SetActive(false);
             }
             else
             {
+                this.transform.parent.GetChild(1).gameObject.SetActive(true);
                 this.transform.parent.GetChild(2).gameObject.SetActive(true);
                 this.transform.parent.GetChild(3).gameObject.SetActive(true);
-                this.transform.parent.GetChild(4).gameObject.SetActive(true);
             }
+
+            //player.ammoChanged = false;
         }
     }
 }

@@ -19,6 +19,8 @@ public class rifleResourceImages : MonoBehaviour
         {
             RectTransform rt = this.GetComponent<RectTransform>();
             rt.sizeDelta = new Vector2(300 - (60 * source.ammo), 60);
+
+            //player.ammoChanged = false;
         }
     }
 }

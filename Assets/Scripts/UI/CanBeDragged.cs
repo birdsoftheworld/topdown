@@ -13,12 +13,24 @@ public class CanBeDragged : MonoBehaviour
     public int number;
 
     public Transform target;
+    public Transform resourceCounter;
+
+    public Transform resourceStore;
 
     private bool hovering = false;
+
+    public bool hasResource;
+    public bool isItem;
+    public bool isPower;
 
     void Awake()
     {
         holder = this.transform.parent.gameObject.GetComponent<DragHolder>();
+
+        if (hasResource)
+        {
+            resourceStore = resourceCounter.parent;
+        }
     }
 
     void OnMouseDown()
@@ -44,7 +56,6 @@ public class CanBeDragged : MonoBehaviour
 
     void Update()
     {
-
         if (hovering == true)
         {
             if (Input.GetMouseButtonDown(1))
@@ -161,6 +172,8 @@ public class CanBeDragged : MonoBehaviour
         {
             this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(holder.slots[location].transform.position.x, holder.slots[location].transform.position.y, holder.slots[location].transform.position.z), 1f);
             holder.slots[location].GetComponent<BoxCollider2D>().size = new Vector2(.1f, .1f);
+
+            SetResource();
         }
     }
 
@@ -176,6 +189,38 @@ public class CanBeDragged : MonoBehaviour
                     location = i;
                 }
             } //make slot that you're going to drop it into light up?
+        }
+    }
+
+    public void SetResource()
+    {
+        if (hasResource)
+        {
+            if (location < 3)
+            {
+                if (isItem)
+                {
+                    resourceCounter.SetParent(resourceStore.GetChild(4));
+                    resourceCounter.localPosition = new Vector3(0, 0, 0);
+                    resourceCounter.gameObject.SetActive(true);
+                }
+                else if (isPower)
+                {
+                    resourceCounter.gameObject.SetActive(true);
+                }
+                else
+                {
+                    resourceCounter.SetParent(resourceStore.GetChild(location + 1));
+                    resourceCounter.localPosition = new Vector3(0, 0, 0);
+                    resourceCounter.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                resourceCounter.SetParent(resourceStore);
+                resourceCounter.localPosition = new Vector3(0, 0, 0);
+                resourceCounter.gameObject.SetActive(false);
+            }
         }
     }
 

@@ -42,8 +42,6 @@ public class PlayerRichochetBomb : MonoBehaviour
                 Quaternion rotation = new Quaternion();
                 rotation.eulerAngles = new Vector3(0, 0, angle + 90);
 
-
-
                 GameObject clone = Instantiate(bombPrefab, this.transform.GetChild(0).transform.position, rotation);
 
                 clone.gameObject.SetActive(true);
@@ -57,6 +55,9 @@ public class PlayerRichochetBomb : MonoBehaviour
 
 
                 player.waiting3 = 75;
+
+                player.waiterChanged = true;
+
                 //bullet.bulletDamage = bulletDamage;
                 //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
             }

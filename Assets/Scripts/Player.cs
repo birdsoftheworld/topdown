@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     public int waiting3 = 0;
     public int waiting4 = 0;
 
+    public bool waiterChanged;
+
     public int lightAmmoMax;
     public int lightAmmo;
 
@@ -181,9 +183,9 @@ public class Player : MonoBehaviour
 
     public void UpdateCheck()
     {
-        ammoCounter.define3(heavyAmmo.ToString());
-        ammoCounter.define4(lightAmmo.ToString());
-        ammoCounter.define5(rockets.ToString());
+        //ammoCounter.define3(heavyAmmo.ToString());
+        //ammoCounter.define4(lightAmmo.ToString());
+        //ammoCounter.define5(rockets.ToString());
 
         ammoChanged = true;
     }
@@ -207,6 +209,11 @@ public class Player : MonoBehaviour
         if (waiting > 0)
         {
             waiting--;
+
+            if (waiting == 0)
+            {
+                waiterChanged = true;
+            }
         }
         else
         {
@@ -216,14 +223,29 @@ public class Player : MonoBehaviour
         if (waiting2 > 0)
         {
             waiting2--;
+
+            if (waiting2 == 0)
+            {
+                waiterChanged = true;
+            }
         }
         if (waiting3 > 0)
         {
             waiting3--;
+
+            if (waiting3 == 0)
+            {
+                waiterChanged = true;
+            }
         }
         if (waiting4 > 0)
         {
             waiting4--;
+
+            if (waiting4 == 0)
+            {
+                waiterChanged = true;
+            }
         }
     }
 
@@ -287,6 +309,8 @@ public class Player : MonoBehaviour
 
             weapons[i].SetActive(false);
         }
+
+        items[0].SetActive(false);
 
         this.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
 

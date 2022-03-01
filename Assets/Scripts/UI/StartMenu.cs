@@ -47,6 +47,9 @@ public class StartMenu : MonoBehaviour
 
         Time.timeScale = 1;
 
+
+
+
         //if (mainCamera == null)
         //{
         //    mainCamera = GameObject.FindGameObjectWithTag("MainCamera");

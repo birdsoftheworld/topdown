@@ -51,6 +51,9 @@ public class PlayerFlashbang : MonoBehaviour
                 grenade.countdown = grenadeTimer;
 
                 player.waiting3 = 50;
+
+                player.waiterChanged = true;
+
                 //bullet.bulletDamage = bulletDamage;
                 //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
             }
