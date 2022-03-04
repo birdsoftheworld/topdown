@@ -200,7 +200,7 @@ public class CanBeDragged : MonoBehaviour
             {
                 if (isItem)
                 {
-                    resourceCounter.SetParent(resourceStore.GetChild(4));
+                    resourceCounter.SetParent(resourceStore.GetChild(3));
                     resourceCounter.localPosition = new Vector3(0, 0, 0);
                     resourceCounter.gameObject.SetActive(true);
                 }
@@ -210,7 +210,7 @@ public class CanBeDragged : MonoBehaviour
                 }
                 else
                 {
-                    resourceCounter.SetParent(resourceStore.GetChild(location + 1));
+                    resourceCounter.SetParent(resourceStore.GetChild(location));
                     resourceCounter.localPosition = new Vector3(0, 0, 0);
                     resourceCounter.gameObject.SetActive(true);
                 }

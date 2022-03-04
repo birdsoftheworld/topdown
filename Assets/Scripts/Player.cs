@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public int waiting4 = 0;
 
     public bool waiterChanged;
+    public bool waiter4Changed;
 
     public int lightAmmoMax;
     public int lightAmmo;
@@ -244,7 +245,7 @@ public class Player : MonoBehaviour
 
             if (waiting4 == 0)
             {
-                waiterChanged = true;
+                waiter4Changed = true;
             }
         }
     }

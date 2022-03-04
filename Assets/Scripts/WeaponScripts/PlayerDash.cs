@@ -35,6 +35,8 @@ public class PlayerDash : MonoBehaviour
                 player.slowDown -= dodgeTimer;
                 player.waiting4 = recharge;
                 player.transform.gameObject.GetComponent<HealthTest>().iFrames += dodgeTimer;
+
+                player.waiter4Changed = true;
             }
         }
 

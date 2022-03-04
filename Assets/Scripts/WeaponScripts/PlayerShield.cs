@@ -30,6 +30,8 @@ public class PlayerShield : MonoBehaviour
             {
                 player.waiting4 = recharge;
                 player.transform.gameObject.GetComponent<HealthTest>().iFrames += dodgeTimer;
+
+                player.waiter4Changed = true;
             }
         }
 
