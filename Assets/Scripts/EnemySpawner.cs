@@ -14,9 +14,9 @@ public class EnemySpawner : MonoBehaviour
 
     //  public GameObject canvas;
 
-    public List<GameObject> enemyPrefabs;
+    //public List<GameObject> enemyPrefabs;
 
-    public List<GameObject> objectPrefabs;
+    //public List<GameObject> objectPrefabs;
 
     private bool a = false;
     private bool b = false;
@@ -25,9 +25,13 @@ public class EnemySpawner : MonoBehaviour
 
     private int waiting = 0;
 
+    public Level level;
+
     void Awake()
     {
         waiting = 0;
+
+        level = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>();
     }
 
     void Update()
@@ -40,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (!a)
                 {
-                    if (enemyPrefabs.Count != 0)
+                    if (level.enemyPrefabs.Count != 0)
                     {
                         SpawnEnemy(position, origin);
                         a = true;
@@ -138,7 +142,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy(Vector3 position, Transform rotation)
     {
-        GameObject clone = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)], position, origin.rotation);
+        GameObject clone = Instantiate(level.enemyPrefabs[Random.Range(0, level.enemyPrefabs.Count)], position, origin.rotation);
 
         //GameObject cloneHealth = Instantiate(healthPrefab, position, origin.rotation);
 
@@ -165,6 +169,9 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnObject(Vector3 position, Transform rotation)
     {
-        GameObject clone = Instantiate(objectPrefabs[Random.Range(0, objectPrefabs.Count)], position, origin.rotation);
+        if (level.objectPrefabs.Count > 0)
+        {
+            GameObject clone = Instantiate(level.objectPrefabs[Random.Range(0, level.objectPrefabs.Count)], position, origin.rotation);
+        }
     }
 }

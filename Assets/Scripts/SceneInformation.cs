@@ -4,5 +4,15 @@ using UnityEngine;
 
 public static class SceneInformation
 {
-    public static string CrossSceneInformation { get; set; }
+    public static int levelNum = 0;
+
+    public static void setL(int level)
+    {
+        levelNum = level;
+    }
+
+    public static int getL()
+    {
+        return levelNum;
+    }
 }

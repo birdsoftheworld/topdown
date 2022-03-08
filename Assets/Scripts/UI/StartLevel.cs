@@ -6,7 +6,7 @@ public class StartLevel : MonoBehaviour
 {
     public void LoadLevel(int level)
     {
-
+        SceneInformation.setL(level);
 
         Application.LoadLevel("ProjectileTests");
     }

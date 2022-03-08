@@ -21,6 +21,11 @@ public class Level : MonoBehaviour
 
     private bool[][] occupiedRooms;
 
+    public List<GameObject> enemyPrefabs;
+
+    public List<GameObject> objectPrefabs;
+
+
     //public List<Transform[]> roomData;
 
     //[SerializeField]
