@@ -12363,10 +12363,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 0.25
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 4044, y: 2088}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -28388,7 +28388,7 @@ PrefabInstance:
       objectReference: {fileID: 305617672}
     - target: {fileID: 7316337573293775454, guid: a5ca82faf7f99e8409a08627ca737c3a, type: 3}
       propertyPath: enemyPrefabs.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7316337573293775454, guid: a5ca82faf7f99e8409a08627ca737c3a, type: 3}
       propertyPath: objectPrefabs.Array.size
@@ -28414,6 +28414,10 @@ PrefabInstance:
       propertyPath: enemyPrefabs.Array.data[4]
       value: 
       objectReference: {fileID: 3684041919215621394, guid: 4ffc440fff5d812429d4cfeeba285ab9, type: 3}
+    - target: {fileID: 7316337573293775454, guid: a5ca82faf7f99e8409a08627ca737c3a, type: 3}
+      propertyPath: enemyPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 2303087427716698277, guid: 93ddbe61ebb2bb5489e080856e15ead8, type: 3}
     - target: {fileID: 7316337573293775454, guid: a5ca82faf7f99e8409a08627ca737c3a, type: 3}
       propertyPath: objectPrefabs.Array.data[0]
       value: 

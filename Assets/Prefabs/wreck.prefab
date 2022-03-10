@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 2
+  safe: 1
 --- !u!114 &2901864768258147894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +158,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   iFrameMax: 3
   iFrames: 0
+  justHalved: 0
+  justThirded: 0
 --- !u!114 &1304384568610675343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,4 +177,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1cb8df97b419a384d8d22ed2ee00ce4e, type: 3}
   - {fileID: 21300000, guid: 836c1970065aa35439a327379adf5f0e, type: 3}
   - {fileID: 21300000, guid: d63012150e2089b49a5faf12cc1599c2, type: 3}
+  - {fileID: 21300000, guid: 1a522d7aa8b7c0a48982b4f11b600203, type: 3}
   health: {fileID: 2901864768258147894}
