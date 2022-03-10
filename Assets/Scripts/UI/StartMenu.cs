@@ -19,7 +19,13 @@ public class StartMenu : MonoBehaviour
     {
         int level = SceneInformation.getL();
 
-        if (level == 1)
+        Debug.Log(SceneInformation.getL());
+
+        if (level == 0)
+        {
+
+        }
+        else if (level == 1)
         {
             //no items or powers. go straight to game
             this.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
