@@ -40,7 +40,7 @@ public class PlayerPistol : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
         //ammo = ammoCap;
-        UpdateTracker();
+        //UpdateTracker();
     }
 
     private void UpdateTracker()
@@ -53,24 +53,75 @@ public class PlayerPistol : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool i = false;
+        if (ammo == 0 && player.lightAmmo > 0)
+        {
+            player.lightAmmo--;
+            ammo += 3;
+
+            if (whichButton == 0)
+            {
+                if (this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>() != null)
+                {
+                    this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammo += 3;
+                    if (this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammo > this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammoCap)
+                    {
+                        this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammo = this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammoCap;
+                    }
+                }
+                else if (this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>() != null)
+                {
+                    this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammo += 5;
+                    if (this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammo > this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammoCap)
+                    {
+                        this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammo = this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammoCap;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>() != null)
+                    {
+                        this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammo += 3;
+                        if (this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammo > this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammoCap)
+                        {
+                            this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammo = this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammoCap;
+                        }
+                    }
+                    if (this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>() != null)
+                    {
+                        this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammo += 5;
+                        if (this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammo > this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammoCap)
+                        {
+                            this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammo = this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammoCap;
+                        }
+                    }
+                }
+            }
+
+        }
+        
+
+
+        bool a = false;
         if (whichButton == 0)
         {
             if (player.waiting2 == 0)
             {
-                i = true;
+                a = true;
             }
         }
         else
         {
             if (player.waiting3 == 0)
             {
-                i = true;
+                a = true;
             }
         }
 
 
-        if (i == true)
+        if (a == true)
         {
             if (Input.GetMouseButton(whichButton))
             {
@@ -128,10 +179,10 @@ public class PlayerPistol : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.R))
             {
-                if (ammo < ammoCap && player.lightAmmo > 0)
+                if (ammo < ammoCap) // && player.lightAmmo > 0)
                 {
                     int reloadAmount = ammoCap - ammo;
-                    if (player.lightAmmo < reloadAmount)
+                    /*if (player.lightAmmo < reloadAmount)
                     {
                         reloadAmount = player.lightAmmo;
                     }
@@ -139,7 +190,9 @@ public class PlayerPistol : MonoBehaviour
                     {
                         ammo = ammo + reloadAmount;
                         player.lightAmmo -= (reloadAmount -1);
-                        //Debug.Log("Rrrrreloading!");
+                        //Debug.Log("Rrrrreloading!");*/
+                    ammo = ammoCap;
+
                         if (whichButton == 0)
                         {
                             player.waiting2 = reloadAmount * 10;
@@ -148,19 +201,19 @@ public class PlayerPistol : MonoBehaviour
                         {
                             player.waiting3 = reloadAmount * 10;
                         }
-
+                        /*
                         ammoCounter.define1(ammo.ToString());
                         player.UpdateCheck();
                         //ammoCounter.define3(player.lightAmmo.ToString());
-                    }
+                    }*/
 
 
 
 
-                    player.lightAmmo--;
+                    //player.lightAmmo--;
 
                     ammo = ammoCap;
-                    UpdateTracker();
+                    //UpdateTracker();
                     //Debug.Log("Reloaded one bullet! You have " + ammo + " bullets loaded.");
                 }
                 else

@@ -25,9 +25,9 @@ public class LootDrop : MonoBehaviour
 
             if (dropType == 0)
             {
-                coll.GetComponent<HealthTest>().iFrames++;
+                //coll.GetComponent<HealthTest>().iFrames++;
 
-                coll.GetComponent<HealthTest>().curHealth += amountGive;
+                /*coll.GetComponent<HealthTest>().curHealth += amountGive;
                 if (coll.GetComponent<HealthTest>().curHealth > coll.GetComponent<HealthTest>().maxHealth)
                 {
                     amountGive = coll.GetComponent<HealthTest>().curHealth - coll.GetComponent<HealthTest>().maxHealth;
@@ -41,6 +41,12 @@ public class LootDrop : MonoBehaviour
                 {
                     coll.GetComponent<HealthTest>().healthBar.SetHealth(coll.GetComponent<HealthTest>().curHealth);
                     coll.GetComponent<HealthTest>().iFrames += 1;
+                    Destroy(gameObject);
+                }*/
+
+                if (player.healthRestores < player.healthRestoresMax)
+                {
+                    player.healthRestores++;
                     Destroy(gameObject);
                 }
 

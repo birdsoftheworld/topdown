@@ -54,6 +54,12 @@ public class PlayerRifle : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (ammo == 0 && player.heavyAmmo > 0)
+        {
+            player.heavyAmmo--;
+            ammo++;
+        }
+
         if (player.waiting2 == 0)
         {
             if (Input.GetMouseButton(0))
@@ -89,11 +95,11 @@ public class PlayerRifle : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.R))
             {
-                if (ammo < ammoCap && player.heavyAmmo > 0)
+                if (ammo < ammoCap) // && player.heavyAmmo > 0)
                 {
                     ammo++;
-                    player.heavyAmmo--;
-                    UpdateTracker();
+                    //player.heavyAmmo--;
+                    //UpdateTracker();
                     //Debug.Log("Reloaded one bullet! You have " + ammo + " bullets loaded.");
                     player.waiting2 = 50;
                 }

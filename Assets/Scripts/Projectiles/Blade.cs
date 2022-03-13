@@ -28,7 +28,7 @@ public class Blade : MonoBehaviour
 
             if (coll.GetComponent<Collider2D>().GetComponent<Projectile>() != null)
             {
-                Debug.Log("ptwang!");
+                //Debug.Log("ptwang!");
 
                 coll.GetComponent<Collider2D>().GetComponent<Hittable>().safe = false;
 

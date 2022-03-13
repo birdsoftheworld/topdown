@@ -41,6 +41,9 @@ public class Player : MonoBehaviour
     public int heavyAmmoMax;
     public int heavyAmmo;
 
+    public int healthRestoresMax;
+    public int healthRestores;
+
     public int rocketsMax;
     public int rockets;
 
@@ -64,9 +67,10 @@ public class Player : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
 
         slowDown = slowDownMax;
-        lightAmmo = lightAmmoMax;
-        heavyAmmo = heavyAmmoMax;
-        rockets = rocketsMax;
+        lightAmmo = 0;
+        heavyAmmo = 0;
+        rockets = 0;
+        healthRestores = 0;
 
         waiting = 0;
         waiting2 = 0;
@@ -193,6 +197,19 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (this.GetComponent<HealthTest>().curHealth < this.GetComponent<HealthTest>().maxHealth && healthRestores > 0)
+        {
+            this.GetComponent<HealthTest>().curHealth++;
+            this.GetComponent<HealthTest>().iFrames++;
+            healthRestores--;
+        }
+
+        if (this.GetComponent<HealthTest>().curHealth <= this.GetComponent<HealthTest>().maxHealth / 3)
+        {
+            this.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>().Play();
+        }
+
+
         if (slowDown < 1)
         {
             body.velocity = body.velocity / 1;
@@ -270,8 +287,9 @@ public class Player : MonoBehaviour
         waiting3 = 0;
         waiting4 = 0;
 
-        lightAmmo = lightAmmoMax;
-        heavyAmmo = heavyAmmoMax;
+        lightAmmo = 0;
+        heavyAmmo = 0;
+        healthRestores = 0;
 
         this.transform.position = new Vector2(5.5f, 5.5f);
 
@@ -310,6 +328,16 @@ public class Player : MonoBehaviour
 
             weapons[i].SetActive(false);
         }
+
+        if (items[0].GetComponent<PlayerCarbine>() != null)
+        {
+            items[0].GetComponent<PlayerCarbine>().ammo = items[0].GetComponent<PlayerCarbine>().ammoCap;
+        }
+        if (items[0].GetComponent<PlayerPistol>() != null)
+        {
+            items[0].GetComponent<PlayerPistol>().ammo = items[0].GetComponent<PlayerPistol>().ammoCap;
+        }
+
 
         items[0].SetActive(false);
 

@@ -327,6 +327,7 @@ Transform:
   - {fileID: 1877173409229568646}
   - {fileID: 8735185294634142722}
   - {fileID: 5751299944974325130}
+  - {fileID: 1470486904189108554}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -488,6 +489,97 @@ MonoBehaviour:
   wreckPrefab: {fileID: 2901864768258147889, guid: 27a453ca9e2573143af396f86b5e9443, type: 3}
   healthySprite: {fileID: 21300000, guid: 7ef29bafd129c9247a98e8191267c451, type: 3}
   injuredSprite: {fileID: 21300000, guid: 5d13edf7ccf93b1449faf672719ca574, type: 3}
+--- !u!1 &8211929189807292806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470486904189108554}
+  - component: {fileID: 2822834679057985661}
+  - component: {fileID: 1556636015904378845}
+  - component: {fileID: 5091455315458740050}
+  m_Layer: 0
+  m_Name: blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470486904189108554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211929189807292806}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.016344547, y: -0.14315128, z: 0.0012283874}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2303087427716698275}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2822834679057985661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211929189807292806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae8af667ceecdf4b9dc276a41ed5af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordFaction: 1
+  swordDamage: 0
+--- !u!114 &1556636015904378845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211929189807292806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c746e0982e6210140912f413c5896d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faction: 1
+  safe: 1
+--- !u!60 &5091455315458740050
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211929189807292806}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.5, y: -0.6}
+      - {x: 0, y: -0.7}
+      - {x: 0.5, y: -0.6}
+      - {x: 0, y: -1.4}
 --- !u!1 &8427671877805486119
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swordFaction: 1
-  swordDamage: 2
+  swordDamage: 1
 --- !u!114 &4453460343629182341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,9 +667,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.9, y: -0.5}
+    - - {x: -0.6, y: -0.5}
       - {x: 0, y: 0}
-      - {x: 0.9, y: -0.5}
+      - {x: 0.6, y: -0.5}
       - {x: 0, y: -0.7}
 --- !u!1 &9089493366843879448
 GameObject:

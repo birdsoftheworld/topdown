@@ -20,7 +20,7 @@ public class LootController : MonoBehaviour
             LootDrop loot = clone.gameObject.GetComponent("LootDrop") as LootDrop;
 
             loot.dropType = type;
-            loot.amountGive = Random.Range(1, amount + 1);
+            loot.amountGive = 1; //Random.Range(1, amount + 1);
 
             clone.gameObject.SetActive(true);
 

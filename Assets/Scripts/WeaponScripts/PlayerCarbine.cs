@@ -34,6 +34,8 @@ public class PlayerCarbine : MonoBehaviour
 
     public CamFollow cam;
 
+    public int whichButton = 0;
+
     private void Start()
     {
         ammo = ammoCap;
@@ -49,29 +51,93 @@ public class PlayerCarbine : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
         //ammo = ammoCap;
-        UpdateTracker();
+        //UpdateTracker();
     }
 
-    private void UpdateTracker()
+    /*private void UpdateTracker()
     {
         ammoCounter.define1(ammo.ToString());
         ammoCounter.define2(ammoCap.ToString());
         //ammoCounter.define3(player.lightAmmo.ToString());
         player.UpdateCheck();
-    }
+    }*/
 
     private void FixedUpdate()
     {
-        if (player.waiting2 == 0)
+        if (ammo == 0 && player.lightAmmo > 0)
         {
-            if (Input.GetMouseButton(0))
+            player.lightAmmo--;
+            ammo += 5;
+
+            if (whichButton == 0)
+            {
+                if (this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>() != null)
+                {
+                    this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammo += 3;
+                    if (this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammo > this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammoCap)
+                    {
+                        this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammo = this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerPistol>().ammoCap;
+                    }
+                }
+                else if (this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>() != null)
+                {
+                    this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammo += 5;
+                    if (this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammo > this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammoCap)
+                    {
+                        this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammo = this.transform.parent.parent.GetChild(1).GetChild(0).gameObject.GetComponent<PlayerCarbine>().ammoCap;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++) {
+                    if (this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>() != null)
+                    {
+                        this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammo += 3;
+                        if (this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammo > this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammoCap)
+                        {
+                            this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammo = this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerPistol>().ammoCap;
+                        }
+                    }
+                    if (this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>() != null)
+                    {
+                        this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammo += 5;
+                        if (this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammo > this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammoCap)
+                        {
+                            this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammo = this.transform.parent.parent.GetChild(0).GetChild(i).gameObject.GetComponent<PlayerCarbine>().ammoCap;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        bool a = false;
+        if (whichButton == 0)
+        {
+            if (player.waiting2 == 0)
+            {
+                a = true;
+            }
+        }
+        else if (whichButton == 1)
+        {
+            if (player.waiting3 == 0)
+            {
+                a = true;
+            }
+        }
+
+        if (a == true)
+        {
+            if (Input.GetMouseButton(whichButton))
             {
                 if (ammo > 0 && burstTick > 0)
                 {
                     if (fireTick == (fireTickMax / 10))
                     {
                         ammo--;
-                        ammoCounter.define1(ammo.ToString());
+                        //ammoCounter.define1(ammo.ToString());
 
                         Vector3 mousePos = Input.mousePosition;
                         mousePos.z = Camera.main.nearClipPlane;
@@ -124,7 +190,7 @@ public class PlayerCarbine : MonoBehaviour
                 if (ammo < ammoCap)
                 {
                     int reloadAmount = ammoCap - ammo;
-                    if (player.lightAmmo < reloadAmount)
+                    /*if (player.lightAmmo < reloadAmount)
                     {
                         reloadAmount = player.lightAmmo;
                     }
@@ -132,19 +198,27 @@ public class PlayerCarbine : MonoBehaviour
                     {
                         ammo = ammo + reloadAmount;
                         player.lightAmmo -= reloadAmount;
-                        //Debug.Log("Rrrrreloading!");
-                        player.waiting2 = 150;
-                        ammoCounter.define1(ammo.ToString());
-                        player.UpdateCheck();
+                        //Debug.Log("Rrrrreloading!");*/
+
+                    ammo += reloadAmount;
+                        if (whichButton == 0)
+                        {
+                            player.waiting2 = 150;
+                        }
+                        else
+                        {
+                            player.waiting3 = 150;
+                        }
+                        //ammoCounter.define1(ammo.ToString());
+                        //player.UpdateCheck();
                         //ammoCounter.define3(player.lightAmmo.ToString());
-                    }
+                    //}
                 }
                 else
                 {
                     //Debug.Log("You're already at maximum ammo!");
                 }
                 if (burstTick < burstTickMax) { burstTick++; }
-
             }
             else
             {
@@ -162,7 +236,16 @@ public class PlayerCarbine : MonoBehaviour
         else if (burstTick == 0)
         {
             burstTick = burstTickMax;
-            player.waiting2 = 50;
+
+            if (whichButton == 0)
+            {
+                player.waiting2 = 50;
+            }
+            else
+            {
+                player.waiting3 = 50;
+            }
+
             if (fireTick < (fireTickMax))
             {
                 fireTick++;
@@ -175,6 +258,5 @@ public class PlayerCarbine : MonoBehaviour
                 fireTick++;
             }
         }
-
     }
 }
