@@ -17,9 +17,16 @@ public class StartMenu : MonoBehaviour
 
     void Start()
     {
+        LevelSetter();
+    }
+
+    public void LevelSetter()
+    {
         int level = SceneInformation.getL();
 
         Debug.Log(SceneInformation.getL());
+
+
 
         if (level == 0)
         {
@@ -41,7 +48,7 @@ public class StartMenu : MonoBehaviour
             this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(3).position = new Vector2(5.4f, 4f);
 
             //Level lists = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>();
-            
+
             for (int i = listStore.enemyPrefabs.Count - 1; i > 0; i--)
             {
                 listStore.enemyPrefabs.RemoveAt(i);
@@ -53,6 +60,51 @@ public class StartMenu : MonoBehaviour
             }
 
             listStore.mapSize = 2;
+        }
+        else if (level == 2)
+        {
+            //no items or powers. go straight to game
+            this.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+            this.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+
+            //only pistol selectable
+            this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(0).gameObject.SetActive(false);
+            this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(2).gameObject.SetActive(false);
+
+            this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(3).gameObject.GetComponent<CanBeDragged>().priorLocation = 5;
+            this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(3).gameObject.GetComponent<CanBeDragged>().location = 5;
+            this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(3).position = new Vector2(5.4f, 4f);
+
+            //Level lists = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>();
+
+            for (int i = listStore.enemyPrefabs.Count - 1; i > 3; i--)
+            {
+                listStore.enemyPrefabs.RemoveAt(i);
+            }
+
+            for (int i = listStore.objectPrefabs.Count - 1; i > -1; i--)
+            {
+                listStore.objectPrefabs.RemoveAt(i);
+            }
+
+            listStore.mapSize = 5;
+        }
+        else
+        {
+            SceneInformation.setL(0);
+            level = 0;
+        }
+
+
+
+        if (level > 0)
+        {
+            this.transform.parent.GetChild(1).transform.GetChild(2).gameObject.SetActive(true);
+        }
+        else
+        {
+            this.transform.parent.GetChild(1).GetChild(2).gameObject.SetActive(false);
         }
     }
 

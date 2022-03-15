@@ -149,14 +149,72 @@ public class EndMenu : MonoBehaviour
 
 		levelNew.GetComponent<ObjectiveController>().endMenu = this.gameObject;
 
+		/*
+		Level listStore = levelNew.GetComponent<Level>();
+
+		int level = SceneInformation.getL();
+
+		Debug.Log(SceneInformation.getL());
+
+		if (level > 0)
+        {
+			this.transform.GetChild(2).gameObject.SetActive(true);
+        }
+		else
+        {
+			this.transform.GetChild(2).gameObject.SetActive(false);
+		}
+
+		/*if (level == 0)
+		{
+
+		}
+		else if (level == 1)
+		{
+			listStore.mapSize = 2;
+
+			for (int i = listStore.enemyPrefabs.Count - 1; i > 0; i--)
+			{
+				listStore.enemyPrefabs.RemoveAt(i);
+			}
+
+			for (int i = listStore.objectPrefabs.Count - 1; i > -1; i--)
+			{
+				listStore.objectPrefabs.RemoveAt(i);
+			}
+		}
+		else if (level == 2)
+		{
+			listStore.mapSize = 5;
+
+			for (int i = listStore.enemyPrefabs.Count - 1; i > 3; i--)
+			{
+				listStore.enemyPrefabs.RemoveAt(i);
+			}
+
+			for (int i = listStore.objectPrefabs.Count - 1; i > -1; i--)
+			{
+				listStore.objectPrefabs.RemoveAt(i);
+			}
+		}
+		else
+        {
+			SceneInformation.setL(0);
+		}*/
+
+		this.transform.parent.GetChild(2).gameObject.GetComponent<StartMenu>().LevelSetter();
+
 		levelNew.SetActive(true);
-
-
 
 		//Time.timeScale = 1;
 
-
 	}
+
+	public void ChangeLevel(int change)
+    {
+		SceneInformation.setL(SceneInformation.getL() + change);
+	}
+
 	/*IEnumerator NewLevel()
 	{
 		yield return new WaitForSeconds(1 / 5);

@@ -452,6 +452,7 @@ MonoBehaviour:
   levelGen: {fileID: 0}
   startCamera: {fileID: 0}
   mainCamera: {fileID: 0}
+  listStore: {fileID: 0}
 --- !u!1 &231695805
 GameObject:
   m_ObjectHideFlags: 0
@@ -3428,6 +3429,8 @@ MonoBehaviour:
   lightAmmo: 0
   heavyAmmoMax: 15
   heavyAmmo: 0
+  healthRestoresMax: 0
+  healthRestores: 0
   rocketsMax: 3
   rockets: 0
   ammoChanged: 0
