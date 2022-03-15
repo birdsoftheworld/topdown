@@ -328,6 +328,7 @@ Transform:
   - {fileID: 8735185294634142722}
   - {fileID: 5751299944974325130}
   - {fileID: 1470486904189108554}
+  - {fileID: 433264263702859819}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -446,11 +447,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d647e0e339bf6f64cba172aeee0db174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curHealth: 15
-  maxHealth: 15
-  armor: -1
+  curHealth: 6
+  maxHealth: 6
+  armor: 0
   healthBar: {fileID: 0}
-  iFrameMax: 5
+  iFrameMax: 1
   iFrames: 0
   justHalved: 0
   justThirded: 0
@@ -489,6 +490,55 @@ MonoBehaviour:
   wreckPrefab: {fileID: 2901864768258147889, guid: 27a453ca9e2573143af396f86b5e9443, type: 3}
   healthySprite: {fileID: 21300000, guid: 7ef29bafd129c9247a98e8191267c451, type: 3}
   injuredSprite: {fileID: 21300000, guid: 5d13edf7ccf93b1449faf672719ca574, type: 3}
+--- !u!1 &8190768074588763114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 433264263702859819}
+  - component: {fileID: 1603410070000951392}
+  m_Layer: 0
+  m_Name: shield
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &433264263702859819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8190768074588763114}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2303087427716698275}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1603410070000951392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8190768074588763114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b206c7b29238d944c91e86f6e44aebf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldEffect: {fileID: 6836607180228145088, guid: e3e5d6ab590d06842b05e1868dd7eb1c, type: 3}
+  overloadMax: 9
+  overload: 0
+  sparking: 0
+  waiting: 0
 --- !u!1 &8211929189807292806
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1470486904189108554
 Transform:
   m_ObjectHideFlags: 0
@@ -598,7 +648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5751299944974325130
 Transform:
   m_ObjectHideFlags: 0

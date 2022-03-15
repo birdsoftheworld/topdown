@@ -449,7 +449,7 @@ MonoBehaviour:
   maxHealth: 6
   armor: 0
   healthBar: {fileID: 0}
-  iFrameMax: 3
+  iFrameMax: 1
   iFrames: 0
   justHalved: 0
   justThirded: 0
