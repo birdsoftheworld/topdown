@@ -18,7 +18,7 @@ public class DragHolder : MonoBehaviour
         int a = 0;
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            if (this.transform.GetChild(i).gameObject.GetComponent<CanBeDragged>() != null)
+            if (this.transform.GetChild(i).gameObject.GetComponent<CanBeDragged>() != null && this.transform.GetChild(i).gameObject.activeSelf == true)
             {
                 a++;
             }
@@ -28,7 +28,7 @@ public class DragHolder : MonoBehaviour
 
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            if (this.transform.GetChild(i).gameObject.GetComponent<CanBeDragged>() != null)
+            if (this.transform.GetChild(i).gameObject.GetComponent<CanBeDragged>() != null && this.transform.GetChild(i).gameObject.activeSelf == true)
             {
                 draggables[i] = this.transform.GetChild(i).gameObject;
             }
@@ -42,7 +42,7 @@ public class DragHolder : MonoBehaviour
             for (int a = this.transform.childCount - 1; a > -1; a--)
             //for (int a = 0; a < this.transform.childCount; a++)
             {
-                if (this.transform.GetChild(a).gameObject.GetComponent<CanBeDragged>() != null)
+                if (this.transform.GetChild(a).gameObject.GetComponent<CanBeDragged>() != null && this.transform.GetChild(a).gameObject.activeSelf == true)
                 {
                     if (this.transform.GetChild(a).gameObject.GetComponent<CanBeDragged>().location == i)
                     {

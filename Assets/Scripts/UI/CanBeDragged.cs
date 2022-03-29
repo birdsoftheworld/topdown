@@ -158,7 +158,6 @@ public class CanBeDragged : MonoBehaviour
                             holder.draggables[a].GetComponent<CanBeDragged>().location = priorLocation;
 
                             holder.draggables[a].GetComponent<CanBeDragged>().priorLocation = holder.draggables[a].GetComponent<CanBeDragged>().location;
-
                         }
                     }
                 }

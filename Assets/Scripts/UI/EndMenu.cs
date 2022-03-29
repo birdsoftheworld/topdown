@@ -33,7 +33,7 @@ public class EndMenu : MonoBehaviour
 
 	public void FullRestart()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		Application.LoadLevel("ProjectileTests");
 
 		/*Reset();
 
@@ -212,7 +212,16 @@ public class EndMenu : MonoBehaviour
 
 	public void ChangeLevel(int change)
     {
-		SceneInformation.setL(SceneInformation.getL() + change);
+		if (SceneInformation.getL() != 0)
+		{
+			SceneInformation.setL(SceneInformation.getL() + change);
+
+			if (SceneInformation.getL() > 2) //CHANGE WHEN MORE TUTORIAL LEVELS ARE ADDED
+			{
+				SceneInformation.setL(0);
+				FullRestart();
+			}
+		}
 	}
 
 	/*IEnumerator NewLevel()

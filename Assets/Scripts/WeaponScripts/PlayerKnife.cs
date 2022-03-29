@@ -22,8 +22,8 @@ public class PlayerKnife : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         rb2D = GetComponent<Rigidbody2D>();
-        ammoCounter.define1("-");
-        ammoCounter.define2("-");
+       // ammoCounter.define1("-");
+        //ammoCounter.define2("-");
 
         //sprite = GetComponent<SpriteRenderer>();
     }
