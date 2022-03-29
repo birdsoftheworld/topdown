@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 8464980748251324629}
   - component: {fileID: 8464980748251324630}
   - component: {fileID: 2992561425490947243}
+  - component: {fileID: -4427013532536484044}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Explosive Projectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: 4fb46aca64da31d43acb7d5e0e0969df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d1c9a990057d1c54e9dd3c4d95df927b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -152,6 +153,22 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05}
-  m_Size: {x: 0.15, y: 0.25}
+  m_Offset: {x: 0, y: -0.025}
+  m_Size: {x: 0.26, y: 0.31}
   m_Direction: 0
+--- !u!114 &-4427013532536484044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464980748251324624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164feb0a090b52548a11b976df3077bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 5471075779217474482, guid: fb17bee1b093f934c9a5d07bba9a9b78, type: 3}
+  damage: 2
+  size: 1
+  push: 0

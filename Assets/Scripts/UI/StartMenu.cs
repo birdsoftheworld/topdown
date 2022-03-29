@@ -63,18 +63,30 @@ public class StartMenu : MonoBehaviour
         }
         else if (level == 2)
         {
-            //no items or powers. go straight to game
-            this.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-            this.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+            //no powers, yes items
+            this.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+            this.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
 
-            //only pistol selectable
-            this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(0).gameObject.SetActive(false);
+            this.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+            this.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+            this.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
+            this.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
+
+            //only pistol and rifle selectable
+            this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(0).gameObject.SetActive(true);
             this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(1).gameObject.SetActive(false);
             this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(2).gameObject.SetActive(false);
+            this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(3).gameObject.SetActive(true);
 
             this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(3).gameObject.GetComponent<CanBeDragged>().priorLocation = 5;
             this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(3).gameObject.GetComponent<CanBeDragged>().location = 5;
             this.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(3).position = new Vector2(5.4f, 4f);
+
+            this.transform.GetChild(1).GetChild(2).GetChild(1).GetChild(0).gameObject.SetActive(true);
+            this.transform.GetChild(1).GetChild(2).GetChild(1).GetChild(1).gameObject.SetActive(false);
+            this.transform.GetChild(1).GetChild(2).GetChild(1).GetChild(2).gameObject.SetActive(true);
+            this.transform.GetChild(1).GetChild(2).GetChild(1).GetChild(3).gameObject.SetActive(true);
+            this.transform.GetChild(1).GetChild(2).GetChild(1).GetChild(4).gameObject.SetActive(false);
 
             //Level lists = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<Level>();
 

@@ -218,9 +218,14 @@ public class Player : MonoBehaviour
         {
             body.velocity = body.velocity / slowDown;
         }
+        
         if (slowDown < slowDownMax)
         {
             slowDown++;
+        }
+        if (slowDown > slowDownMax)
+        {
+            slowDown--;
         }
         //body.velocity = Vector3.zero;
 
@@ -324,6 +329,10 @@ public class Player : MonoBehaviour
             if (weapons[i].GetComponent<PlayerCycleLance>() != null)
             {
                 weapons[i].GetComponent<PlayerCycleLance>().ammo = weapons[i].GetComponent<PlayerCycleLance>().ammoCap;
+            }
+            if (weapons[i].GetComponent<PlayerHEGun>() != null)
+            {
+                weapons[i].GetComponent<PlayerHEGun>().ammo = weapons[i].GetComponent<PlayerHEGun>().ammoCap;
             }
 
             weapons[i].SetActive(false);
