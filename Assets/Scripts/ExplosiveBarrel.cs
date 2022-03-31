@@ -17,14 +17,21 @@ public class ExplosiveBarrel : MonoBehaviour
     private int upTick;
     public int upBy;
 
+    public Sprite im0;
+    public Sprite im1;
+
+    public SpriteRenderer renderer;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
 
         health = this.gameObject.GetComponent<HealthTest>();
 
         upTick = 0;
+
+        renderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -35,9 +42,33 @@ public class ExplosiveBarrel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health.justHalved == true)
+        {
+            renderer.sprite = im1;
+
+            Vector2 currentPos = this.transform.position;
+            Vector2 destination = health.injuredFrom - currentPos;
+            float angle = Mathf.Atan2(destination.y, destination.x) * Mathf.Rad2Deg;
+            Quaternion rotation = new Quaternion();
+            rotation.eulerAngles = new Vector3(0, 0, angle - 90);
+            transform.rotation = rotation;
+
+            rb2D.AddForce(transform.up * -50f);
+
+            this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
+
+            health.justHalved = false;
+        }
+
         if (health.curHealth <= 0)
         {
-            this.GetComponent<SpriteRenderer>().color = Color.red;
+            //this.GetComponent<SpriteRenderer>().color = Color.red;
+
+
+
+            //rb2D.velocity = Vector3.zero;
+            rb2D.AddForce(transform.up * upTick * -10f);
+            this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
 
             upTick -= health.curHealth * 10;
             health.curHealth = 0;

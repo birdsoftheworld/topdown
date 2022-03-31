@@ -106,7 +106,7 @@ public class Flashbang : MonoBehaviour
                     HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
                     if (health != null)
                     {
-                        health.DealDamage(1);
+                        health.DealDamage(1, this.transform.position);
                     }
                 }
             }

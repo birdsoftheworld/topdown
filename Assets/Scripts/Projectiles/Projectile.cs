@@ -53,7 +53,7 @@ public class Projectile : MonoBehaviour
                     HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
                     if (health != null)
                     {
-                        health.DealDamage(bulletDamage);
+                        health.DealDamage(bulletDamage, this.transform.position);
                     }
                 }
             }

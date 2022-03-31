@@ -81,7 +81,7 @@ public class FusionProjectile : MonoBehaviour
                     HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
                     if (health != null)
                     {
-                        health.DealDamage(bulletDamage + health.armor);
+                        health.DealDamage(bulletDamage + health.armor, this.transform.position);
                     }
 
                     counter += 5;

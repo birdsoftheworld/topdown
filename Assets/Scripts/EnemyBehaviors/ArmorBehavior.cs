@@ -24,7 +24,7 @@ public class ArmorBehavior : MonoBehaviour
             //Debug.Log(thisHealth.curHealth);
             //Debug.Log(thisHealth.curHealth);
             //bodyHealth.curHealth += thisHealth.curHealth;
-            bodyHealth.DealDamage((-1 * thisHealth.curHealth) + bodyHealth.armor);
+            bodyHealth.DealDamage((-1 * thisHealth.curHealth) + bodyHealth.armor, thisHealth.injuredFrom);
             //Debug.Log("deal to t " + ((-1 * thisHealth.curHealth) + bodyHealth.armor));
             thisHealth.curHealth = 0;
         }

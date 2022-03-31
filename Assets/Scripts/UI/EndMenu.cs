@@ -28,7 +28,7 @@ public class EndMenu : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		Time.timeScale = 0;
+		//Time.timeScale = 0;
 	}
 
 	public void FullRestart()

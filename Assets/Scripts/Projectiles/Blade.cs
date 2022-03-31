@@ -21,7 +21,7 @@ public class Blade : MonoBehaviour
                     HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
                     if (health != null)
                     {
-                        health.DealDamage(swordDamage);
+                        health.DealDamage(swordDamage, this.transform.position);
                     }
                 }
             }

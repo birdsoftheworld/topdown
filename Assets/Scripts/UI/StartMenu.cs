@@ -24,7 +24,7 @@ public class StartMenu : MonoBehaviour
     {
         int level = SceneInformation.getL();
 
-        Debug.Log(SceneInformation.getL());
+        //Debug.Log(SceneInformation.getL());
 
 
 
@@ -118,6 +118,8 @@ public class StartMenu : MonoBehaviour
         {
             this.transform.parent.GetChild(1).GetChild(2).gameObject.SetActive(false);
         }
+
+        Time.timeScale = 1;
     }
 
     // Start is called before the first frame update

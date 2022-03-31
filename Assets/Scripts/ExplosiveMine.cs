@@ -15,14 +15,26 @@ public class ExplosiveMine : MonoBehaviour
     public int explodeTimerish;
     private int upTick;
 
+    public Sprite im0;
+    public Sprite im1;
+    public Sprite im2;
+
+    public SpriteRenderer renderer;
+
+    private int waiting;
+
+    public int tick;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //rb2D = GetComponent<Rigidbody2D>();
 
         health = this.gameObject.GetComponent<HealthTest>();
 
         upTick = 0;
+
+        renderer = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
     /*void FixedUpdate()
@@ -35,6 +47,7 @@ public class ExplosiveMine : MonoBehaviour
     {
         if (health.curHealth <= 0)
         {
+
 
             if (upTick >= explodeTimerish)
             {
@@ -57,11 +70,53 @@ public class ExplosiveMine : MonoBehaviour
                 upTick += 1;
             }
         }
+
+        if (waiting == 0)
+        {
+            if (health.curHealth <= 0)
+            {
+                if (renderer.sprite == im0)
+                {
+                    renderer.sprite = im1;
+                }
+                else if (renderer.sprite == im1)
+                {
+                    renderer.sprite = im2;
+                }
+                else if (renderer.sprite == im2)
+                {
+                    renderer.sprite = im1;
+                }
+
+                waiting = tick;
+            }
+            else
+            {
+                if (renderer.sprite == im0)
+                {
+                    renderer.sprite = im1;
+                }
+                else if (renderer.sprite == im1)
+                {
+                    renderer.sprite = im0;
+                }
+                else if (renderer.sprite == im2)
+                {
+                    renderer.sprite = im0;
+                }
+
+                waiting = tick * 3;
+            }
+        }
+        else
+        {
+            waiting--;
+        }
     }
 
 
 
-    void OnTriggerEnter2D(Collider2D coll)
+    void OnTriggerExit2D(Collider2D coll)
     {
         if (coll.gameObject.GetComponent<Hittable>() != null)
         {
