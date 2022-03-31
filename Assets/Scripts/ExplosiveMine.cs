@@ -61,7 +61,7 @@ public class ExplosiveMine : MonoBehaviour
 
 
 
-    void OnTriggerEnter2D(Collider2D coll)
+    void OnTriggerExit2D(Collider2D coll)
     {
         if (coll.gameObject.GetComponent<Hittable>() != null)
         {
