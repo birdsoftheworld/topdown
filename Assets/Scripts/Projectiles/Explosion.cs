@@ -77,7 +77,7 @@ public class Explosion : MonoBehaviour
                 HealthTest health = coll.GetComponent<Collider2D>().GetComponent<HealthTest>();
                 if (health != null)
                 {
-                    health.DealDamage(damage);
+                    health.DealDamage(damage, this.transform.position);
                 }
             }
         }

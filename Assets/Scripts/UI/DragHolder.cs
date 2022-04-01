@@ -12,8 +12,13 @@ public class DragHolder : MonoBehaviour
 
     public GameObject descriptionBox;
 
+    void Awake()
+    {
+        MakeList();
+    }
+
     // Start is called before the first frame update
-    void Start()
+    public void MakeList()
     {
         int a = 0;
         for (int i = 0; i < this.transform.childCount; i++)
@@ -30,7 +35,7 @@ public class DragHolder : MonoBehaviour
         {
             if (this.transform.GetChild(i).gameObject.GetComponent<CanBeDragged>() != null && this.transform.GetChild(i).gameObject.activeSelf == true)
             {
-                draggables[i] = this.transform.GetChild(i).gameObject;
+                draggables[i] = this.transform.GetChild(i).gameObject; //ERROR HERE. Only grabs in order, even if they're disabled. Delete first before creating new??
             }
         }
     }

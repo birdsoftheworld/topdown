@@ -18,6 +18,8 @@ public class HealthTest : MonoBehaviour
 
     public bool justThirded;
 
+    public Vector2 injuredFrom;
+
     void Start()
     {
         justHalved = false;
@@ -37,10 +39,12 @@ public class HealthTest : MonoBehaviour
         }
     }
 
-    public void DealDamage(int damage)
+    public void DealDamage(int damage, Vector2 callerPos)
     {
         if (iFrames == 0)
         {
+            injuredFrom = callerPos;
+
             int hurt = damage - armor;
 
             //Debug.Log(armor);
