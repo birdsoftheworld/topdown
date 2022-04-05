@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 3233176899489952969}
   - component: {fileID: 3233176899489952970}
   - component: {fileID: 3233176899489952972}
+  - component: {fileID: 8467927701909358637}
   m_Layer: 0
   m_Name: pistoleer
   m_TagString: Enemy
@@ -231,6 +232,19 @@ MonoBehaviour:
   iFrames: 0
   justHalved: 0
   justThirded: 0
+  injuredFrom: {x: 0, y: 0}
+--- !u!114 &8467927701909358637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3233176899489952971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7955c326f33d36e43aab1444e9fc1b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3913916110722815542
 GameObject:
   m_ObjectHideFlags: 0

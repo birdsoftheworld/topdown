@@ -77,7 +77,7 @@ public class PlayerSword : MonoBehaviour
 
                 player.slowDown -= 4;
 
-                player.transform.gameObject.GetComponent<HealthTest>().iFrames += 4;
+                player.transform.gameObject.GetComponent<HealthTest>().iFrames += 6;
 
                 wait = 30;
                 player.body.AddRelativeForce(Vector2.down * player.moveSpeed * 500f);

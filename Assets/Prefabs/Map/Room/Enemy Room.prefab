@@ -159,16 +159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPrefab: {fileID: 5565209166116833459, guid: a694b13139c9de2419cd1e03cfd9fe5b, type: 3}
   origin: {fileID: 6182762225449552101}
-  enemyPrefabs:
-  - {fileID: 3233176899489952971, guid: 7723f9798c9c068489d06a90fcf4b8bf, type: 3}
-  - {fileID: 3233176899489952971, guid: 7723f9798c9c068489d06a90fcf4b8bf, type: 3}
-  - {fileID: 6235962892677778562, guid: d8701252331b4a64ebe98156435789bd, type: 3}
-  - {fileID: 3684041919215621394, guid: 4ffc440fff5d812429d4cfeeba285ab9, type: 3}
-  - {fileID: 2106955942832493804, guid: f95ac887c50671447ac6325c9ae484b4, type: 3}
-  objectPrefabs:
-  - {fileID: 6197616417457500978, guid: 4c41e8ea76cab9d4283ec6ad48819544, type: 3}
-  - {fileID: 8669696568612645666, guid: 23cc9c22816559849a3a8d5f0be17f3a, type: 3}
   spawningEnemy: 0
+  level: {fileID: 0}
 --- !u!1 &4140717889620438053
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,6 +170,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1787252145083322979}
+  - component: {fileID: 426595510795005003}
+  - component: {fileID: 5615617068513508098}
   m_Layer: 0
   m_Name: WallsHolder
   m_TagString: Untagged
@@ -200,6 +194,49 @@ Transform:
   m_Father: {fileID: 5824107262971474424}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &426595510795005003
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4140717889620438053}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!66 &5615617068513508098
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4140717889620438053}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
 --- !u!1 &5864415546465899387
 GameObject:
   m_ObjectHideFlags: 0
@@ -8347,7 +8384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000910748129325445, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_InstanceId
-      value: -160322
+      value: -267006
       objectReference: {fileID: 0}
     - target: {fileID: 1000910748129325445, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_SelfShadows
@@ -8411,7 +8448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763644727250622068, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_InstanceId
-      value: -160304
+      value: -266988
       objectReference: {fileID: 0}
     - target: {fileID: 1763644727250622068, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_SelfShadows
@@ -8423,7 +8460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763644727371698394, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_InstanceId
-      value: -160310
+      value: -266994
       objectReference: {fileID: 0}
     - target: {fileID: 1763644727371698394, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_SelfShadows
@@ -8435,7 +8472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763644728006765602, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_InstanceId
-      value: -160316
+      value: -267000
       objectReference: {fileID: 0}
     - target: {fileID: 1763644728006765602, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_SelfShadows
@@ -8447,7 +8484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1763644729158908666, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_InstanceId
-      value: -160298
+      value: -266982
       objectReference: {fileID: 0}
     - target: {fileID: 1763644729158908666, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_SelfShadows
@@ -8459,7 +8496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1988558816406249221, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_InstanceId
-      value: -160340
+      value: -267024
       objectReference: {fileID: 0}
     - target: {fileID: 1988558816406249221, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_SelfShadows
@@ -8471,7 +8508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3864343978753731006, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_InstanceId
-      value: -160328
+      value: -267012
       objectReference: {fileID: 0}
     - target: {fileID: 3864343978753731006, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_SelfShadows
@@ -8487,7 +8524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8075451495772908695, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_InstanceId
-      value: -160334
+      value: -267018
       objectReference: {fileID: 0}
     - target: {fileID: 8075451495772908695, guid: f3e2c4c48e3e1d8479532245363731b7, type: 3}
       propertyPath: m_SelfShadows

@@ -118,7 +118,7 @@ public class Forcefield : MonoBehaviour
                             else
                             {
                                 waiting += 20;
-                                Debug.Log("shield down for " + waiting);
+                                //Debug.Log("shield down for " + waiting);
                                 overload = 0;
                             }
                             if (hits < 1)

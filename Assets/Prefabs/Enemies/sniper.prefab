@@ -9706,6 +9706,7 @@ GameObject:
   - component: {fileID: 6235962892677778560}
   - component: {fileID: 6235962892677778565}
   - component: {fileID: 6235962892677778585}
+  - component: {fileID: 2592560622635207457}
   m_Layer: 0
   m_Name: sniper
   m_TagString: Enemy
@@ -9856,6 +9857,7 @@ MonoBehaviour:
   iFrames: 0
   justHalved: 0
   justThirded: 0
+  injuredFrom: {x: 0, y: 0}
 --- !u!114 &6235962892677778585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9895,6 +9897,18 @@ MonoBehaviour:
   wreckPrefab: {fileID: 2901864768258147889, guid: 27a453ca9e2573143af396f86b5e9443, type: 3}
   healthySprite: {fileID: 21300000, guid: 6bf9a8fe804f0c7418ee1bdb3a8e7026, type: 3}
   injuredSprite: {fileID: 21300000, guid: edab950aa396e604cadaaa8063a0e8c8, type: 3}
+--- !u!114 &2592560622635207457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6235962892677778562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7955c326f33d36e43aab1444e9fc1b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7807672915906623658
 GameObject:
   m_ObjectHideFlags: 0

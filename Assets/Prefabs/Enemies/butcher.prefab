@@ -304,6 +304,7 @@ GameObject:
   - component: {fileID: 2303087427716698279}
   - component: {fileID: 2303087427716698274}
   - component: {fileID: 2303087427716698282}
+  - component: {fileID: 3448438523641648530}
   m_Layer: 0
   m_Name: butcher
   m_TagString: Enemy
@@ -455,6 +456,7 @@ MonoBehaviour:
   iFrames: 0
   justHalved: 0
   justThirded: 0
+  injuredFrom: {x: 0, y: 0}
 --- !u!114 &2303087427716698282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +492,18 @@ MonoBehaviour:
   wreckPrefab: {fileID: 2901864768258147889, guid: 27a453ca9e2573143af396f86b5e9443, type: 3}
   healthySprite: {fileID: 21300000, guid: 7ef29bafd129c9247a98e8191267c451, type: 3}
   injuredSprite: {fileID: 21300000, guid: 5d13edf7ccf93b1449faf672719ca574, type: 3}
+--- !u!114 &3448438523641648530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2303087427716698277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7955c326f33d36e43aab1444e9fc1b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8190768074588763114
 GameObject:
   m_ObjectHideFlags: 0

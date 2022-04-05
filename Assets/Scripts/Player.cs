@@ -95,7 +95,9 @@ public class Player : MonoBehaviour
         }
         this.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(true);
 
-        UpdateCheck();
+        //UpdateCheck();
+
+        SetWeapon(0);
     }
 
     private void Update()
@@ -354,6 +356,8 @@ public class Player : MonoBehaviour
 
         this.GetComponent<SpriteRenderer>().sprite = healthySprite;
 
-        UpdateCheck();
+        //UpdateCheck();
+
+        SetWeapon(0);
     }
 }

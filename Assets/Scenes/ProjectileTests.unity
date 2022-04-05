@@ -1678,6 +1678,7 @@ GameObject:
   - component: {fileID: 127758395}
   - component: {fileID: 127758393}
   - component: {fileID: 127758396}
+  - component: {fileID: 127758397}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1720,7 +1721,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &127758392
 SpriteRenderer:
@@ -1869,6 +1870,18 @@ MonoBehaviour:
   justHalved: 0
   justThirded: 0
   injuredFrom: {x: 0, y: 0}
+--- !u!114 &127758397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127758389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7955c326f33d36e43aab1444e9fc1b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &134317708
 GameObject:
   m_ObjectHideFlags: 0
@@ -31412,7 +31425,8 @@ MonoBehaviour:
     in-game
 
 
-    Also, movement is WASD and facing is towards the mouse'
+    Use WASD to move, LEFT CLICK to fire and RIGHT CLICK to use your
+    alternate, E to use any abilities you may have, and R to reload.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -47443,8 +47457,12 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1312635487847968998, guid: 349b23735ebfebd4786b13906f86c225, type: 3}
+      propertyPath: ammo
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312635487847968998, guid: 349b23735ebfebd4786b13906f86c225, type: 3}
       propertyPath: jitter
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1312635487847968998, guid: 349b23735ebfebd4786b13906f86c225, type: 3}
       propertyPath: player
@@ -47748,7 +47766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2483567341083811361, guid: 4c3cddbf085ba5344a1441db3f031914, type: 3}
       propertyPath: jitter
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2483567341083811361, guid: 4c3cddbf085ba5344a1441db3f031914, type: 3}
       propertyPath: ammoCounter
@@ -53083,8 +53101,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6054696476607359050, guid: 630cb451e46b492488c99208edc11c63, type: 3}
+      propertyPath: ammo
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6054696476607359050, guid: 630cb451e46b492488c99208edc11c63, type: 3}
       propertyPath: jitter
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6054696476607359050, guid: 630cb451e46b492488c99208edc11c63, type: 3}
       propertyPath: player
@@ -53300,6 +53322,10 @@ PrefabInstance:
     - target: {fileID: 7615723168576730063, guid: e39de83ebf6dc284b8ce2a204c30aaaf, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7615723168576730067, guid: e39de83ebf6dc284b8ce2a204c30aaaf, type: 3}
+      propertyPath: swordDamage
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7615723169069524834, guid: e39de83ebf6dc284b8ce2a204c30aaaf, type: 3}
       propertyPath: ammoCounter
