@@ -35,7 +35,6 @@ public class Forcefield : MonoBehaviour
 
             bullet = GameObject.FindGameObjectsWithTag("Projectile");
             GameObject closest = this.gameObject;
-            float distance = Mathf.Infinity;
             Vector3 position = this.transform.position;
 
             if (overload > overloadMax)

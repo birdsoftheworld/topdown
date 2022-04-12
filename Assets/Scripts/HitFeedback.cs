@@ -5,14 +5,14 @@ using UnityEngine;
 public class HitFeedback : MonoBehaviour
 {
     private HealthTest health;
-    private SpriteRenderer renderer;
+    private SpriteRenderer render;
     private ParticleSystem particles;
 
     // Start is called before the first frame update
     void Awake()
     {
         health = this.gameObject.GetComponent<HealthTest>();
-        renderer = this.gameObject.GetComponent<SpriteRenderer>();
+        render = this.gameObject.GetComponent<SpriteRenderer>();
 
         for (int i = 0; i < this.transform.childCount; i++)
         {

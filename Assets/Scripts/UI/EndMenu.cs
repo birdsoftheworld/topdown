@@ -33,7 +33,7 @@ public class EndMenu : MonoBehaviour
 
 	public void FullRestart()
 	{
-		Application.LoadLevel("ProjectileTests");
+		SceneManager.LoadScene("ProjectileTests");
 
 		/*Reset();
 

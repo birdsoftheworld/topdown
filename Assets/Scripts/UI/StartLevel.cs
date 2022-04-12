@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartLevel : MonoBehaviour
 {
@@ -8,6 +9,6 @@ public class StartLevel : MonoBehaviour
     {
         SceneInformation.setL(level);
 
-        Application.LoadLevel("ProjectileTests");
+        SceneManager.LoadScene("ProjectileTests");
     }
 }

@@ -20,7 +20,7 @@ public class ExplosiveBarrel : MonoBehaviour
     public Sprite im0;
     public Sprite im1;
 
-    public SpriteRenderer renderer;
+    public SpriteRenderer render;
 
     // Start is called before the first frame update
     void Awake()
@@ -31,7 +31,7 @@ public class ExplosiveBarrel : MonoBehaviour
 
         upTick = 0;
 
-        renderer = this.gameObject.GetComponent<SpriteRenderer>();
+        render = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -44,7 +44,7 @@ public class ExplosiveBarrel : MonoBehaviour
     {
         if (health.justHalved == true)
         {
-            renderer.sprite = im1;
+            render.sprite = im1;
 
             Vector2 currentPos = this.transform.position;
             Vector2 destination = health.injuredFrom - currentPos;

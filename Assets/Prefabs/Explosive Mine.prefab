@@ -160,5 +160,5 @@ MonoBehaviour:
   im0: {fileID: 21300000, guid: 34bdb661cef8e6443aaa2711ec6e41c3, type: 3}
   im1: {fileID: 21300000, guid: c2b00e4ea4634a14ca69a46161191709, type: 3}
   im2: {fileID: 21300000, guid: 681bf72b8aa36914da65e6c62e8f1f64, type: 3}
-  renderer: {fileID: 0}
-  tick: 20
+  render: {fileID: 0}
+  tick: 60

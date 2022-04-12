@@ -19,7 +19,7 @@ public class ExplosiveMine : MonoBehaviour
     public Sprite im1;
     public Sprite im2;
 
-    public SpriteRenderer renderer;
+    public SpriteRenderer render;
 
     private int waiting;
 
@@ -34,7 +34,7 @@ public class ExplosiveMine : MonoBehaviour
 
         upTick = 0;
 
-        renderer = this.gameObject.GetComponent<SpriteRenderer>();
+        render = this.gameObject.GetComponent<SpriteRenderer>();
     }
 
     /*void FixedUpdate()
@@ -75,34 +75,34 @@ public class ExplosiveMine : MonoBehaviour
         {
             if (health.curHealth <= 0)
             {
-                if (renderer.sprite == im0)
+                if (render.sprite == im0)
                 {
-                    renderer.sprite = im1;
+                    render.sprite = im1;
                 }
-                else if (renderer.sprite == im1)
+                else if (render.sprite == im1)
                 {
-                    renderer.sprite = im2;
+                    render.sprite = im2;
                 }
-                else if (renderer.sprite == im2)
+                else if (render.sprite == im2)
                 {
-                    renderer.sprite = im1;
+                    render.sprite = im1;
                 }
 
                 waiting = tick;
             }
             else
             {
-                if (renderer.sprite == im0)
+                if (render.sprite == im0)
                 {
-                    renderer.sprite = im1;
+                    render.sprite = im1;
                 }
-                else if (renderer.sprite == im1)
+                else if (render.sprite == im1)
                 {
-                    renderer.sprite = im0;
+                    render.sprite = im0;
                 }
-                else if (renderer.sprite == im2)
+                else if (render.sprite == im2)
                 {
-                    renderer.sprite = im0;
+                    render.sprite = im0;
                 }
 
                 waiting = tick * 3;
