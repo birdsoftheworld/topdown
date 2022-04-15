@@ -14,7 +14,7 @@ public class EndMenu : MonoBehaviour
 	public GameObject startMenu;
 
 	// Start is called before the first frame update
-	void Awake()
+	void OnEnable()
 	{
 		levelGeneratorReal = levelGeneratorDisplayed;
 
@@ -24,11 +24,19 @@ public class EndMenu : MonoBehaviour
 
 		player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		player.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-	}
 
-	void FixedUpdate()
-	{
-		//Time.timeScale = 0;
+		if (player.GetComponent<HealthTest>().curHealth > 0)
+        {
+			this.transform.GetChild(3).gameObject.SetActive(false);
+			this.transform.GetChild(4).gameObject.SetActive(true);
+			Debug.Log("win");
+		}
+		else
+		{
+			this.transform.GetChild(3).gameObject.SetActive(true);
+			this.transform.GetChild(4).gameObject.SetActive(false);
+			Debug.Log("loss");
+		}
 	}
 
 	public void FullRestart()
@@ -59,6 +67,9 @@ public class EndMenu : MonoBehaviour
 		}
 
 		Time.timeScale = 1;
+
+		this.transform.GetChild(3).gameObject.SetActive(false);
+		this.transform.GetChild(4).gameObject.SetActive(false);
 
 		this.gameObject.SetActive(false);
 	}

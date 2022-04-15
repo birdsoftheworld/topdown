@@ -7,13 +7,27 @@ public class LightUp : MonoBehaviour
 {
     void Update()
     {
-        if (this.transform.childCount == 1)
+        if (this.transform.childCount == 2)
         {
-            this.gameObject.GetComponent<Image>().enabled = true;
+            if (this.transform.GetChild(1).gameObject.GetComponent<StoreSelectButtonVars>() != null)
+            {
+                if (this.transform.GetChild(1).gameObject.GetComponent<StoreSelectButtonVars>().gameWeapon.activeSelf == true)
+                {
+                    this.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = true;
+                }
+                else
+                {
+                    this.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = false;
+                }
+            }
+            else
+            {
+                this.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = false;
+            }
         }
         else
         {
-            this.gameObject.GetComponent<Image>().enabled = false;
+            this.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = false;
         }
     }
 }

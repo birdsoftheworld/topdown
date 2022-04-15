@@ -216,8 +216,15 @@ public class CanBeDragged : MonoBehaviour
             }
             else
             {
-                resourceCounter.SetParent(resourceStore);
-                resourceCounter.localPosition = new Vector3(0, 0, 0);
+                if (isPower)
+                {
+
+                }
+                else
+                {
+                    resourceCounter.SetParent(resourceStore);
+                    resourceCounter.localPosition = new Vector3(0, 0, 0);
+                }
                 resourceCounter.gameObject.SetActive(false);
             }
         }

@@ -16,8 +16,8 @@ public class pistolResourceImages : MonoBehaviour
     {
         //if (source.gameObject.activeSelf == true)
         //{
-            if (player.ammoChanged == true)
-            {
+            //if (player.ammoChanged == true)
+            //{
                 for (int i = 5; i > -1; i--)
                 {
                     this.transform.GetChild(i).gameObject.SetActive(true);
@@ -32,7 +32,7 @@ public class pistolResourceImages : MonoBehaviour
                 }
 
                 //player.ammoChanged = false;
-            }
+            //}
         //}
     }
 }

@@ -9,8 +9,8 @@ public class HEGunResourceImages : MonoBehaviour
 
     void Update()
     {
-        if (source.gameObject.activeSelf == true)
-        {
+        //if (source.gameObject.activeSelf == true)
+        //{
             if (player.ammoChanged == true)
             {
                 for (int i = 2; i > -1; i--)
@@ -28,6 +28,6 @@ public class HEGunResourceImages : MonoBehaviour
 
                 //player.ammoChanged = false;
             }
-        }
+        //}
     }
 }

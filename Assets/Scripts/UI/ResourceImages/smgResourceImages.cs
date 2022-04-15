@@ -10,8 +10,8 @@ public class smgResourceImages : MonoBehaviour
 
     void Update()
     {
-        if (player.ammoChanged == true)
-        {
+        //if (player.ammoChanged == true)
+        //{
             RectTransform rt = this.GetComponent<RectTransform>();
             rt.sizeDelta = new Vector2(300 - (20 * source.ammo), 40);
 
@@ -41,6 +41,6 @@ public class smgResourceImages : MonoBehaviour
             }
 
             //player.ammoChanged = false;
-        }
+        //}
     }
 }

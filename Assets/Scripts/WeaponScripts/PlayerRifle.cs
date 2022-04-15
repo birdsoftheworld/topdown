@@ -28,12 +28,16 @@ public class PlayerRifle : MonoBehaviour
 
     public CamFollow cam;
 
+    public bool reloadingInProcess;
+
     private void Start()
     {
         ammo = ammoCap;
         //bulletOrigin = this.transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
+
+        reloadingInProcess = false;
     }
 
     private void OnEnable()
@@ -41,7 +45,9 @@ public class PlayerRifle : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
         //ammo = ammoCap;
-        UpdateTracker();
+       // UpdateTracker();
+
+        reloadingInProcess = false;
     }
 
     private void UpdateTracker()
@@ -92,16 +98,19 @@ public class PlayerRifle : MonoBehaviour
                 {
                     //Debug.Log("You need to reload!");
                 }
+
+                reloadingInProcess = false;
             }
             else if (Input.GetKey(KeyCode.R))
             {
                 if (ammo < ammoCap) // && player.heavyAmmo > 0)
                 {
-                    ammo++;
+                    reloadingInProcess = true;
+                    //ammo++;
                     //player.heavyAmmo--;
                     //UpdateTracker();
                     //Debug.Log("Reloaded one bullet! You have " + ammo + " bullets loaded.");
-                    player.waiting2 = 50;
+                    //player.waiting2 = 25;
                 }
                 else
                 {
@@ -134,6 +143,21 @@ public class PlayerRifle : MonoBehaviour
                     }
 
                 }
+                reloadingInProcess = false;
+            }
+
+            if (reloadingInProcess == true)
+            {
+                if (ammo < ammoCap)
+                {
+                    ammo++;
+                    player.waiting2 = 25;
+                }
+                else
+                {
+                    reloadingInProcess = false;
+                }
+
             }
         }
     }
