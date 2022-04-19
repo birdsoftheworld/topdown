@@ -28361,7 +28361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 127758389}
   cameraTransform: {fileID: 4997786}
-  maxDistance: 3
+  maxDistance: 2
   speed: 8
 --- !u!212 &1033998464
 SpriteRenderer:
