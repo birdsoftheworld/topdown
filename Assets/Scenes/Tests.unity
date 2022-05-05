@@ -18116,7 +18116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behavior: 
   turretTop: {fileID: 1641631606}
-  rotationTarget: {x: 0, y: 0, z: 0, w: 0}
+  rotationTarget: 0
   rotation: 0
 --- !u!212 &1188297644
 SpriteRenderer:
@@ -18159,7 +18159,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: 41e2789ba98a9874db42455fdc6c22ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3097b5651f8607c4b84627454d5b6fa4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
