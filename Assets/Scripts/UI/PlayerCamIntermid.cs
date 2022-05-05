@@ -23,6 +23,9 @@ public class PlayerCamIntermid : MonoBehaviour
             this.transform.position = playerTransform.transform.position;
         }
 
+        //Quaternion rotation = playerTransform.transform.rotation;
+
+        //transform.rotation = rotation;
 
         if (Input.GetMouseButton(2))
         {
@@ -34,7 +37,6 @@ public class PlayerCamIntermid : MonoBehaviour
         else
         {
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
 
             mouse.z = 0;
 
@@ -66,6 +68,15 @@ public class PlayerCamIntermid : MonoBehaviour
 
         this.gameObject.GetComponent<Rigidbody2D>().velocity = playerSpeed;
 
-        this.transform.position = Vector2.MoveTowards(this.transform.position, destination, funcSpeed * Time.deltaTime);
+        float speedBoost = (Mathf.Pow(Mathf.Abs(playerSpeed.x) + Mathf.Abs(playerSpeed.y), .25f));
+
+        if (speedBoost < 1)
+        {
+            speedBoost = 1;
+        }
+
+        //Debug.Log(speedBoost);
+
+        this.transform.position = Vector2.MoveTowards(this.transform.position, destination, funcSpeed * Time.deltaTime * speedBoost * speed);
     }
 }
