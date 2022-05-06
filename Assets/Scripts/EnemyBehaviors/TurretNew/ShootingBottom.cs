@@ -39,14 +39,34 @@ public class ShootingBottom : MonoBehaviour
 
         if (behavior == "target")
         {
-            //Debug.Log(rotationTarget);
+            float myRotation = convert(this.transform.localRotation.eulerAngles.z);
 
-            //Debug.Log(this.transform.rotation.eulerAngles.z);
-
-
-            if (rotationTarget + 2 > this.transform.rotation.eulerAngles.z && rotationTarget - 2 < this.transform.rotation.eulerAngles.z)
+            if (rotationTarget == this.transform.rotation.eulerAngles.z)
             {
-                this.transform.rotation = turretTop.transform.rotation;
+                behavior = "fire";
+            }
+            else if (rotationTarget + 3 > myRotation && rotationTarget - 3 < myRotation)
+            {
+                for (int i = 0; Mathf.Abs(i) < 4; i = -1 * (i))
+                {
+                    this.transform.Rotate(0.0f, 0.0f, i, Space.World);
+                    Debug.Log(i);
+
+                    if (i > -1)
+                    {
+                        i++;
+                    }
+
+
+                    if (myRotation == rotationTarget)
+                    {
+                        break;
+                    }
+
+                }
+
+
+                //this.transform.rotation = turretTop.transform.rotation;
             }
 
             if (rotationTarget == this.transform.rotation.eulerAngles.z)
@@ -57,12 +77,11 @@ public class ShootingBottom : MonoBehaviour
             {
                 int myQ;
                 int targQ;
+                
 
-                Debug.Log(this.transform.rotation.eulerAngles.z);
-
-                if (this.transform.rotation.eulerAngles.z > 0)
+                if (myRotation > 0)
                 {
-                    if (this.transform.rotation.eulerAngles.z > 90)
+                    if (myRotation > 90)
                     {
                         myQ = 1;
                     }
@@ -73,7 +92,7 @@ public class ShootingBottom : MonoBehaviour
                 }
                 else
                 {
-                    if (this.transform.rotation.eulerAngles.z > -90)
+                    if (myRotation > -90)
                     {
                         myQ = 3;
                     }
@@ -106,23 +125,20 @@ public class ShootingBottom : MonoBehaviour
                     }
                 }
 
-                Debug.Log("I at " + myQ + " and they at " + targQ);
+                //Debug.Log("I at " + myQ + " and they at " + targQ);
 
                 if (myQ == targQ)
                 {
-                    if (this.transform.rotation.eulerAngles.z > rotationTarget)
+                    if (myRotation > rotationTarget)
                     {
                         this.transform.Rotate(0.0f, 0.0f, -2f, Space.World);
-                        //Debug.Log("-");
                     }
                     else
                     {
                         this.transform.Rotate(0.0f, 0.0f, 2f, Space.World);
-                        //Debug.Log("-");
                     }
                 }
-
-                if (myQ > targQ)
+                else if (myQ > targQ)
                 {
                     this.transform.Rotate(0.0f, 0.0f, -2f, Space.World);
                 }
@@ -130,18 +146,25 @@ public class ShootingBottom : MonoBehaviour
                 {
                     this.transform.Rotate(0.0f, 0.0f, 2f, Space.World);
                 }
-
-
             }
-
-
-
         }
 
         if (behavior == "fire")
         {
 
         }
+    }
+
+    public float convert(float fl)
+    {
+        fl += 180;
+        if (fl > 360f)
+        {
+            fl -= 360;
+        }
+        fl = -1 * ((fl * -1) + 180);
+
+        return fl;
     }
 
     public void target(float rotation)

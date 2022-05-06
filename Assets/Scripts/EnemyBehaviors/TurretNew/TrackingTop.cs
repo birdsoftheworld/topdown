@@ -41,7 +41,15 @@ public class TrackingTop : MonoBehaviour
 
         if (behavior == "target")
         {
-            turretBase.GetComponent<ShootingBottom>().target(this.transform.rotation.eulerAngles.z);
+            float passTarg = turretBase.GetComponent<ShootingBottom>().convert(this.transform.localRotation.eulerAngles.z);
+
+            turretBase.GetComponent<ShootingBottom>().target(passTarg);
+
+            if (checkSightToPlayer() == false)
+            {
+                //Debug.Log(Vector2.Angle(this.transform.position, player.transform.position));
+                //Debug.Log(this.transform.eulerAngles.z);
+            }
         }
     }
 
