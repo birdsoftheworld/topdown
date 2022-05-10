@@ -28364,7 +28364,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 4997786}
   maxDistance: 2
   minDistance: 0
-  speed: 8
+  speed: 0.5
   oldDestination: {x: 0, y: 0, z: 0}
 --- !u!212 &1033998464
 SpriteRenderer:
