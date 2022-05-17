@@ -12,6 +12,11 @@ public class TrackingTop : MonoBehaviour
     public GameObject sight;
     public GameObject pointer;
 
+    public int waiting;
+
+    public Sprite unlocked;
+    public Sprite locked;
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +24,8 @@ public class TrackingTop : MonoBehaviour
         behavior = "search";
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        waiting = 0;
     }
 
 
@@ -31,138 +38,172 @@ public class TrackingTop : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (behavior == "search")
+        if (waiting > 0)
         {
-            this.transform.Rotate(0.0f, 0.0f, -1f, Space.World);
+            waiting--;
 
-            if (checkSightToPlayer())
+            if (waiting > 5)
             {
-                behavior = "target";
+                this.gameObject.GetComponent<SpriteRenderer>().sprite = locked;
             }
         }
-
-        if (behavior == "target")
+        else
         {
-            float passTarg = turretBase.GetComponent<ShootingBottom>().convert(this.transform.localRotation.eulerAngles.z);
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = unlocked;
 
-            turretBase.GetComponent<ShootingBottom>().target(passTarg);
-
-            if (checkSightToPlayer() == false)
+            if (behavior == "search")
             {
-                //Debug.Log(Vector2.Angle(this.transform.position, player.transform.position));
-               // Debug.Log(this.transform.eulerAngles.z);
+                this.transform.Rotate(0.0f, 0.0f, -1f, Space.World);
 
-
-                Vector2 difference = this.transform.position - player.transform.position;
-                //float flip = (player.transform.position.x > this.transform.position.x) ? 1.0f : -1.0f;
-
-                //float signX = (player.transform.position.x > this.transform.position.x) ? -90f : 0f;
-                //float signY = (player.transform.position.y > this.transform.position.y) ? 90f : -0f;
-
-                //Debug.Log(( Vector2.Angle(Vector2.right, difference) /*signX + signY + */));
-
-                float playerQ = 0;
-                float myQ = 0;
-
-                float targetRotation = turretBase.GetComponent<ShootingBottom>().convert(pointer.transform.rotation.eulerAngles.z);
-
-                if (player.transform.position.x > this.transform.position.x)
+                if (checkSightToPlayer())
                 {
-                    if (player.transform.position.y > this.transform.position.y)
+                    behavior = "target";
+                }
+            }
+
+            if (behavior == "target")
+            {
+                float passTarg = turretBase.GetComponent<ShootingBottom>().convert(this.transform.localRotation.eulerAngles.z);
+
+                turretBase.GetComponent<ShootingBottom>().target(passTarg);
+
+                if (checkSightToPlayer() == false)
+                {
+                    //Debug.Log(Vector2.Angle(this.transform.position, player.transform.position));
+                    // Debug.Log(this.transform.eulerAngles.z);
+
+
+                    Vector2 difference = this.transform.position - player.transform.position;
+                    //float flip = (player.transform.position.x > this.transform.position.x) ? 1.0f : -1.0f;
+
+                    //float signX = (player.transform.position.x > this.transform.position.x) ? -90f : 0f;
+                    //float signY = (player.transform.position.y > this.transform.position.y) ? 90f : -0f;
+
+                    //Debug.Log(( Vector2.Angle(Vector2.right, difference) /*signX + signY + */));
+
+                    float playerQ = 0;
+                    float myQ = 0;
+
+                    float targetRotation = turretBase.GetComponent<ShootingBottom>().convert(pointer.transform.rotation.eulerAngles.z);
+
+                    if (player.transform.position.x > this.transform.position.x)
                     {
-                        playerQ = 1;
+                        if (player.transform.position.y > this.transform.position.y)
+                        {
+                            playerQ = 1;
+                        }
+                        else
+                        {
+                            playerQ = 4;
+                        }
                     }
                     else
                     {
-                        playerQ = 4;
+                        if (player.transform.position.y > this.transform.position.y)
+                        {
+                            playerQ = 2;
+                        }
+                        else
+                        {
+                            playerQ = 3;
+                        }
                     }
-                }
-                else
-                {
-                    if (player.transform.position.y > this.transform.position.y)
-                    {
-                        playerQ = 2;
-                    }
-                    else
-                    {
-                        playerQ = 3;
-                    }
-                }
 
-                if (passTarg > 0)
-                {
-                    if (passTarg > 90)
+                    if (passTarg > 0)
                     {
-                        myQ = 1;
+                        if (passTarg > 90)
+                        {
+                            myQ = 1;
+                        }
+                        else
+                        {
+                            myQ = 4;
+                        }
                     }
                     else
                     {
-                        myQ = 4;
+                        if (passTarg > -90)
+                        {
+                            myQ = 3;
+                        }
+                        else
+                        {
+                            myQ = 2;
+                        }
                     }
-                }
-                else
-                {
-                    if (passTarg > -90)
+                    //Debug.Log(passTarg + "    " + targetRotation);
+                    //Debug.Log(playerQ + "   " + myQ);
+                    if (myQ == playerQ)
                     {
-                        myQ = 3;
+                        //Debug.Log("a");
+                        if (passTarg > targetRotation)
+                        {
+                            this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
+                        }
+                        else
+                        {
+                            this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
+                        }
                     }
-                    else
+                    /*else if (myQ == 3)
                     {
-                        myQ = 2;
+                        if (playerQ == 3)
+                        {
+                            this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
+                        }
+                    }*/
+
+                    else if ((myQ + 2) == playerQ || (myQ - 2) == playerQ)
+                    {
+                        //Debug.Log("b");
+
+                        if (Mathf.Abs(myQ) + Mathf.Abs(playerQ) > 180)
+                        {
+                            this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
+                        }
+                        else
+                        {
+                            this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
+                        }
                     }
-                }
-                //Debug.Log(passTarg + "    " + targetRotation);
-                if (myQ == playerQ)
-                {
-                    if (passTarg > targetRotation)
+                    else if (myQ == 1)
                     {
+                        //Debug.Log("c");
+
+                        if (playerQ == 4)
+                        {
+                            this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
+                        }
+                        else
+                        {
+                            this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
+                        }
+                    }
+                    else if (myQ == 4)
+                    {
+                        //Debug.Log("d");
+
+                        if (playerQ == 4 || playerQ == 3)
+                        {
+                            this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
+                        }
+                        else
+                        {
+                            this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
+                        }
+                    }
+                    else if (myQ > playerQ)
+                    {
+                        //Debug.Log("e");
+
                         this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
                     }
                     else
                     {
+                        //Debug.Log("f");
+
                         this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
                     }
-                }
-                else if ((myQ + 2) == playerQ || (myQ - 2) == playerQ)
-                {
-                    if (Mathf.Abs(myQ) + Mathf.Abs(playerQ) > 180)
-                    {
-                        this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
-                    }
-                    else
-                    {
-                        this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
-                    }
-                }
-                else if (myQ == 1)
-                {
-                    if (playerQ == 4)
-                    {
-                        this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
-                    }
-                    else
-                    {
-                        this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
-                    }
-                }
-                else if (myQ == 4)
-                {
-                    if (playerQ == 4)
-                    {
-                        this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
-                    }
-                    else
-                    {
-                        this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
-                    }
-                }
-                else if (myQ > playerQ)
-                {
-                    this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
-                }
-                else
-                {
-                    this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
                 }
             }
         }

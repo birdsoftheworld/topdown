@@ -51,11 +51,13 @@ public class ShootingBottom : MonoBehaviour
             {
                 Shoot();
                 waiting = 5;
+                turretTop.GetComponent<TrackingTop>().waiting = 10;
                 burstTick++;
                 if (burstTick == burstMax)
                 {
                     behavior = "target";
                     waiting = 30;
+                    turretTop.GetComponent<TrackingTop>().waiting = 30;
                     burstTick = 0;
                 }
             }
@@ -73,6 +75,7 @@ public class ShootingBottom : MonoBehaviour
                 {
                     behavior = "fire";
                     waiting = 5;
+                    turretTop.GetComponent<TrackingTop>().waiting = 10;
                 }
                 else if (rotationTarget + 3 > myRotation && rotationTarget - 3 < myRotation)
                 {
@@ -99,6 +102,7 @@ public class ShootingBottom : MonoBehaviour
 
                     behavior = "fire";
                     waiting = 5;
+                    turretTop.GetComponent<TrackingTop>().waiting = 10;
 
                     //this.transform.rotation = turretTop.transform.rotation;
                 }
@@ -169,10 +173,15 @@ public class ShootingBottom : MonoBehaviour
                         if (Mathf.Abs(myQ) + Mathf.Abs(targQ) > 180)
                         {
                             this.transform.Rotate(0.0f, 0.0f, -2f, Space.World);
+
+                            this.transform.Rotate(0.0f, 0.0f, -90f, Space.World);
                         }
                         else
                         {
                             this.transform.Rotate(0.0f, 0.0f, 2f, Space.World);
+
+                            this.transform.Rotate(0.0f, 0.0f, 90f, Space.World);
+
                         }
                     }
                     else if (myQ == 1)
@@ -180,30 +189,48 @@ public class ShootingBottom : MonoBehaviour
                         if (targQ == 4)
                         {
                             this.transform.Rotate(0.0f, 0.0f, -2f, Space.World);
+
+                            this.transform.Rotate(0.0f, 0.0f, -90f, Space.World);
+
                         }
                         else
                         {
                             this.transform.Rotate(0.0f, 0.0f, 2f, Space.World);
+
+                            this.transform.Rotate(0.0f, 0.0f, 90f, Space.World);
+
                         }
                     }
                     else if (myQ == 4)
                     {
-                        if (targQ == 4)
+                        if (targQ == 4 || targQ == 3)
                         {
                             this.transform.Rotate(0.0f, 0.0f, -2f, Space.World);
+
+                            this.transform.Rotate(0.0f, 0.0f, -90f, Space.World);
+
                         }
                         else
                         {
                             this.transform.Rotate(0.0f, 0.0f, 2f, Space.World);
+
+                            this.transform.Rotate(0.0f, 0.0f, 90f, Space.World);
+
                         }
                     }
                     else if (myQ > targQ)
                     {
                         this.transform.Rotate(0.0f, 0.0f, -2f, Space.World);
+
+                        this.transform.Rotate(0.0f, 0.0f, -90f, Space.World);
+
                     }
                     else
                     {
                         this.transform.Rotate(0.0f, 0.0f, 2f, Space.World);
+
+                        this.transform.Rotate(0.0f, 0.0f, 90f, Space.World);
+
                     }
                 }
             }
