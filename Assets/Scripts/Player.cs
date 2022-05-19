@@ -56,8 +56,15 @@ public class Player : MonoBehaviour
 
     public GameObject endMenu;
 
+    bool movingWithIntent = false;
+
+    public int driftingTickMax;
+    int driftingTick;
+
     private void Start()
     {
+        driftingTick = 0;
+
         body = GetComponent<Rigidbody2D>();
 
         locationCol = GetComponent<Collider2D>();
@@ -123,7 +130,6 @@ public class Player : MonoBehaviour
             }
         }*/
 
-
         float horizontalMove = Input.GetAxisRaw("Horizontal");
         float verticalMove = Input.GetAxisRaw("Vertical");
 
@@ -131,6 +137,16 @@ public class Player : MonoBehaviour
         if(inputDirection.magnitude > 1)
         {
             inputDirection = inputDirection.normalized;
+        }
+
+        if (Mathf.Abs(inputDirection.x) + Mathf.Abs(inputDirection.x) > .5)
+        {
+            movingWithIntent = true;
+
+        }
+        else
+        {
+            movingWithIntent = false;
         }
 
         Vector3 mousePos = Input.mousePosition;
@@ -211,16 +227,39 @@ public class Player : MonoBehaviour
             this.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>().Play();
         }
 
-
+        //if (movingWithIntent == true)
+        //{
         if (slowDown < 1)
         {
             body.velocity = body.velocity / 1;
         }
         else
         {
-            body.velocity = body.velocity / slowDown;
+
+
+            body.velocity = new Vector2(
+                (body.velocity.x / (slowDown - .5f * (1f - Mathf.Abs(inputDirection.x)))), 
+                (body.velocity.y / (slowDown - .5f * (1f - Mathf.Abs(inputDirection.y)))));
+
+
+
+            //body.velocity = body.velocity / slowDown;
         }
-        
+        /*}
+        else
+        {
+            if (slowDown < 2)
+            {
+                body.velocity = body.velocity / 1;
+            }
+            else
+            {
+                body.velocity = body.velocity / (slowDown - 1);
+            }
+
+        }*/
+
+
         if (slowDown < slowDownMax)
         {
             slowDown++;
@@ -229,6 +268,8 @@ public class Player : MonoBehaviour
         {
             slowDown--;
         }
+
+
         //body.velocity = Vector3.zero;
 
         if (waiting > 0)

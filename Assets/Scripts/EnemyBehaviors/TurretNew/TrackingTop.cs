@@ -204,6 +204,16 @@ public class TrackingTop : MonoBehaviour
 
                         this.transform.Rotate(0.0f, 0.0f, 3f, Space.World);
                     }
+
+
+                    if (checkSightToPlayer() == false)
+                    {
+                        if (turretBase.GetComponent<ShootingBottom>().behavior != "fire")
+                        {
+                            turretBase.GetComponent<ShootingBottom>().behavior = "idle";
+                        }
+                    }
+
                 }
             }
         }
@@ -211,12 +221,21 @@ public class TrackingTop : MonoBehaviour
 
     private bool checkSightToPlayer()
     {
+
         int layerMask = 1 << 0;
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(transform.position, sight.transform.position - this.transform.position, Mathf.Infinity, layerMask);
+
+        //Vector3 forwards = transform.TransformPoint(new Vector3(sight.transform.localPosition.x, sight.transform.localPosition.y - .5f, 0f));
+        //Debug.Log(forwards);
+
+        Vector3 forwards = sight.transform.GetChild(0).transform.position;
+
+        hit = Physics2D.Raycast(sight.transform.position, forwards - sight.transform.position, Mathf.Infinity, layerMask);
+
+        //hit = Physics2D.Raycast(transform.position, sight.transform.position - this.transform.position, Mathf.Infinity, layerMask);
         //if (hit != null)
         //{
-            if (hit.collider.gameObject.tag == "Player")
+        if (hit.collider.gameObject.tag == "Player")
             {
                 return true;
             }
