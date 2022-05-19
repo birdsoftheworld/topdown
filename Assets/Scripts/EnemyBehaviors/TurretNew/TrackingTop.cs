@@ -17,6 +17,8 @@ public class TrackingTop : MonoBehaviour
     public Sprite unlocked;
     public Sprite locked;
 
+    public int searchingTick;
+    public int searchingTickMax;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,8 @@ public class TrackingTop : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         waiting = 0;
+
+        searchingTick = 0;
     }
 
 
@@ -69,8 +73,10 @@ public class TrackingTop : MonoBehaviour
 
                 if (checkSightToPlayer() == false)
                 {
+
+
                     //Debug.Log(Vector2.Angle(this.transform.position, player.transform.position));
-                    // Debug.Log(this.transform.eulerAngles.z);
+                    //Debug.Log(this.transform.eulerAngles.z);
 
 
                     Vector2 difference = this.transform.position - player.transform.position;
@@ -131,11 +137,26 @@ public class TrackingTop : MonoBehaviour
                             myQ = 2;
                         }
                     }
+
+
+
+                    //////////////////////////////////
+                    ////
+                    myQ += 0;
+                    if (myQ > 4)
+                    {
+                        myQ -= 4;
+                    }
+                    //Debug.Log(myQ + "    " + playerQ);
+
+
+                    //////////////////////////////////////
+
                     //Debug.Log(passTarg + "    " + targetRotation);
                     //Debug.Log(playerQ + "   " + myQ);
                     if (myQ == playerQ)
                     {
-                        //Debug.Log("a");
+                        //Debug.Log(passTarg + "    " + targetRotation);
                         if (passTarg > targetRotation)
                         {
                             this.transform.Rotate(0.0f, 0.0f, -3f, Space.World);
@@ -212,6 +233,17 @@ public class TrackingTop : MonoBehaviour
                         {
                             turretBase.GetComponent<ShootingBottom>().behavior = "idle";
                         }
+
+
+                        searchingTick++;
+                        if (searchingTick == searchingTickMax)
+                        {
+                            behavior = "search";
+
+                            searchingTick = 0;
+                        }
+
+
                     }
 
                 }

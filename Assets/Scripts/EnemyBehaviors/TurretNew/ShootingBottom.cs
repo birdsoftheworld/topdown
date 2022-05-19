@@ -23,20 +23,52 @@ public class ShootingBottom : MonoBehaviour
     public int burstTick;
     public int burstMax;
 
+    public Sprite healthy;
+    public Sprite damaged;
+    public HealthTest myHealth;
+
+    public GameObject wreckPrefab;
+    private GameObject levelGen;
+
+    public GameObject armor;
+
     // Start is called before the first frame update
     void Start()
     {
         behavior = "idle";
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        this.transform.parent.rotation = new Quaternion(0f, 0f, 0f, 0f);
+
+        levelGen = GameObject.FindGameObjectWithTag("LevelGenerator");
     }
 
-
-    // Update is called once per frame
     void Update()
     {
+        if (myHealth.curHealth <= 0)
+        {
+            levelGen.GetComponent<LootController>().Drop(this.transform.position, 1, 6, 2);
 
+            GameObject wreck = Instantiate(wreckPrefab, this.transform.position, this.transform.rotation);
+            wreck.GetComponent<WreckBehavior>().setSprite(5);
+            wreck.gameObject.SetActive(true);
 
+            armor.transform.SetParent(wreck.transform, true);
+
+            armor.GetComponent<ArmorNew>().enabled = false;
+
+            Destroy(this.transform.parent.gameObject);
+        }
+        else if (myHealth.justHalved == true)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = damaged;
+        }
+        else if (myHealth.justThirded == true)
+        {
+            this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
+            myHealth.justThirded = false;
+        }
     }
 
     void FixedUpdate()
@@ -156,6 +188,19 @@ public class ShootingBottom : MonoBehaviour
                             targQ = 2;
                         }
                     }
+
+                    //////////////////
+                  /*  if (myQ == 1)
+                    {
+                        myQ = 4;
+                    }
+                    else
+                    {
+                        myQ--;
+                    }*/
+                    ///////////////////
+
+
 
                     if (myQ == targQ)
                     {

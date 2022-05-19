@@ -56,14 +56,14 @@ public class Player : MonoBehaviour
 
     public GameObject endMenu;
 
-    bool movingWithIntent = false;
-
     public int driftingTickMax;
-    int driftingTick;
+    public int driftingTickX;
+    public int driftingTickY;
 
     private void Start()
     {
-        driftingTick = 0;
+        driftingTickX = 0;
+        driftingTickY = 0;
 
         body = GetComponent<Rigidbody2D>();
 
@@ -137,16 +137,6 @@ public class Player : MonoBehaviour
         if(inputDirection.magnitude > 1)
         {
             inputDirection = inputDirection.normalized;
-        }
-
-        if (Mathf.Abs(inputDirection.x) + Mathf.Abs(inputDirection.x) > .5)
-        {
-            movingWithIntent = true;
-
-        }
-        else
-        {
-            movingWithIntent = false;
         }
 
         Vector3 mousePos = Input.mousePosition;
@@ -227,6 +217,61 @@ public class Player : MonoBehaviour
             this.transform.GetChild(4).gameObject.GetComponent<ParticleSystem>().Play();
         }
 
+        if (Mathf.Abs(inputDirection.x) > 0)
+        {
+            if (Mathf.Abs(driftingTickX) < driftingTickMax)
+            {
+                if (inputDirection.x > 0)
+                {
+                    driftingTickX++;
+                }
+                if (inputDirection.x < 0)
+                {
+                    driftingTickX--;
+                }
+            }
+        }
+        else
+        {
+            if (driftingTickX > 0)
+            {
+                driftingTickX--;
+            }
+            if (driftingTickX < 0)
+            {
+                driftingTickX++;
+            }
+        }
+
+        if (Mathf.Abs(inputDirection.y) > 0)
+        {
+            if (Mathf.Abs(driftingTickY) < driftingTickMax)
+            {
+                if (inputDirection.y > 0)
+                {
+                    driftingTickY++;
+                }
+                if (inputDirection.y < 0)
+                {
+                    driftingTickY--;
+                }
+            }
+        }
+        else
+        {
+            if (driftingTickY > 0)
+            {
+                driftingTickY--;
+            }
+            if (driftingTickY < 0)
+            {
+                driftingTickY++;
+            }
+        }
+
+
+        //body.velocity = new Vector2(body.velocity.x + (driftingTickX / driftingTickMax), body.velocity.y + (driftingTickY / driftingTickMax));
+
         //if (movingWithIntent == true)
         //{
         if (slowDown < 1)
@@ -235,15 +280,31 @@ public class Player : MonoBehaviour
         }
         else
         {
+            /*int slowDownX = slowDown;
+            int slowDownY = slowDown;
 
-
-            body.velocity = new Vector2(
+            /*body.velocity = new Vector2(
                 (body.velocity.x / (slowDown - .5f * (1f - Mathf.Abs(inputDirection.x)))), 
-                (body.velocity.y / (slowDown - .5f * (1f - Mathf.Abs(inputDirection.y)))));
+                (body.velocity.y / (slowDown - .5f * (1f - Mathf.Abs(inputDirection.y)))));*/
+
+            /*
+            if (Mathf.Abs(driftingTickX) > 1)
+            {
+                slowDownX -= (driftingTickX - 1) / driftingTickMax;
+            }
+            if (Mathf.Abs(driftingTickY) > 1)
+            {
+                slowDownY -= (driftingTickY - 1) / driftingTickMax;
+            }
 
 
+            body.velocity = new Vector2(body.velocity.x / slowDownX, body.velocity.y / slowDownY);
+            */
 
-            //body.velocity = body.velocity / slowDown;
+
+            body.velocity = body.velocity / slowDown;
+
+            body.velocity = new Vector2(body.velocity.x + ((driftingTickX * moveSpeed) / (driftingTickMax * 2)), body.velocity.y + ((driftingTickY * moveSpeed) / (driftingTickMax * 2)));
         }
         /*}
         else

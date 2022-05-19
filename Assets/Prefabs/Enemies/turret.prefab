@@ -208,7 +208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46160a0f592d5846a191aebefc4c7b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guardingHealth: {fileID: 5652891173380281850}
+  guardingHealth: {fileID: 8591062025245574342}
+  healthy: {fileID: 21300000, guid: 706c14aeed85712478424bf7919b9f30, type: 3}
+  damaged: {fileID: 21300000, guid: 36bc99eea1c423543bd255e8aa7c5148, type: 3}
 --- !u!50 &7087457754629049169
 Rigidbody2D:
   serializedVersion: 4
@@ -384,6 +386,8 @@ MonoBehaviour:
   waiting: 22
   unlocked: {fileID: 21300000, guid: 0cdd88b1f7d45d742963a0285b0f10ea, type: 3}
   locked: {fileID: 21300000, guid: 171f3cf6f8723aa49b4c26a5cf7718a0, type: 3}
+  searchingTick: 0
+  searchingTickMax: 0
 --- !u!1 &5652891173229097062
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +428,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5652891173229097062}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -509,7 +513,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5652891173269348532}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -578,7 +582,6 @@ GameObject:
   - component: {fileID: 5652891173380281853}
   - component: {fileID: 5652891173380281851}
   - component: {fileID: 5652891173380281852}
-  - component: {fileID: 5652891173380281850}
   m_Layer: 0
   m_Name: bottom
   m_TagString: Enemy
@@ -674,27 +677,11 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8464980748251324624, guid: bb26bab4cba51f84baaac207af44d6ea, type: 3}
   burstTick: 0
   burstMax: 5
---- !u!114 &5652891173380281850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5652891173380281854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d647e0e339bf6f64cba172aeee0db174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curHealth: 6
-  maxHealth: 6
-  armor: 1
-  healthBar: {fileID: 0}
-  iFrameMax: 1
-  iFrames: 0
-  justHalved: 0
-  justThirded: 0
-  injuredFrom: {x: 0, y: 0}
+  healthy: {fileID: 21300000, guid: 2e64dcc205ddc274ea551740520661b5, type: 3}
+  damaged: {fileID: 21300000, guid: 5c3e6a34ae5bc9c45acdd798fd75502f, type: 3}
+  myHealth: {fileID: 8591062025245574342}
+  wreckPrefab: {fileID: 2901864768258147889, guid: 27a453ca9e2573143af396f86b5e9443, type: 3}
+  armor: {fileID: 5652891172400251147}
 --- !u!1 &6235023871015676260
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,6 +694,7 @@ GameObject:
   - component: {fileID: 5145450489364002465}
   - component: {fileID: 8196340586457074235}
   - component: {fileID: 380192487198411555}
+  - component: {fileID: 8591062025245574342}
   m_Layer: 0
   m_Name: health
   m_TagString: Enemy
@@ -796,6 +784,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faction: 1
   safe: 1
+--- !u!114 &8591062025245574342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6235023871015676260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d647e0e339bf6f64cba172aeee0db174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curHealth: 6
+  maxHealth: 6
+  armor: 0
+  healthBar: {fileID: 0}
+  iFrameMax: 1
+  iFrames: 0
+  justHalved: 0
+  justThirded: 0
+  injuredFrom: {x: 0, y: 0}
 --- !u!1 &7757618404309875165
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,10 +8,15 @@ public class ArmorNew : MonoBehaviour
 
     public HealthTest guardingHealth;
 
+    public Sprite healthy;
+    public Sprite damaged;
+
     // Start is called before the first frame update
     void Start()
     {
         myHealth = this.gameObject.GetComponent<HealthTest>();
+
+        this.GetComponent<SpriteRenderer>().sprite = healthy;
     }
 
     // Update is called once per frame
@@ -27,5 +32,12 @@ public class ArmorNew : MonoBehaviour
         {
             myHealth.curHealth++;
         }
+
+
+        else if (guardingHealth.GetComponent<HealthTest>().justHalved == true)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = damaged;
+        }
+
     }
 }
