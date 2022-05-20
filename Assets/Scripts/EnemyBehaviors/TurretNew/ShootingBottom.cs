@@ -66,6 +66,9 @@ public class ShootingBottom : MonoBehaviour
         }
         else if (myHealth.justThirded == true)
         {
+            var main = this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().main;
+            main.loop = true;
+
             this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
             myHealth.justThirded = false;
         }

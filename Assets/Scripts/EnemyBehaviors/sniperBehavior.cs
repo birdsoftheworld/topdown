@@ -103,6 +103,8 @@ public class sniperBehavior : MonoBehaviour
         }
         else if (this.GetComponent<HealthTest>().justThirded == true)
         {
+            var main = this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().main;
+            main.loop = true;
             this.transform.GetChild(0).gameObject.GetComponent<ParticleSystem>().Play();
             this.GetComponent<HealthTest>().justThirded = false;
         }
@@ -441,9 +443,10 @@ public class sniperBehavior : MonoBehaviour
     {
             ammo--;
 
-
+        if (shotTarget != null)
+        {
             FaceTarget(shotTarget.position);
-
+        }
             GameObject clone = Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
             clone.gameObject.SetActive(true);
 

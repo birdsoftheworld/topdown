@@ -99,6 +99,9 @@ public class pistoleerBehavior : MonoBehaviour
         }
         else if (this.GetComponent<HealthTest>().justThirded == true)
         {
+            var main = this.transform.GetChild(2).gameObject.GetComponent<ParticleSystem>().main;
+            main.loop = true;
+
             this.transform.GetChild(2).gameObject.GetComponent<ParticleSystem>().Play();
             this.GetComponent<HealthTest>().justThirded = false;
         }

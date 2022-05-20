@@ -37,6 +37,47 @@ public class PlayerDash : MonoBehaviour
                 player.transform.gameObject.GetComponent<HealthTest>().iFrames += dodgeTimer;
 
                 player.waiter4Changed = true;
+
+
+
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = Camera.main.nearClipPlane;
+                Vector2 destination = Camera.main.ScreenToWorldPoint(mousePos);
+
+                Vector2 currentPos = this.transform.position;
+
+                destination = destination - currentPos;
+
+                Vector3 destinationN = destination.normalized;
+
+                float angle = Mathf.Atan2(destinationN.y, destinationN.x) * Mathf.Rad2Deg;
+
+
+                angle += 180;
+                if (angle > 360f)
+                {
+                    angle -= 360;
+                }
+                angle = -1 * ((angle * -1) + 180);
+
+
+                if (angle < 0)
+                {
+                    angle = 360 + angle;
+                }
+
+                angle = angle * Mathf.PI / 180;
+
+                //Debug.Log(angle);
+                //int intAngle = (int)angle;
+
+                int changeX = (int)(2 * Mathf.Cos(angle) * player.driftingTickMax);
+                int changeY = (int)(2 * Mathf.Sin(angle) * player.driftingTickMax);
+
+                //Debug.Log(changeX + "  " + changeY);
+
+                player.driftingTickX += changeX;
+                player.driftingTickY += changeY;
             }
         }
 

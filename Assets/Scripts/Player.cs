@@ -230,6 +230,20 @@ public class Player : MonoBehaviour
                     driftingTickX--;
                 }
             }
+            else if (driftingTickX != 0)
+            {
+                if (Mathf.Abs(inputDirection.x) / inputDirection.x != Mathf.Abs(driftingTickX) / driftingTickX)
+                {
+                    if (inputDirection.x > 0)
+                    {
+                        driftingTickX++;
+                    }
+                    if (inputDirection.x < 0)
+                    {
+                        driftingTickX--;
+                    }
+                }
+            }
         }
         else
         {
@@ -254,6 +268,20 @@ public class Player : MonoBehaviour
                 if (inputDirection.y < 0)
                 {
                     driftingTickY--;
+                }
+            }
+            else if (driftingTickY != 0)
+            {
+                if (Mathf.Abs(inputDirection.y) / inputDirection.y != Mathf.Abs(driftingTickY) / driftingTickY)
+                {
+                    if (inputDirection.y > 0)
+                    {
+                        driftingTickY++;
+                    }
+                    if (inputDirection.y < 0)
+                    {
+                        driftingTickY--;
+                    }
                 }
             }
         }
