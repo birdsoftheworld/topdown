@@ -82,6 +82,27 @@ public class PlayerSword : MonoBehaviour
                 wait = 30;
                 player.body.AddRelativeForce(Vector2.down * player.moveSpeed * 500f);
                 swingCount++;
+
+                angle += 180;
+                if (angle > 360f)
+                {
+                    angle -= 360;
+                }
+                angle = -1 * ((angle * -1) + 180);
+
+
+                if (angle < 0)
+                {
+                    angle = 360 + angle;
+                }
+
+                angle = angle * Mathf.PI / 180;
+
+                int changeX = (int)(Mathf.Cos(angle) * player.driftingTickMax);
+                int changeY = (int)(Mathf.Sin(angle) * player.driftingTickMax);
+
+                player.driftingTickX += changeX;
+                player.driftingTickY += changeY;
             }
 
             this.transform.rotation = Quaternion.Euler(0, 0, angle + 90 + (swingCount -1) * 20f);

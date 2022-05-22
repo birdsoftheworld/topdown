@@ -68,13 +68,8 @@ public class PlayerDash : MonoBehaviour
 
                 angle = angle * Mathf.PI / 180;
 
-                //Debug.Log(angle);
-                //int intAngle = (int)angle;
-
                 int changeX = (int)(2 * Mathf.Cos(angle) * player.driftingTickMax);
                 int changeY = (int)(2 * Mathf.Sin(angle) * player.driftingTickMax);
-
-                //Debug.Log(changeX + "  " + changeY);
 
                 player.driftingTickX += changeX;
                 player.driftingTickY += changeY;
