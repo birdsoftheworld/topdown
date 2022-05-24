@@ -472,7 +472,7 @@ MonoBehaviour:
   health: {fileID: 2303087427716698274}
   distance: 15
   active: 0
-  speed: 4
+  speed: 3
   target: {fileID: 0}
   waiting: 0
   location: 0
@@ -492,6 +492,7 @@ MonoBehaviour:
   wreckPrefab: {fileID: 2901864768258147889, guid: 27a453ca9e2573143af396f86b5e9443, type: 3}
   healthySprite: {fileID: 21300000, guid: 7ef29bafd129c9247a98e8191267c451, type: 3}
   injuredSprite: {fileID: 21300000, guid: 5d13edf7ccf93b1449faf672719ca574, type: 3}
+  butcher: 1
 --- !u!114 &3448438523641648530
 MonoBehaviour:
   m_ObjectHideFlags: 0

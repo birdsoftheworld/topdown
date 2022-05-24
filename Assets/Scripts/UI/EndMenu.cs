@@ -29,13 +29,13 @@ public class EndMenu : MonoBehaviour
         {
 			this.transform.GetChild(3).gameObject.SetActive(false);
 			this.transform.GetChild(4).gameObject.SetActive(true);
-			Debug.Log("win");
+			//Debug.Log("win");
 		}
 		else
 		{
 			this.transform.GetChild(3).gameObject.SetActive(true);
 			this.transform.GetChild(4).gameObject.SetActive(false);
-			Debug.Log("loss");
+			//Debug.Log("loss");
 		}
 	}
 

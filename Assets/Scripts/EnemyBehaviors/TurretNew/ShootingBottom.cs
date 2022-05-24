@@ -49,6 +49,7 @@ public class ShootingBottom : MonoBehaviour
         if (myHealth.curHealth <= 0)
         {
             levelGen.GetComponent<LootController>().Drop(this.transform.position, 1, 6, 2);
+            levelGen.GetComponent<LootController>().Drop(this.transform.position, 2, 6, 2);
 
             GameObject wreck = Instantiate(wreckPrefab, this.transform.position, this.transform.rotation);
             wreck.GetComponent<WreckBehavior>().setSprite(5);

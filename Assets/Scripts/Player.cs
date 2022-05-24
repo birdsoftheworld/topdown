@@ -298,6 +298,23 @@ public class Player : MonoBehaviour
         }
 
 
+        if (driftingTickX > driftingTickMax * 2)
+        {
+            driftingTickX = driftingTickMax * 2;
+        }
+        if (driftingTickX < driftingTickMax * -2)
+        {
+            driftingTickX = driftingTickMax * -2;
+        }
+        if (driftingTickY > driftingTickMax * 2)
+        {
+            driftingTickY = driftingTickMax * 2;
+        }
+        if (driftingTickY < driftingTickMax * -2)
+        {
+            driftingTickY = driftingTickMax * -2;
+        }
+
         //body.velocity = new Vector2(body.velocity.x + (driftingTickX / driftingTickMax), body.velocity.y + (driftingTickY / driftingTickMax));
 
         //if (movingWithIntent == true)

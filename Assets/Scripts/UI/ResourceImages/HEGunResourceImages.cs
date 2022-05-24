@@ -11,8 +11,8 @@ public class HEGunResourceImages : MonoBehaviour
     {
         //if (source.gameObject.activeSelf == true)
         //{
-            if (player.ammoChanged == true)
-            {
+            //if (player.ammoChanged == true)
+            //{
                 for (int i = 2; i > -1; i--)
                 {
                     this.transform.GetChild(i).gameObject.SetActive(true);
@@ -27,7 +27,7 @@ public class HEGunResourceImages : MonoBehaviour
                 }
 
                 //player.ammoChanged = false;
-            }
+            //}
         //}
     }
 }

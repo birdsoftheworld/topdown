@@ -9873,7 +9873,7 @@ MonoBehaviour:
   health: {fileID: 6235962892677778565}
   distance: 33
   active: 0
-  speed: 4
+  speed: 3
   target: {fileID: 0}
   waiting: 0
   location: 0

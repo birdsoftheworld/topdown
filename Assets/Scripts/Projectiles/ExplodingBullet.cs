@@ -11,7 +11,7 @@ public class ExplodingBullet : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log("OnDestroy1");
+        //Debug.Log("OnDestroy1");
 
         GameObject clone = Instantiate(explosionPrefab, this.transform.position, this.transform.rotation);
         clone.gameObject.SetActive(true);

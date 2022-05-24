@@ -62,6 +62,8 @@ public class BrawlerBehavior : MonoBehaviour
     public Sprite healthySprite;
     public Sprite injuredSprite;
 
+    public bool butcher;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +97,11 @@ public class BrawlerBehavior : MonoBehaviour
         if (health.curHealth <= 0)
         {
             levelGen.GetComponent<LootController>().Drop(this.transform.position, 0, 2, 2);
+
+            if (butcher)
+            {
+                levelGen.GetComponent<LootController>().Drop(this.transform.position, 2, 6, 2);
+            }
 
             GameObject wreck = Instantiate(wreckPrefab, this.transform.position, this.transform.rotation);
             wreck.GetComponent<WreckBehavior>().setSprite(2);
