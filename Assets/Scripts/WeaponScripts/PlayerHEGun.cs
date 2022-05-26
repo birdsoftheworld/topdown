@@ -24,31 +24,112 @@ public class PlayerHEGun : MonoBehaviour
 
     public CamFollow cam;
 
+    public bool waveGun = false;
+
+    private ParticleSystem.MainModule main;
+    private ParticleSystem.TriggerModule triggers;
+
+
     private void Start()
     {
         ammo = ammoCap;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
+
+        waveGun = false;
+
+        main = this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().main;
+        triggers = this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().trigger;
+
+
     }
 
     private void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CamFollow>();
+
+        waveGun = false;
     }
 
     private void FixedUpdate()
     {
+
         if (ammo == 0 && player.heavyAmmo > 0)
         {
             player.heavyAmmo--;
             ammo++;
         }
 
-        if (player.waiting2 == 0)
+        if (waveGun)
+        {
+            if (Input.GetMouseButton(1))
+            {
+
+                //this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+
+                player.waiting = 2;
+
+                if (main.loop == false)
+                {
+                    main.loop = true;
+                }
+
+                /*for (int i = 0; i < 3; i++)
+                {
+                    if (player.driftingTickX > 0)
+                    {
+                        player.driftingTickX--;
+                    }
+                    if (player.driftingTickX < 0)
+                    {
+                        player.driftingTickX++;
+                    }
+                    if (player.driftingTickY > 0)
+                    {
+                        player.driftingTickY--;
+                    }
+                    if (player.driftingTickY < 0)
+                    {
+                        player.driftingTickY++;
+                    }
+                }*/
+
+
+                /*if (this.transform.GetChild(1).rotation.eulerAngles.x != 80 && this.transform.GetChild(1).rotation.eulerAngles.x != 100)
+                {
+                    this.transform.GetChild(1).Rotate(swingDirection, 0.0f, 0.0f, Space.World);
+                }
+                else
+                {
+                    swingDirection = swingDirection * 1;
+                    this.transform.GetChild(1).Rotate(swingDirection, 0.0f, 0.0f);
+                }*/
+            }
+            else
+            {
+                waveGun = false;
+                main.loop = false;
+
+                player.waiting = 50;
+                player.waiting2 = 100;
+
+                /*Quaternion rotation = new Quaternion();
+                rotation.eulerAngles = new Vector3(0f, 90f, 90f);
+
+                this.transform.GetChild(1).rotation = rotation;
+
+                swingDirection = 1f;*/
+            }
+
+        }
+
+        else if (player.waiting2 == 0)
         {
             if (Input.GetMouseButton(0))
             {
+                waveGun = false;
+
                 if (ammo > 0)
                 {
 
@@ -121,29 +202,45 @@ public class PlayerHEGun : MonoBehaviour
 
            else if (Input.GetMouseButton(1))
             {
-                this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+                waveGun = true;
 
-                /*if (ammo > 0)
+
+                player.body.angularVelocity = 0f;
+
+                int count = triggers.colliderCount;
+
+                while (triggers.colliderCount != 0)
                 {
-                    if (player.waiting3 == 0)
+                    for (int c = 0; c < count + 1; c++)
                     {
-                        ammo--;
-                        ammoCounter.define1(ammo.ToString());
-
-                        Vector2 position = bulletOrigin.position;
-                        GameObject clone = Instantiate(tracerPrefab, position, bulletOrigin.rotation);
-                        clone.gameObject.SetActive(true);
-
-                        Tracer flare = clone.gameObject.GetComponent("Tracer") as Tracer;
-
-                        flare.bulletSpeed = bulletSpeed;
-                        flare.bulletFaction = bulletFaction;
-                        //bullet.bulletDamage = bulletDamage;
-                        //clone.GetComponent<CircleCollider2D>().bounds = new Vector2(1f, 0.5f);
-                        player.waiting3 = 25;
+                        triggers.RemoveCollider(c);
+                        //Debug.Log(c);
                     }
+                    count = triggers.colliderCount;
+                }
 
-                }*/
+                GameObject[] walls;
+                walls = GameObject.FindGameObjectsWithTag("Wall");
+                for (int a = 0; a < (walls.Length); a++)
+                {
+                    triggers.AddCollider(walls[a].transform);
+                }
+
+                GameObject[] explosives;
+                explosives = GameObject.FindGameObjectsWithTag("Explosive");
+                for (int a = 0; a < (explosives.Length); a++)
+                {
+                    triggers.AddCollider(explosives[a].transform);
+                }
+
+                GameObject[] enemies;
+                enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                for (int b = 0; b < (enemies.Length); b++)
+                {
+                    triggers.AddCollider(enemies[b].transform);
+                }
+
+                this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
             }
         }
     }

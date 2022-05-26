@@ -49853,6 +49853,7 @@ GameObject:
   - component: {fileID: 1017614563897270021}
   - component: {fileID: 1017614563897270022}
   - component: {fileID: 1017614563897270023}
+  - component: {fileID: 1017614563897270024}
   m_Layer: 0
   m_Name: Energy Wave
   m_TagString: Untagged
@@ -49867,14 +49868,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017614563897270016}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4219060754291843798}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 90}
 --- !u!198 &1017614563897270022
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -49883,14 +49884,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017614563897270016}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.05
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -50504,7 +50505,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 5
+    angle: 10
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -53644,12 +53645,12 @@ ParticleSystem:
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 2
-    inside: 1
+    inside: 0
     outside: 0
-    enter: 0
-    exit: 0
+    enter: 2
+    exit: 1
     colliderQueryMode: 0
     radiusScale: 1
     primitives: []
@@ -54633,7 +54634,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -54664,6 +54665,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1017614563897270024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017614563897270016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57b5f28b9a873f41a753bc3cb91b37a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagerPrefab: {fileID: 6184695118765354413, guid: 98974d51fb961064db7853c7816e2456, type: 3}
 --- !u!1001 &1312635488326407542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55283,6 +55297,7 @@ MonoBehaviour:
   player: {fileID: 0}
   jitter: 16
   cam: {fileID: 0}
+  waveGun: 0
 --- !u!212 &4224787930228084144
 SpriteRenderer:
   m_ObjectHideFlags: 0

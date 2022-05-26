@@ -130,43 +130,47 @@ public class Player : MonoBehaviour
             }
         }*/
 
-        float horizontalMove = Input.GetAxisRaw("Horizontal");
-        float verticalMove = Input.GetAxisRaw("Vertical");
-
-        inputDirection = new Vector2(horizontalMove, verticalMove);
-        if(inputDirection.magnitude > 1)
+        if (waiting == 0)
         {
-            inputDirection = inputDirection.normalized;
-        }
 
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Camera.main.nearClipPlane;
-        destination = Camera.main.ScreenToWorldPoint(mousePos);
+            float horizontalMove = Input.GetAxisRaw("Horizontal");
+            float verticalMove = Input.GetAxisRaw("Vertical");
 
-        Vector2 currentPos = this.transform.position;
+            inputDirection = new Vector2(horizontalMove, verticalMove);
+            if (inputDirection.magnitude > 1)
+            {
+                inputDirection = inputDirection.normalized;
+            }
 
-        destination = destination - currentPos;
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = Camera.main.nearClipPlane;
+            destination = Camera.main.ScreenToWorldPoint(mousePos);
 
-        Vector3 destinationN = destination.normalized;
+            Vector2 currentPos = this.transform.position;
 
-        float angle = Mathf.Atan2(destinationN.y, destinationN.x) * Mathf.Rad2Deg;
+            destination = destination - currentPos;
 
-        Quaternion rotation = new Quaternion();
-        rotation.eulerAngles = new Vector3(0, 0, angle + 90);
+            Vector3 destinationN = destination.normalized;
 
-        transform.rotation = rotation;
+            float angle = Mathf.Atan2(destinationN.y, destinationN.x) * Mathf.Rad2Deg;
 
-        if (Input.GetKeyDown("1"))
-        {
-            SetWeapon(0);
-        }
-        if (Input.GetKeyDown("2"))
-        {
-            SetWeapon(1);
-        }
-        if (Input.GetKeyDown("3"))
-        {
-            SetWeapon(2);
+            Quaternion rotation = new Quaternion();
+            rotation.eulerAngles = new Vector3(0, 0, angle + 90);
+
+            transform.rotation = rotation;
+
+            if (Input.GetKeyDown("1"))
+            {
+                SetWeapon(0);
+            }
+            if (Input.GetKeyDown("2"))
+            {
+                SetWeapon(1);
+            }
+            if (Input.GetKeyDown("3"))
+            {
+                SetWeapon(2);
+            }
         }
     }
 
