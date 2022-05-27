@@ -451,6 +451,10 @@ public class Player : MonoBehaviour
 
         this.transform.position = new Vector2(5.5f, 5.5f);
 
+        rb2D.velocity = new Vector2(0f, 0f);
+        driftingTickX = 0;
+        driftingTickY = 0;
+
         rb2D.velocity = Vector2.zero;
         rb2D.angularVelocity = 0f;
 

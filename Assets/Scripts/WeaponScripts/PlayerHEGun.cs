@@ -29,6 +29,7 @@ public class PlayerHEGun : MonoBehaviour
     private ParticleSystem.MainModule main;
     private ParticleSystem.TriggerModule triggers;
 
+    private int ticker;
 
     private void Start()
     {
@@ -75,6 +76,13 @@ public class PlayerHEGun : MonoBehaviour
                     main.loop = true;
                 }
 
+                ticker++;
+                if (ticker == 25)
+                {
+                    ticker = 0;
+                    retarget();
+                }
+
                 /*for (int i = 0; i < 3; i++)
                 {
                     if (player.driftingTickX > 0)
@@ -112,7 +120,7 @@ public class PlayerHEGun : MonoBehaviour
                 main.loop = false;
 
                 player.waiting = 50;
-                player.waiting2 = 100;
+                player.waiting2 = 75;
 
                 /*Quaternion rotation = new Quaternion();
                 rotation.eulerAngles = new Vector3(0f, 90f, 90f);
@@ -207,41 +215,50 @@ public class PlayerHEGun : MonoBehaviour
 
                 player.body.angularVelocity = 0f;
 
-                int count = triggers.colliderCount;
+                retarget();
 
-                while (triggers.colliderCount != 0)
-                {
-                    for (int c = 0; c < count + 1; c++)
-                    {
-                        triggers.RemoveCollider(c);
-                        //Debug.Log(c);
-                    }
-                    count = triggers.colliderCount;
-                }
-
-                GameObject[] walls;
-                walls = GameObject.FindGameObjectsWithTag("Wall");
-                for (int a = 0; a < (walls.Length); a++)
-                {
-                    triggers.AddCollider(walls[a].transform);
-                }
-
-                GameObject[] explosives;
-                explosives = GameObject.FindGameObjectsWithTag("Explosive");
-                for (int a = 0; a < (explosives.Length); a++)
-                {
-                    triggers.AddCollider(explosives[a].transform);
-                }
-
-                GameObject[] enemies;
-                enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                for (int b = 0; b < (enemies.Length); b++)
-                {
-                    triggers.AddCollider(enemies[b].transform);
-                }
+                ticker = 0;
 
                 this.transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
             }
         }
+    }
+
+
+    public void retarget()
+    {
+        int count = triggers.colliderCount;
+
+        while (triggers.colliderCount != 0)
+        {
+            for (int c = 0; c < count + 1; c++)
+            {
+                triggers.RemoveCollider(c);
+                //Debug.Log(c);
+            }
+            count = triggers.colliderCount;
+        }
+
+        GameObject[] walls;
+        walls = GameObject.FindGameObjectsWithTag("Wall");
+        for (int a = 0; a < (walls.Length); a++)
+        {
+            triggers.AddCollider(walls[a].transform);
+        }
+
+        GameObject[] explosives;
+        explosives = GameObject.FindGameObjectsWithTag("Explosive");
+        for (int a = 0; a < (explosives.Length); a++)
+        {
+            triggers.AddCollider(explosives[a].transform);
+        }
+
+        GameObject[] enemies;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int b = 0; b < (enemies.Length); b++)
+        {
+            triggers.AddCollider(enemies[b].transform);
+        }
+
     }
 }
