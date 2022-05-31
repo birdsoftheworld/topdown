@@ -21,10 +21,12 @@ public class PlayerDash : MonoBehaviour
 
         player.slowDownMax -= 1;
         player.slowDown -= 1;
-    }
 
-    // Update is called once per frame
-    void Update()
+        player.driftingTickMax += 5;
+}
+
+// Update is called once per frame
+void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
